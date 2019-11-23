@@ -126,12 +126,18 @@ function login(id, password) {
                     var str = '老师';
                     if (usertype === 'STUDENT')
                         str = '同学'
+                    else if (usertype === 'ADMIN')
+                        str = ''
                     alert('欢迎使用南航在线考试系统，' + username + str)
                     // window.location.reload()
-                    if (usertype == 'STUDENT')
+                    if (usertype === 'STUDENT')
                         goto_student()
-                    else
+                    else if (usertype === 'TEACHER')
                         goto_teacher()
+                    else if (usertype ==='ADMIN')
+                        goto_admin()
+                    else
+                        window.location.href = 'https://www.baidu.com'
 
                 }
                 else if (data['success'] == 0) {
@@ -256,27 +262,21 @@ function logout()
 }
 
 // 跳转到教师页面
-function goto_teacher(teacher_id, teacher_name)
+function goto_teacher()
 {
-    window.location.href = 'teacher'
-    $.ajax({
-        type: 'GET',
-        url: base_url_str + '/teacher/',
-        async: true,
-        data:{
-            'teacher_name': teacher_name,
-            'teacher_id': teacher_id
-        },
-        success: function (result) {
-
-        }
-    })
+    window.location.href = 'teacherIndex'
 }
 
 //跳转到学生页面
 function goto_student()
 {
-    window.location.href = 'student'
+    window.location.href = 'studentIndex'
+}
+
+// 跳转到管理员页面
+function goto_admin()
+{
+    window.location.href = 'adminIndex'
 }
 
 

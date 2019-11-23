@@ -28,7 +28,7 @@
     </nav>
     <div class="container" style="margin-top: 30px">
 
-        <form action="{{ url_for('uploadfile') }}" enctype="multipart/form-data" method="post">
+        <form action="{{ url_for('uploadFile') }}" enctype="multipart/form-data" method="post">
             <div class="form-group">
                 <label for="file">只允许上传 docx 格式的文档</label>
                 <input type="file" class="form-control-file" name="file" required>

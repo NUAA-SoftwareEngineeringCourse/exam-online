@@ -42,11 +42,11 @@
                     </ul>
 {#                如果后台返回一个 name 则显示用户名等，否则显示注册与登录 2 个按钮#}
                     <div class="form-inline my-2 my-lg-0" id="unLogin">
-                        {% if name %}
+                        {% if user_name %}
                         <div class="btn-group" style="padding:0 0;margin-right: 12.39px">
                             <button type="button" id="personalcenter"
                                 class="btn btn-info dropdown-toggle  my-2 my-sm-0 form-control" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">{{ name }}</button>
+                                aria-haspopup="true" aria-expanded="false">{{ user_name }}</button>
                             <div class="dropdown-menu"><a class="dropdown-item" href="{{ url_for('result') }}">考试记录</a>
                                 <a class="dropdown-item" href="#">虚位以待</a>
                                 <a class="dropdown-item" href="#">虚位以待</a>

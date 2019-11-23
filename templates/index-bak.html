@@ -37,11 +37,11 @@
                     </ul>
 {#                如果后台返回一个 name 则显示用户名等，否则显示注册与登录 2 个按钮#}
                     <div class="form-inline my-2 my-lg-0" id="unLogin">
-                        {% if name %}
+                        {% if user_name %}
                         <div class="btn-group" style="padding:0 0;margin-right: 12.39px">
                             <button type="button" id="personalcenter"
                                 class="btn btn-info dropdown-toggle  my-2 my-sm-0 form-control" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">{{ name }}</button>
+                                aria-haspopup="true" aria-expanded="false">{{ user_name }}</button>
                             <div class="dropdown-menu"><a class="dropdown-item" href="{{ url_for('result') }}">考试记录</a>
                                 <a class="dropdown-item" href="#">虚位以待</a>
                                 <a class="dropdown-item" href="#">虚位以待</a>
@@ -100,10 +100,10 @@
                         <div class="form-group">
                             <label for="PasswordLogin">登录密码</label>
                             <input type="password" class="form-control" id="PasswordLogin" placeholder="Password"
-                                required pattern="[0-9a-zA-Z]{8,16}">
+                                required pattern="[0-9a-zA-Z]{5,16}">
                             <p class="password-error" id="passwordError"></p>
                             <div class="invalid-feedback">
-                                密码格式要求长度8到16位，可以是数字和字母.
+                                密码格式要求长度5到16位，可以是数字和字母.
                             </div>
                         </div>
                         <div class="form-check">
@@ -163,9 +163,9 @@
                         <div class="form-group">
                             <label for="PasswordRegister">登录密码</label>
                             <input type="password" class="form-control" id="PasswordRegister" placeholder="Password"
-                                required pattern="[0-9a-zA-Z]{8,16}">
+                                required pattern="[0-9a-zA-Z]{5,16}">
                             <div class="invalid-feedback">
-                                密码格式要求长度8到16位，可以是数字和字母。
+                                密码格式要求长度5到16位，可以是数字和字母。
                             </div>
                         </div>
                         <small id="emailHelp" class="form-text text-muted">注册即代表同意《协议》</small>
