@@ -10,6 +10,14 @@ db_connector = pymysql.connect(
 
 cursor = db_connector.cursor(cursor=pymysql.cursors.DictCursor)
 
+# global table names
+user_table = 'user'
+exam_paper_table = 'exam_paper'
+
+# exam_paper table columns
+exam_paper_columns = '(paper_title, paper_desc, paper_time, paper_date, paper_open, paper_path, paper_userid)'
+
+
 # Sample for insert and select
 '''
 query = 'select * from user where user_id =\'161630231\' '

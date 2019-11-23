@@ -6,5 +6,6 @@ paper_time int(3) not null ,
 paper_date date not null ,
 paper_open int(1) not null ,
 paper_path varchar(256) not null ,
+paper_userid varchar(16) not null ,
 primary key (paper_id)
 );

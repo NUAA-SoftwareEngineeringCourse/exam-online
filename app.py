@@ -1,26 +1,30 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_uploads import configure_uploads, UploadSet, IMAGES
 from config import cursor, db_connector
+from config import user_table, exam_paper_table, exam_paper_columns
 from os import path
 import helper
 import os
 import time
 
 
-paper_set = UploadSet('paper')
-file_dest = path.join(path.dirname(path.abspath(__file__)), "upload-files")
+
+# global path
+upload_path = 'FilesUpload'
+paper_path = 'ExamPapers'
+base_path = path.dirname(path.abspath(__file__))
+paper_set = UploadSet(paper_path)
+file_dest = path.join(base_path, upload_path)
 
 app = Flask(__name__)
+
+# 配置项
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['UPLOADS_DEFAULT_URL'] = 'http://localhost:5000/uploadFile/'
 app.config['UPLOADS_DEFAULT_DEST'] = file_dest
 
 # 让上传文件的配置生效
 configure_uploads(app, paper_set)
-
-
-# global table names
-user_table = 'user'
 
 
 def print_log(name: str, info: str):
@@ -124,15 +128,25 @@ def result():
 @app.route('/teacherIndex/', methods=['POST', 'GET'])
 def teacherIndex():
     print_log('teacherIndex', request.method)
-    # if session.get('user_id') is None:
-    #     return '请先登录!'
+    teacher_id = session.get('user_id')
+    if teacher_id is None:
+        return '请先登录!'
     std_dict = dict({'title': 'Exam-Title', 'description': 'Exam-Desc', 'day': 'Day', 'month': 'Month'})
     print_log('teacherIndex', str(std_dict))
-    exam_list = [
-        dict({'title': '编译原理', 'description': '编译原理', 'day': 23, 'month': 'Nov'}),
-        dict({'title': '概率论', 'description': '概率论', 'day': 24, 'month': 'Nov'}),
-        dict({'title': '高等数学', 'description': '高等数学', 'day': 25, 'month': 'Dec'})
-    ]
+    exam_list = []
+    sql = 'select paper_title, paper_desc, paper_date, paper_time from ' + exam_paper_table + ' where paper_userid=%s'
+
+    cursor.execute(sql, teacher_id)
+    results = cursor.fetchall()
+    for x in results:
+        std_dict['title'] = x.get('paper_title')
+        std_dict['description'] = x.get('paper_desc')
+        paper_date = x.get('paper_date')
+        std_dict['day'] = paper_date.day
+        std_dict['month'] = helper.month_int2str(paper_date.month)
+        std_dict['duration'] = x.get('paper_time')
+        std_dict['time'] = paper_date.time()
+        exam_list.append(dict(std_dict))
     return render_template('teacherIndex.html', exam_list=exam_list)
 
 
@@ -145,15 +159,26 @@ def teacherExam():
 @app.route('/studentIndex/', methods=['GET', 'POST'])
 def studentIndex():
     print_log('studentIndex', request.method)
-    if session.get('user_id') is None:
+    student_id = session.get('user_id')
+    if student_id is None:
         return '请先登录!'
-    std_dict = dict({'title': 'Exam-Title', 'description': 'Exam-Desc', 'day': 'Day', 'month': 'Month'})
+    std_dict = dict({'title': '', 'description': '', 'day': '', 'month': '', 'duration': '', 'time': '', 'teacher': ''})
     print_log('teacherIndex', str(std_dict))
-    exam_list = [
-        dict({'title': '编译原理', 'description': '编译原理', 'day': 23, 'month': 'Nov'}),
-        dict({'title': '概率论', 'description': '概率论', 'day': 24, 'month': 'Nov'}),
-        dict({'title': '高等数学', 'description': '高等数学', 'day': 25, 'month': 'Dec'})
-    ]
+    exam_list = []
+    sql = 'select paper_title, paper_desc, paper_date, user_name, paper_time from ' + user_table + ' inner join ' \
+          + exam_paper_table + ' on ' + exam_paper_table+'.paper_userid=' + user_table + '.user_id'
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    for x in results:
+        std_dict['title'] = x.get('paper_title')
+        std_dict['description'] = x.get('paper_desc')
+        date = x.get('paper_date')
+        std_dict['day'] = date.day
+        std_dict['month'] = helper.month_int2str(date.month)
+        std_dict['duration'] = x.get('paper_time')
+        std_dict['time'] = date.time()
+        std_dict['teacher'] = x.get('user_name')
+        exam_list.append(dict(std_dict))
     return render_template('studentIndex.html', exam_list=exam_list)
 
 
@@ -174,13 +199,14 @@ def adminIndex():
 
 @app.route('/uploadFile/', methods=['POST', 'GET'])
 def uploadFile():
-    if session.get('user_id') is None:
+    user_id = session.get('user_id')
+    if user_id is None:
         return '请先登录！'
     paper_title = request.form.get('exam-title-input')
     paper_desc = request.form.get('exam-desc-input')
     paper_time = request.form.get('exam-time-input')
     paper_date = request.form.get('exam-date-input')
-    paper_open = request.form.get('optionsRadios')
+    paper_open = (request.form.get('optionsRadios') == 'open-paper')
     paper_file = request.files['exam-file-input']
     print('paper-title', paper_title, type(paper_title))
     print('paper-desc', paper_desc, type(paper_desc))
@@ -189,8 +215,18 @@ def uploadFile():
     print('paper-open', paper_open, type(paper_open))
     print('paper-file', paper_file, type(paper_file))
 
-    # 上传文件到项目路径下的 paper-files
-    paper_set.save(paper_file, name=paper_title + '.docx')
+    # 上传文件到项目路径下的 upload_path / paper_path
+    # paper_set.save(paper_file, name=paper_title + '.xlsx')
+
+    # 插入 exam_paper 表
+    # (paper_title, paper_desc, paper_time, paper_date, paper_open, paper_path, paper_userid)
+    file_path = path.join(base_path, upload_path, paper_path, paper_title + '.xlsx')
+    sql = 'insert into ' + exam_paper_table + exam_paper_columns + 'values' + '(%s, %s, %s, %s, %s, %s, %s)'
+    try:
+        cursor.execute(sql, (paper_title, paper_desc, paper_time, paper_date, paper_open, file_path, user_id))
+        db_connector.commit()
+    except Exception as e:
+        db_connector.rollback()
 
     return redirect(url_for('teacherIndex'))
 
