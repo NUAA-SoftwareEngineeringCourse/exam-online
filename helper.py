@@ -61,6 +61,3 @@ def parse_paper(path: str):
         std_judge['id'], id_inc = id_inc, id_inc + 1
         questions_list.append(dict(std_judge))
     return questions_list
-
-
-parse_paper('Test.xlsx')
