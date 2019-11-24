@@ -124,9 +124,13 @@ def logout():
     return jsonify({'success': 1})
 
 
-@app.route('/result/', methods=['GET', 'POST'])
-def result():
-    return 'result'
+@app.route('/exam_result/', methods=['GET', 'POST'])
+def exam_result():
+    time_str = str(time.asctime(time.localtime(time.time())))
+    user_grade = [dict(paper_name='Math-Paper', exam_grade=100, create_time=time_str),
+                  dict(paper_name='Chinese-Paper', exam_grade=100, create_time=time_str),
+                  dict(paper_name='English-Paper', exam_grade=100, create_time=time_str)]
+    return render_template('results.html', user_grade=user_grade)
 
 
 @app.route('/teacherIndex/', methods=['POST', 'GET'])
@@ -225,7 +229,7 @@ def uploadFile():
     print('paper-file', paper_file, type(paper_file))
 
     # 上传文件到项目路径下的 upload_path / paper_path
-    # paper_set.save(paper_file, name=paper_title + '.xlsx')
+    paper_set.save(paper_file, name=paper_title + '.xlsx')
 
     # 插入 exam_paper 表
     # (paper_title, paper_desc, paper_time, paper_date, paper_open, paper_path, paper_userid)
@@ -246,15 +250,20 @@ def uploadFile():
 @app.route('/start_exam/', methods=['POST', 'GET'])
 def start_exam():
     print_log('start-exam', request.method)
-    questions = [dict(q_type='radio', q_text='我是单项选择', id=233, A='I am A', B='I am B', C='I am C', D='I am D'),
-                 dict(q_type='checkbox', q_text='我是多项选择题', id=996,
-                      A='I am A', B='I am B', C='I am C', D='I am D'),
-                 dict(q_type='decide', q_text='我是判断题', id=696),
-                 ]
-    for x in questions:
-        print(str(x))
     return render_template('exam.html', question=helper.parse_paper('Test.xlsx'))
 
+
+@app.route('/submit_paper/', methods=['POST', 'GET'])
+def submit_paper():
+    print_log('submit-paper', request.method)
+    answers = request.form['answers']
+    print(answers)
+    return jsonify({'success': 1})
+
+
+@app.route('/student_history/', methods=['POST', 'GET'])
+def student_history():
+    return render_template('studentHistory.html')
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True, port=5000)

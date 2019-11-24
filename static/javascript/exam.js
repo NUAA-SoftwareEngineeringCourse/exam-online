@@ -1,3 +1,5 @@
+base_url_str = 'http://localhost:5000'
+
 // 提交试卷提示框
 function submit() {
     $('#submit').click(function () {
@@ -15,7 +17,7 @@ function giveup() {
 
 function giveupbutton() {
     $('#giveup_button').click(function () {
-        window.location.href = "http://localhost:5000"
+        window.location.href = base_url_str
     })
 }
 
@@ -37,7 +39,7 @@ function submit_paper() {
             }
         })
         $.ajax({
-            url: 'http://localhost:5000/submit_paper/',
+            url: base_url_str + '/submit_paper/',
             type: 'post',
             async: false,
             data: {
@@ -45,7 +47,7 @@ function submit_paper() {
             },
             success: function (data) {
                 console.log(data)
-                window.location.href = "http://localhost:5000/result/"
+                window.location.href = base_url_str + '/student_history/'
             }
         })
     })
