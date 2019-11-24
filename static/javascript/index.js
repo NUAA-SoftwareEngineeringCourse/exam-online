@@ -78,7 +78,7 @@ function controlNavbar() {
 //首页顶栏的登录按钮响应事件
 function loginModal() {
     $('#login-button').click(function () {
-        alert('login-button is clicked')
+        // alert('login-button is clicked')
         $('#login-modal').modal('show')
     })
 }

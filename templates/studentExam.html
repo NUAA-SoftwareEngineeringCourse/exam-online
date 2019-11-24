@@ -169,12 +169,7 @@
             </nav>
         </header>
         <!-- 页面显示部分 -->
-        <div>
-            准备好开始考试了吗？
-        </div>
-        <div>
-            今天是2019年11月14日
-        </div>
+        <button class="btn btn-primary" id="start-exam-button">开始考试测试</button>
         <!-- 考试清单 -->
         <!-- 页面显示部分 -->
         <footer class="main-footer">
@@ -203,6 +198,9 @@
     <script src="../static/vendor/jquery-validation/jquery.validate.min.js"></script>
     <script src="../static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="../static/js/charts-home.js"></script>
+    <script src="{{ url_for('static', filename='javascript/studentExam.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Main File-->
     <script src="../static/js/front.js"></script>
 </body>

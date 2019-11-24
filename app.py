@@ -8,7 +8,6 @@ import os
 import time
 
 
-
 # global path
 upload_path = 'FilesUpload'
 paper_path = 'ExamPapers'
@@ -51,7 +50,8 @@ def login():
         # flag = 1, 账号正确
         if flag:
             result = cursor.fetchone()
-            data = {'success': 1, 'user_id': result.get('user_id'), 'user_name': result.get('user_name'), 'user_type': result.get('user_type')}
+            data = {'success': 1, 'user_id': result.get('user_id'), 'user_name': result.get(
+                'user_name'), 'user_type': result.get('user_type')}
             session['user_id'] = data.get('user_id')
             print_log('login', str(data))
 
@@ -79,7 +79,8 @@ def check_id() -> object:
 @app.context_processor
 def my_context():
     print_log('my_context', '')
-    user_id = session.get('user_id') if session.get('user_id') is not None else ''
+    user_id = session.get('user_id') if session.get(
+        'user_id') is not None else ''
     if user_id != '':
         sql = 'select user_name, user_type from ' + user_table + ' where `user_id` = %s'
         cursor.execute(sql, user_id)
@@ -102,10 +103,13 @@ def register():
         user_email = request.form['user_email']
         password = request.form['password']
         user_type = helper.check_type(user_id)
-        print_log('register', user_id + ' ' + user_name + ' ' + user_email + ' ' + password + ' ' + user_type)
-        sql = 'INSERT INTO ' + user_table + ' VALUES (%s, %s, %s, %s, now(), now(), %s)'
+        print_log('register', user_id + ' ' + user_name + ' ' +
+                  user_email + ' ' + password + ' ' + user_type)
+        sql = 'INSERT INTO ' + user_table + \
+            ' VALUES (%s, %s, %s, %s, now(), now(), %s)'
         try:
-            flag = cursor.execute(sql, (user_id, user_name, user_email, password, user_type))
+            flag = cursor.execute(
+                sql, (user_id, user_name, user_email, password, user_type))
             db_connector.commit()
         except Exception as e:
             db_connector.rollback()
@@ -131,10 +135,12 @@ def teacherIndex():
     teacher_id = session.get('user_id')
     if teacher_id is None:
         return '请先登录!'
-    std_dict = dict({'title': 'Exam-Title', 'description': 'Exam-Desc', 'day': 'Day', 'month': 'Month'})
+    std_dict = dict({'title': 'Exam-Title',
+                     'description': 'Exam-Desc', 'day': 'Day', 'month': 'Month'})
     print_log('teacherIndex', str(std_dict))
     exam_list = []
-    sql = 'select paper_title, paper_desc, paper_date, paper_time from ' + exam_paper_table + ' where paper_userid=%s'
+    sql = 'select paper_title, paper_desc, paper_date, paper_time from ' + \
+        exam_paper_table + ' where paper_userid=%s'
 
     cursor.execute(sql, teacher_id)
     results = cursor.fetchall()
@@ -162,11 +168,13 @@ def studentIndex():
     student_id = session.get('user_id')
     if student_id is None:
         return '请先登录!'
-    std_dict = dict({'title': '', 'description': '', 'day': '', 'month': '', 'duration': '', 'time': '', 'teacher': ''})
-    print_log('teacherIndex', str(std_dict))
+    std_dict = dict({'title': '', 'description': '', 'day': '',
+                     'month': '', 'duration': '', 'time': '', 'teacher': ''})
+    print_log('studentIndex', str(std_dict))
     exam_list = []
     sql = 'select paper_title, paper_desc, paper_date, user_name, paper_time from ' + user_table + ' inner join ' \
-          + exam_paper_table + ' on ' + exam_paper_table+'.paper_userid=' + user_table + '.user_id'
+          + exam_paper_table + ' on ' + exam_paper_table + \
+        '.paper_userid=' + user_table + '.user_id'
     cursor.execute(sql)
     results = cursor.fetchall()
     for x in results:
@@ -192,7 +200,8 @@ def studentExam():
 def adminIndex():
     time_str = str(time.asctime(time.localtime(time.time())))
     data = [dict(user_name='sin', paper_name='math', exam_grade=100, create_time=time_str),
-            dict(user_name='kin', paper_name='chinese', exam_grade=100, create_time=time_str),
+            dict(user_name='kin', paper_name='chinese',
+                 exam_grade=100, create_time=time_str),
             dict(user_name='ben', paper_name='english', exam_grade=100, create_time=time_str)]
     return render_template('admin.html', user_grade_data=data)
 
@@ -220,15 +229,31 @@ def uploadFile():
 
     # 插入 exam_paper 表
     # (paper_title, paper_desc, paper_time, paper_date, paper_open, paper_path, paper_userid)
-    file_path = path.join(base_path, upload_path, paper_path, paper_title + '.xlsx')
-    sql = 'insert into ' + exam_paper_table + exam_paper_columns + 'values' + '(%s, %s, %s, %s, %s, %s, %s)'
+    file_path = path.join(base_path, upload_path,
+                          paper_path, paper_title + '.xlsx')
+    sql = 'insert into ' + exam_paper_table + exam_paper_columns + \
+        'values' + '(%s, %s, %s, %s, %s, %s, %s)'
     try:
-        cursor.execute(sql, (paper_title, paper_desc, paper_time, paper_date, paper_open, file_path, user_id))
+        cursor.execute(sql, (paper_title, paper_desc, paper_time,
+                             paper_date, paper_open, file_path, user_id))
         db_connector.commit()
     except Exception as e:
         db_connector.rollback()
 
     return redirect(url_for('teacherIndex'))
+
+
+@app.route('/start_exam/', methods=['POST', 'GET'])
+def start_exam():
+    print_log('start-exam', request.method)
+    questions = [dict(q_type='radio', q_text='我是单项选择', id=233, A='I am A', B='I am B', C='I am C', D='I am D'),
+                 dict(q_type='checkbox', q_text='我是多项选择题', id=996,
+                      A='I am A', B='I am B', C='I am C', D='I am D'),
+                 dict(q_type='decide', q_text='我是判断题', id=696),
+                 ]
+    for x in questions:
+        print(str(x))
+    return render_template('exam.html', question=helper.parse_paper('Test.xlsx'))
 
 
 if __name__ == '__main__':
