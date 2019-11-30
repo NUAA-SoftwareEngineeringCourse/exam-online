@@ -3,10 +3,11 @@ from flask_uploads import configure_uploads, UploadSet
 from config import cursor, db_connector
 from config import user_table, exam_paper_table, exam_paper_columns
 from os import path
-import helper
+
+import common_helper
 import os
 import time
-
+import sql_helper
 
 # global path
 upload_path = 'FilesUpload'
@@ -102,11 +103,11 @@ def register():
         user_name = request.form['user_name']
         user_email = request.form['user_email']
         password = request.form['password']
-        user_type = helper.check_type(user_id)
+        user_type = common_helper.check_type(user_id)
         print_log('register', user_id + ' ' + user_name + ' ' +
                   user_email + ' ' + password + ' ' + user_type)
         sql = 'INSERT INTO ' + user_table + \
-            ' VALUES (%s, %s, %s, %s, now(), now(), %s)'
+              ' VALUES (%s, %s, %s, %s, now(), now(), %s)'
         try:
             flag = cursor.execute(
                 sql, (user_id, user_name, user_email, password, user_type))
@@ -144,7 +145,7 @@ def teacherIndex():
     print_log('teacherIndex', str(std_dict))
     exam_list = []
     sql = 'select paper_title, paper_desc, paper_date, paper_time from ' + \
-        exam_paper_table + ' where paper_userid=%s'
+          exam_paper_table + ' where paper_userid=%s'
 
     cursor.execute(sql, teacher_id)
     results = cursor.fetchall()
@@ -153,7 +154,7 @@ def teacherIndex():
         std_dict['description'] = x.get('paper_desc')
         paper_date = x.get('paper_date')
         std_dict['day'] = paper_date.day
-        std_dict['month'] = helper.month_int2str(paper_date.month)
+        std_dict['month'] = common_helper.month_int2str(paper_date.month)
         std_dict['duration'] = x.get('paper_time')
         std_dict['time'] = paper_date.time()
         exam_list.append(dict(std_dict))
@@ -178,7 +179,7 @@ def studentIndex():
     exam_list = []
     sql = 'select paper_title, paper_desc, paper_date, user_name, paper_time from ' + user_table + ' inner join ' \
           + exam_paper_table + ' on ' + exam_paper_table + \
-        '.paper_userid=' + user_table + '.user_id'
+          '.paper_userid=' + user_table + '.user_id'
     cursor.execute(sql)
     results = cursor.fetchall()
     for x in results:
@@ -186,7 +187,7 @@ def studentIndex():
         std_dict['description'] = x.get('paper_desc')
         date = x.get('paper_date')
         std_dict['day'] = date.day
-        std_dict['month'] = helper.month_int2str(date.month)
+        std_dict['month'] = common_helper.month_int2str(date.month)
         std_dict['duration'] = x.get('paper_time')
         std_dict['time'] = date.time()
         std_dict['teacher'] = x.get('user_name')
@@ -236,7 +237,7 @@ def uploadFile():
     file_path = path.join(base_path, upload_path,
                           paper_path, paper_title + '.xlsx')
     sql = 'insert into ' + exam_paper_table + exam_paper_columns + \
-        'values' + '(%s, %s, %s, %s, %s, %s, %s)'
+          'values' + '(%s, %s, %s, %s, %s, %s, %s)'
     try:
         cursor.execute(sql, (paper_title, paper_desc, paper_time,
                              paper_date, paper_open, file_path, user_id))
@@ -250,7 +251,7 @@ def uploadFile():
 @app.route('/start_exam/', methods=['POST', 'GET'])
 def start_exam():
     print_log('start-exam', request.method)
-    return render_template('exam.html', question=helper.parse_paper('Test.xlsx'))
+    return render_template('exam.html', question=common_helper.parse_paper('Test.xlsx'))
 
 
 @app.route('/submit_paper/', methods=['POST', 'GET'])
@@ -273,12 +274,35 @@ def student_help():
 
 @app.route('/teacher_modify/', methods=['POST', 'GET'])
 def teacher_modify():
-    return render_template('teacherModify.html')
+    paper = dict({'pid': '1234',
+                  'pname': '高等数学',
+                  'teaname': '王力',
+                  'prolist': '123',
+                  'stulist': '456',
+                  'submitted': '789'})
+    return render_template('teacherModify.html', paper=paper)
 
 
 @app.route('/teacher_result/', methods=['POST', 'GET'])
 def teacher_result():
-    return render_template('teacherResult.html')
+    student_data = sql_helper.get_students('user_name, user_id')
+    paper_data = sql_helper.get_papers('paper_id, paper_title')
+    student_list = [{'name': x['user_name'], 'id': x['user_id'], 'grade': sum([ord(c) for c in x['user_name']]) % 100 + 60}
+                    for x in student_data]
+    for x in student_list:
+        print(x)
+    grade_segment = common_helper.get_grade_segment(student_list)
+    paper = dict({'name': '高等数学',
+                  'id': 1,
+                  'student_num': len(student_list),
+                  'avg_grade': sum([x['grade'] for x in student_list]) / len(student_list),
+                  'student_list': student_list,
+                  'grade_segment': grade_segment})
+    paper_list = []
+    for x in paper_data:
+        paper['name'], paper['id'] = x['paper_title'], x['paper_id']
+        paper_list.append(dict(paper))
+    return render_template('teacherResult.html', paper_list=paper_list)
 
 
 @app.route('/zhuguanti/', methods=['POST', 'GET'])

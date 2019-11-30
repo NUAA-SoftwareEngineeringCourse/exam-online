@@ -1,297 +1,345 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ user_name }} - 查看成绩</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="../static/vendor/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="../static/vendor/font-awesome/css/font-awesome.min.css">
-    <!-- Fontastic Custom icon font-->
-    <link rel="stylesheet" href="../static/css/fontastic.css">
-    <!-- Google fonts - Roboto -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <!-- jQuery Circle-->
-    <link rel="stylesheet" href="../static/css/grasp_mobile_progress_circle-1.0.0.min.css">
-    <!-- Custom Scrollbar-->
-    <link rel="stylesheet" href="../static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="../static/css/style.default.css" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="../static/css/custom.css">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="../static/img/favicon.ico">
-    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{ user_name }} - 查看成绩</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+  <!-- Bootstrap CSS-->
+  <link rel="stylesheet" href="../static/vendor/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome CSS-->
+  <link rel="stylesheet" href="../static/vendor/font-awesome/css/font-awesome.min.css">
+  <!-- Fontastic Custom icon font-->
+  <link rel="stylesheet" href="../static/css/fontastic.css">
+  <!-- Google fonts - Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <!-- jQuery Circle-->
+  <link rel="stylesheet" href="../static/css/grasp_mobile_progress_circle-1.0.0.min.css">
+  <!-- Custom Scrollbar-->
+  <link rel="stylesheet" href="../static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+  <!-- theme stylesheet-->
+  <link rel="stylesheet" href="../static/css/style.default.css" id="theme-stylesheet">
+  <!-- Custom stylesheet - for your changes-->
+  <link rel="stylesheet" href="../static/css/custom.css">
+  <!-- Favicon-->
+  <link rel="shortcut icon" href="../static/img/favicon.ico">
+  <!-- Tweaks for older IEs-->
+  <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
-  </head>
-  <body>
-    <!-- Side Navbar -->
-    <nav class="side-navbar">
-      <div class="side-navbar-wrapper">
-        <!-- Sidebar Header    -->
-        <div class="sidenav-header d-flex align-items-center justify-content-center">
-          <!-- User Info-->
-          <div class="sidenav-header-inner text-center">
-              <img src="../static/img/cat.jpg" alt="person" class="img-fluid rounded-circle">
-              <h2 class="h5">{{ user_id }}</h2>
-              <h2 class="h5">{{ user_name }}</h2>
-              <span>{{ user_type }}</span>
-          </div>
-          <!-- Small Brand information, appears on minimized sidebar-->
-          <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>{{ user_name }}</strong></a></div>
+</head>
+
+<body>
+  <!-- Side Navbar -->
+  <nav class="side-navbar">
+    <div class="side-navbar-wrapper">
+      <!-- Sidebar Header    -->
+      <div class="sidenav-header d-flex align-items-center justify-content-center">
+        <!-- User Info-->
+        <div class="sidenav-header-inner text-center">
+          <img src="../static/img/cat.jpg" alt="person" class="img-fluid rounded-circle">
+          <h2 class="h5">{{ user_id }}</h2>
+          <h2 class="h5">{{ user_name }}</h2>
+          <span>{{ user_type }}</span>
         </div>
-        <!-- Sidebar Navigation Menus-->
-        <div class="main-menu">
-          <h5 class="sidenav-heading">导航</h5>
-          <ul id="side-main-menu" class="side-menu list-unstyled">                  
-            <li><a href="{{ url_for('teacherIndex') }}"> <i class="icon-home"></i>教师主页                         </a></li>
-            <li><a href="{{ url_for('teacherExam') }}"> <i class="icon-form"></i>发布考试                         </a></li>
-            <li><a href="{{ url_for('teacher_modify')}}"> <i class="fa fa-bar-chart"></i>批改试卷                          </a></li>
-            <li><a href="{{ url_for('teacher_result') }}"> <i class="icon-grid"></i>查看历史成绩                             </a></li>
-            <li><a href="{{ url_for('teacherIndex') }}"> <i class="icon-interface-windows"></i>帮助                            </a></li>
-            <li> <a href="#"> <i class="icon-mail"></i>更多...
-                <div class="badge badge-warning">6 New</div></a></li>
-          </ul>
-        </div>
+        <!-- Small Brand information, appears on minimized sidebar-->
+        <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center">
+            <strong>{{ user_name }}</strong></a></div>
       </div>
-    </nav>
-
-    <style>
-        .ab table {
-            border-collapse: collapse;
-            font-family: Futura, Arial, sans-serif;
-       }
-       
-       .ab caption {
-            font-size: larger;
-            margin: 1em auto;
-       }
-       
-       .ab th,td {
-            padding: .65em;
-       }
-       
-       .ab th {
-          background: #555 none repeat scroll 0 0;
-          /* border: 1px solid #777; */
-          color: rgb(7, 7, 7);
-       }
-       
-       .ab td {
-            /* border: 1px solid #777; */
-       }
-       
-       .ab tbody tr:nth-child(odd) {
-            background: #ccc;
-       }
-       
-       .ab th:first-child {
-            border-radius: 9px 0 0 0;
-       
-       }
-       .ab th:last-child {
-            border-radius: 0 9px 0 0;
-       }
-       
-       .ab tr:last-child td:first-child {
-            border-radius: 0 0 0 9px;
-       }
-       
-       .ab tr:last-child td:last-child {
-            border-radius: 0 0 9px 0;
-       }
-       .ab tbody tr:hover {
-            background: linear-gradient(#fff,#aaa);
-            font-size: 17px;
-       }
-    </style>
-
-    <!-- 主体 -->
-    <div class="page">
-      <!-- navbar-->
-      <header class="header">
-        <nav class="navbar">
-          <div class="container-fluid">
-            <div class="navbar-holder d-flex align-items-center justify-content-between">
-              <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
-                  <div class="brand-text d-none d-md-inline-block"><span></span><strong class="text-primary">考试系统 - 教师端</strong></div></a></div>
-              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                <!-- Notifications dropdown-->
-                <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
-                  <ul aria-labelledby="notifications" class="dropdown-menu">
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
-                          <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages </div>
-                          <div class="notification-time"><small>4 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
-                          <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                          <div class="notification-time"><small>4 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
-                          <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
-                          <div class="notification-time"><small>4 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
-                          <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                          <div class="notification-time"><small>10 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications                                            </strong></a></li>
-                  </ul>
-                </li>
-                <!-- Messages dropdown-->
-                <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
-                  <ul aria-labelledby="notifications" class="dropdown-menu">
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="../static/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="msg-body">
-                          <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="../static/img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="msg-body">
-                          <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="../static/img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="msg-body">
-                          <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages    </strong></a></li>
-                  </ul>
-                </li>
-                <!-- Languages dropdown    -->
-                <li class="nav-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="../static/img/flags/16/CN.png" alt="Chinese"><span class="d-none d-sm-inline-block">中文</span></a>
-                  <ul aria-labelledby="languages" class="dropdown-menu">
-                  </ul>
-                </li>
-                <!-- Log out-->
-                <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline-block">注销</span><i class="fa fa-sign-out"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </header>
-      <!-- 页面显示部分 -->
-      <!-- updates-box为下拉框的id-->
-      <div id="new-updates" class="card updates recent-updated">
-        <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
-          <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="false" aria-controls="updates-box">高数考试成绩</a></h2><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="false" aria-controls="updates-box"><i class="fa fa-angle-down" ></i></a>
-        </div>
-        <div id="updates-box" role="tabpanel" class="collapse show" >
-          <ul class="news list-unstyled">
-          <!-- Item-->
-            <li class="d-flex justify-content-between"> 
-              
-              <!--表格-->
-              <div>
-              <div  class="card-body">
-                <h3 class="card-title">基本信息</h3>
-                <p class="card-title">场次：P6324　　总人数：50人　　平均分：80.00<p>
-                <table class="table table-striped" style="width:500px">
-                  <thead>
-                    <tr><th>学号</th><th>姓名</th><th>分数</th></tr>
-                  </thead>
-                  <tbody>
-                    <tr><td>161610101</td><td>张三</td><td>100</td></tr>
-                    <tr><td>161610101</td><td>张三</td><td>100</td></tr>
-                    <tr><td>161610101</td><td>张三</td><td>100</td></tr>
-                    <tr><td>161610101</td><td>张三</td><td>100</td></tr>
-                    <tr><td>161610101</td><td>张三</td><td>100</td></tr>
-                    <tr><td>161610101</td><td>张三</td><td>100</td></tr>
-                    <tr><td>161610101</td><td>张三</td><td>100</td></tr>
-                    <tr><td>161610101</td><td>张三</td><td>100</td></tr>
-                  </tbody>
-                </table>
-              </div>
-              </div>
-              <!--图表-->
-              <div style="width:600px;margin:0 auto;">
-                <table id='myTable5'>
-                 <caption>成绩分布</caption>
-                 <thead>
-                   <tr>
-                     <th></th>
-                     <th>91-100分</th>
-                     <th>81-90分</th>
-                     <th>71-80分</th>
-                     <th>60-70分</th>
-                     <th>59分以下</th>                    
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <th>50</th>
-                     <td>5</td>
-                     <td>10</td>
-                     <td>10</td>
-                     <td>10</td>
-                     <td>15</td>
-                   </tr>
-                 </tbody>
-               </table>  
-              </div>
- 
-            </li>
-          </ul>
-        </div>
+      <!-- Sidebar Navigation Menus-->
+      <div class="main-menu">
+        <h5 class="sidenav-heading">导航</h5>
+        <ul id="side-main-menu" class="side-menu list-unstyled">
+          <li><a href="{{ url_for('teacherIndex') }}"> <i class="icon-home"></i>教师主页 </a></li>
+          <li><a href="{{ url_for('teacherExam') }}"> <i class="icon-form"></i>发布考试 </a></li>
+          <li><a href="{{ url_for('teacher_modify')}}"> <i class="fa fa-bar-chart"></i>批改试卷 </a></li>
+          <li><a href="{{ url_for('teacher_result') }}"> <i class="icon-grid"></i>查看历史成绩 </a></li>
+          <li><a href="{{ url_for('teacherIndex') }}"> <i class="icon-interface-windows"></i>帮助 </a></li>
+          <li> <a href="#"> <i class="icon-mail"></i>更多...
+              <div class="badge badge-warning">6 New</div></a></li>
+        </ul>
       </div>
-      <!-- 考试清单 -->
-
-      <!-- 页面显示部分 -->
-       <footer class="main-footer">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-6">
-              <p>Exam-Online-System  &copy; 2019</p>
-            </div>
-            <div class="col-sm-6 text-right">
-              HomePage <a href="http://aao.nuaa.edu.cn/" target="_blank" title="联系我们">联系我们</a> - Coding from <a href="https://github.com/NUAA-SoftwareEngineeringCourse/exam-online" title="GitHub" target="_blank">GitHub</a>
-              
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
-    <!-- JavaScript files-->
-    <script src="../static/vendor/jquery/jquery.min.js"></script>
-    <script src="../static/vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../static/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
-    <script src="../static/vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="../static/vendor/chart.js/Chart.min.js"></script>
-    <script src="../static/vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="../static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="../static/js/charts-home.js"></script>
-    <script type="text/javascript" src="../static/js/jquery.js"></script>
-    <script type="text/javascript" src="../static/js/jsapi.js"></script>
-    <script type="text/javascript" src="../static/js/corechart.js"></script>
-    <script type="text/javascript" src="../static/js/jquery.gvChart-1.0.1.min.js"></script>
-    <script type="text/javascript" src="../static/js/jquery.ba-resize.min.js"></script>
-    <script type="text/javascript">
+  </nav>
+
+  <style>
+    .ab table {
+      border-collapse: collapse;
+      font-family: Futura, Arial, sans-serif;
+    }
+
+    .ab caption {
+      font-size: larger;
+      margin: 1em auto;
+    }
+
+    .ab th,
+    td {
+      padding: .65em;
+    }
+
+    .ab th {
+      background: #555 none repeat scroll 0 0;
+      /* border: 1px solid #777; */
+      color: rgb(7, 7, 7);
+    }
+
+    .ab td {
+      /* border: 1px solid #777; */
+    }
+
+    .ab tbody tr:nth-child(odd) {
+      background: #ccc;
+    }
+
+    .ab th:first-child {
+      border-radius: 9px 0 0 0;
+
+    }
+
+    .ab th:last-child {
+      border-radius: 0 9px 0 0;
+    }
+
+    .ab tr:last-child td:first-child {
+      border-radius: 0 0 0 9px;
+    }
+
+    .ab tr:last-child td:last-child {
+      border-radius: 0 0 9px 0;
+    }
+
+    .ab tbody tr:hover {
+      background: linear-gradient(#fff, #aaa);
+      font-size: 17px;
+    }
+  </style>
+
+  <!-- 主体 -->
+  <div class="page">
+    <!-- navbar-->
+    <header class="header">
+      <nav class="navbar">
+        <div class="container-fluid">
+          <div class="navbar-holder d-flex align-items-center justify-content-between">
+            <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a
+                href="index.html" class="navbar-brand">
+                <div class="brand-text d-none d-md-inline-block"><span></span><strong class="text-primary">考试系统 -
+                    教师端</strong></div>
+              </a></div>
+            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+              <!-- Notifications dropdown-->
+              <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i
+                    class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
+                <ul aria-labelledby="notifications" class="dropdown-menu">
+                  <li><a rel="nofollow" href="#" class="dropdown-item">
+                      <div class="notification d-flex justify-content-between">
+                        <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages </div>
+                        <div class="notification-time"><small>4 minutes ago</small></div>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item">
+                      <div class="notification d-flex justify-content-between">
+                        <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                        <div class="notification-time"><small>4 minutes ago</small></div>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item">
+                      <div class="notification d-flex justify-content-between">
+                        <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
+                        <div class="notification-time"><small>4 minutes ago</small></div>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item">
+                      <div class="notification d-flex justify-content-between">
+                        <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                        <div class="notification-time"><small>10 minutes ago</small></div>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i
+                          class="fa fa-bell"></i>view all notifications </strong></a></li>
+                </ul>
+              </li>
+              <!-- Messages dropdown-->
+              <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i
+                    class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
+                <ul aria-labelledby="notifications" class="dropdown-menu">
+                  <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                      <div class="msg-profile"> <img src="../static/img/avatar-1.jpg" alt="..."
+                          class="img-fluid rounded-circle"></div>
+                      <div class="msg-body">
+                        <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm
+                          - 10.06.2014</small>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                      <div class="msg-profile"> <img src="../static/img/avatar-2.jpg" alt="..."
+                          class="img-fluid rounded-circle"></div>
+                      <div class="msg-body">
+                        <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at
+                          7:58 pm - 10.06.2014</small>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                      <div class="msg-profile"> <img src="../static/img/avatar-3.jpg" alt="..."
+                          class="img-fluid rounded-circle"></div>
+                      <div class="msg-body">
+                        <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58
+                          pm - 10.06.2014</small>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i
+                          class="fa fa-envelope"></i>Read all messages </strong></a></li>
+                </ul>
+              </li>
+              <!-- Languages dropdown    -->
+              <li class="nav-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                  class="nav-link language dropdown-toggle"><img src="../static/img/flags/16/CN.png" alt="Chinese"><span
+                    class="d-none d-sm-inline-block">中文</span></a>
+                <ul aria-labelledby="languages" class="dropdown-menu">
+                </ul>
+              </li>
+              <!-- Log out-->
+              <li class="nav-item"><a href="login.html" class="nav-link logout"> <span
+                    class="d-none d-sm-inline-block">注销</span><i class="fa fa-sign-out"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- 页面显示部分 -->
+    <!-- updates-box为下拉框的id-->
+
+    <div id="new-updates" class="card updates recent-updated">
+    {% for paper in paper_list %}
+      <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="h5 display">
+            <a data-toggle="collapse" data-parent="#new-updates" href="#updates-box{{ paper.id }}" aria-expanded="false" aria-controls="updates-box">{{ paper.name }}成绩</a>
+        </h2>
+          <a data-toggle="collapse"  data-parent="#new-updates" href="#updates-box{{ paper.id }}" aria-expanded="false" aria-controls="updates-box">
+              <i class="fa fa-angle-down"></i>
+          </a>
+      </div>
+
+      <div id="updates-box{{ paper.id }}" role="tabpanel" class="collapse">
+        <ul class="news list-styled">
+          <!-- Item-->
+          <li class="d-flex justify-content-between">
+
+            <!--表格-->
+            <div>
+              <div class="card-body">
+                <h3 class="card-title">基本信息</h3>
+                <p class="card-title">试卷ID：{{ paper.id }}　　参加人数：{{ paper.student_num }}　　平均分：{{ paper.avg_grade }}</p>
+                    <table class="table table-striped" style="width:500px">
+                      <thead>
+                        <tr>
+                          <th>学号</th>
+                          <th>姓名</th>
+                          <th>分数</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for student in paper.student_list %}
+                            <tr>
+                            <td>{{ student.id }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.grade }}</td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+              </div>
+            </div>
+            <!--图表-->
+            <div style="width:600px;margin:0 auto;">
+              <table id='gradeSegmentTable{{ paper.id }}'>
+                <h3>成绩分布</h3>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>91-100分</th>
+                    <th>81-90分</th>
+                    <th>71-80分</th>
+                    <th>60-70分</th>
+                    <th>59分以下</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ paper.grade_segment.levelA }}</td>
+                    <td>{{ paper.grade_segment.levelB }}</td>
+                    <td>{{ paper.grade_segment.levelC }}</td>
+                    <td>{{ paper.grade_segment.levelD }}</td>
+                    <td>{{ paper.grade_segment.levelE }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </li>
+        </ul>
+      </div>
+    {% endfor %}
+    </div>
+
+    <!-- 页面显示部分 -->
+    <footer class="main-footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-6">
+            <p>Exam-Online-System &copy; 2019</p>
+          </div>
+          <div class="col-sm-6 text-right">
+            HomePage <a href="http://aao.nuaa.edu.cn/" target="_blank" title="联系我们">联系我们</a> - Coding from <a
+              href="https://github.com/NUAA-SoftwareEngineeringCourse/exam-online" title="GitHub"
+              target="_blank">GitHub</a>
+
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <!-- JavaScript files-->
+  <script src="../static/vendor/jquery/jquery.min.js"></script>
+  <script src="../static/vendor/popper.js/umd/popper.min.js"> </script>
+  <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../static/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+  <script src="../static/vendor/jquery.cookie/jquery.cookie.js"> </script>
+  <script src="../static/vendor/chart.js/Chart.min.js"></script>
+  <script src="../static/vendor/jquery-validation/jquery.validate.min.js"></script>
+  <script src="../static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="../static/js/charts-home.js"></script>
+  <script type="text/javascript" src="../static/js/jquery.js"></script>
+  <script type="text/javascript" src="../static/js/jsapi.js"></script>
+  <script type="text/javascript" src="../static/js/corechart.js"></script>
+  <script type="text/javascript" src="../static/js/jquery.gvChart-1.0.1.min.js"></script>
+  <script type="text/javascript" src="../static/js/jquery.ba-resize.min.js"></script>
+  {% for paper in paper_list  %}
+  <script type="text/javascript">
     gvChartInit();
-    $(document).ready(function(){
-      $('#myTable5').gvChart({
+    $(document).ready(function () {
+      $('#gradeSegmentTable{{ paper.id }}').gvChart({
         chartType: 'PieChart',
         gvSettings: {
-          vAxis: {title: 'No of players'},
-          hAxis: {title: 'Month'},
+          vAxis: { title: 'No of players' },
+          hAxis: { title: 'Month' },
           width: 600,
           height: 350
         }
       });
     });
-    </script>
-    <!-- Main File-->
-    <script src="../static/js/front.js"></script>
-  </body>
+  </script>
+  {% endfor %}
+  <!-- Main File-->
+  <script src="../static/js/front.js"></script>
+</body>
+
 </html>

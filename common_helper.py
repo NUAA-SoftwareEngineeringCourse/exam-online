@@ -13,7 +13,7 @@ def check_type(user_id: str) -> str:
 def month_int2str(month: int) -> str:
     month_table = ['Jan', 'Feb', 'Mar', 'Apr', 'May',
                    'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
-    return month_table[month-1]
+    return month_table[month - 1]
 
 
 def parse_paper(path: str):
@@ -61,3 +61,19 @@ def parse_paper(path: str):
         std_judge['id'], id_inc = id_inc, id_inc + 1
         questions_list.append(dict(std_judge))
     return questions_list
+
+
+def get_grade_segment(student_list: list) -> dict:
+    seg = dict({'levelA': 0, 'levelB': 0, 'levelC': 0, 'levelD': 0, 'levelE': 0})
+    for x in student_list:
+        if x['grade'] >= 91:
+            seg['levelA'] += 1
+        elif x['grade'] >= 81:
+            seg['levelB'] += 1
+        elif x['grade'] >= 71:
+            seg['levelC'] += 1
+        elif x['grade'] >= 61:
+            seg['levelD'] += 1
+        else:
+            seg['levelE'] += 1
+    return seg
