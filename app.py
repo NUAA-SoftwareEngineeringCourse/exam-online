@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
-from flask_uploads import configure_uploads, UploadSet, IMAGES
+from flask_uploads import configure_uploads, UploadSet
 from config import cursor, db_connector
 from config import user_table, exam_paper_table, exam_paper_columns
 from os import path
@@ -264,6 +264,27 @@ def submit_paper():
 @app.route('/student_history/', methods=['POST', 'GET'])
 def student_history():
     return render_template('studentHistory.html')
+
+
+@app.route('/student_help/', methods=['GET', 'POST'])
+def student_help():
+    return render_template('studentHelp.html')
+
+
+@app.route('/teacher_modify/', methods=['POST', 'GET'])
+def teacher_modify():
+    return render_template('teacherModify.html')
+
+
+@app.route('/teacher_result/', methods=['POST', 'GET'])
+def teacher_result():
+    return render_template('teacherResult.html')
+
+
+@app.route('/zhuguanti/', methods=['POST', 'GET'])
+def zhuguanti():
+    return render_template('zhuguanti.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True, port=5000)

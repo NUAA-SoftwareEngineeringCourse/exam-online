@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e85c9fd-b688-4174-a643-49d69ba7dc6b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/SinWeb.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SinWeb.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/studentExam.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/studentExam.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/studentHelp.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/studentHelp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/studentHistory.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/studentHistory.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/studentIndex.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/studentIndex.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/teacherExam.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teacherExam.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/teacherIndex.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teacherIndex.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,7 +19,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/exam_online$SinWeb.coverage" NAME="SinWeb Coverage Results" MODIFIED="1574686481288" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/exam_online$SinWeb.coverage" NAME="SinWeb Coverage Results" MODIFIED="1575106908944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/SinWeb$SinWeb.coverage" NAME="SinWeb Coverage Results" MODIFIED="1573566782735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
@@ -19,38 +27,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="159" column="58" lean-forward="true" selection-start-line="159" selection-start-column="58" selection-end-line="159" selection-end-column="58" />
-              <folding>
-                <element signature="e#0#86#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-5945">
+              <caret line="1" column="54" selection-start-line="1" selection-start-column="54" selection-end-line="1" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/teacherIndex.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="58" column="43" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/teacherExam.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="312">
+              <caret line="63" column="47" selection-start-line="63" selection-start-column="47" selection-end-line="63" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/teacherResult.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-301">
+              <caret line="56" column="49" selection-start-line="56" selection-start-column="49" selection-end-line="56" selection-end-column="49" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/teacherIndex.html">
+        <entry file="file://$PROJECT_DIR$/templates/teacherModify.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="247" column="20" selection-start-line="247" selection-start-column="20" selection-end-line="247" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/javascript/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/javascript/exam.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1127">
-              <caret line="49" column="71" selection-start-line="49" selection-start-column="71" selection-end-line="49" selection-end-column="71" />
+            <state relative-caret-position="54">
+              <caret line="258" column="48" selection-start-line="258" selection-start-column="16" selection-end-line="258" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -69,7 +83,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>work3</find>
       <find>student</find>
       <find>logout</find>
       <find>session</find>
@@ -79,9 +92,7 @@
       <find>欢迎您</find>
       <find>Bootstrap dASH</find>
       <find>href</find>
-      <find>考试系统</find>
       <find>注销</find>
-      <find>用户名</find>
       <find>欢迎</find>
       <find>goto</find>
       <find>login</find>
@@ -99,6 +110,9 @@
       <find>name</find>
       <find>exam_result</find>
       <find>admin</find>
+      <find>考试系统</find>
+      <find>学生</find>
+      <find>用户名</find>
     </findStrings>
     <replaceStrings>
       <replace>../static/css</replace>
@@ -126,24 +140,30 @@
         <option value="$PROJECT_DIR$/mysql/teacher_student.sql" />
         <option value="$PROJECT_DIR$/mysql/exampaper.sql" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/templates/teacherIndex.html" />
         <option value="$PROJECT_DIR$/static/javascript/teacherExam.js" />
-        <option value="$PROJECT_DIR$/templates/teacherExam.html" />
-        <option value="$PROJECT_DIR$/templates/studentIndex.html" />
         <option value="$PROJECT_DIR$/static/javascript/index.js" />
         <option value="$PROJECT_DIR$/static/javascript/studentExam.js" />
         <option value="$PROJECT_DIR$/helper.py" />
         <option value="$PROJECT_DIR$/templates/exam.html" />
-        <option value="$PROJECT_DIR$/templates/studentExam.html" />
         <option value="$PROJECT_DIR$/templates/results.html" />
         <option value="$PROJECT_DIR$/static/javascript/exam.js" />
+        <option value="$PROJECT_DIR$/templates/studentResult.html" />
+        <option value="$PROJECT_DIR$/templates/studentIndex.html" />
+        <option value="$PROJECT_DIR$/templates/studentExam.html" />
+        <option value="$PROJECT_DIR$/templates/studentHistory.html" />
+        <option value="$PROJECT_DIR$/templates/studentHelp.html" />
+        <option value="$PROJECT_DIR$/templates/zhuguanti.html" />
         <option value="$PROJECT_DIR$/app.py" />
+        <option value="$PROJECT_DIR$/templates/teacherIndex.html" />
+        <option value="$PROJECT_DIR$/templates/teacherExam.html" />
+        <option value="$PROJECT_DIR$/templates/teacherResult.html" />
+        <option value="$PROJECT_DIR$/templates/teacherModify.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="75" />
-    <option name="y" value="-10" />
+    <option name="x" value="37" />
+    <option name="y" value="252" />
     <option name="width" value="1630" />
     <option name="height" value="1010" />
   </component>
@@ -155,7 +175,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -166,23 +185,13 @@
             <path>
               <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
               <item name="exam-online" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
-              <item name="exam-online" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="javascript" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
-              <item name="exam-online" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -194,16 +203,16 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Program Files\PyCharm\workspace\exam-online\static" />
+      <recent name="E:\Program Files\PyCharm\workspace\exam-online\templates" />
+      <recent name="E:\Program Files\PyCharm\workspace\exam-online\static\js" />
+      <recent name="E:\Program Files\PyCharm\workspace\exam-online\static\css" />
+      <recent name="E:\Program Files\PyCharm\workspace\SinWeb\static\css" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Program Files\PyCharm\workspace\exam-online" />
       <recent name="E:\Program Files\PyCharm\workspace\exam-online\static" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Program Files\PyCharm\workspace\exam-online\static\css" />
-      <recent name="E:\Program Files\PyCharm\workspace\exam-online\templates" />
-      <recent name="E:\Program Files\PyCharm\workspace\SinWeb\static\css" />
-      <recent name="E:\Program Files\PyCharm\workspace\SinWeb\static\images" />
-      <recent name="E:\Program Files\PyCharm\workspace\SinWeb\static" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -265,11 +274,12 @@
       <workItem from="1574569146819" duration="12046000" />
       <workItem from="1574592960965" duration="3347000" />
       <workItem from="1574686422497" duration="1982000" />
+      <workItem from="1575097733846" duration="6820000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87077000" />
+    <option name="totallyTimeSpent" value="93897000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -282,13 +292,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1769437" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17895442" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.46175638" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.1529745" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3243626" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -321,9 +332,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/css/exam.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/bootstrap/js/popper.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -372,13 +380,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="690">
           <caret line="30" column="44" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="26" lean-forward="true" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -456,13 +457,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/teacherExam.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/exam.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3013">
@@ -477,20 +471,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/studentExam.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="172" column="8" selection-start-line="172" selection-start-column="8" selection-end-line="172" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/studentIndex.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3163">
-          <caret line="48" column="58" selection-start-line="48" selection-start-column="58" selection-end-line="48" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/tables.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -501,6 +481,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascript/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/javascript/exam.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1127">
@@ -508,27 +495,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascript/index.js">
+    <entry file="file://$PROJECT_DIR$/static/js/charts-custom.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/studentResult.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+        <state relative-caret-position="-1301">
+          <caret line="206" column="22" selection-start-line="206" selection-start-column="22" selection-end-line="206" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/studentIndex.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="59" column="47" selection-start-line="59" selection-start-column="47" selection-end-line="59" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/studentExam.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="573">
+          <caret line="58" column="47" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/studentHistory.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="58" column="47" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/studentHelp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="56" column="36" lean-forward="true" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/xinziyuan/js/misc.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="26" lean-forward="true" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/zhuguanti.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="55" column="117" selection-start-line="55" selection-start-column="117" selection-end-line="55" selection-end-column="117" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="159" column="58" lean-forward="true" selection-start-line="159" selection-start-column="58" selection-end-line="159" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#86#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-5945">
+          <caret line="1" column="54" selection-start-line="1" selection-start-column="54" selection-end-line="1" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/teacherIndex.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="247" column="20" selection-start-line="247" selection-start-column="20" selection-end-line="247" selection-end-column="20" />
+        <state relative-caret-position="207">
+          <caret line="58" column="43" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/teacherExam.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="63" column="47" selection-start-line="63" selection-start-column="47" selection-end-line="63" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/teacherResult.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-301">
+          <caret line="56" column="49" selection-start-line="56" selection-start-column="49" selection-end-line="56" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/teacherModify.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="258" column="48" selection-start-line="258" selection-start-column="16" selection-end-line="258" selection-end-column="48" />
         </state>
       </provider>
     </entry>

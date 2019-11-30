@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ user_name }} - 学生端</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../static/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="../static/vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="../static/css/fontastic.css">
+    <!-- Google fonts - Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <!-- jQuery Circle-->
+    <link rel="stylesheet" href="../static/css/grasp_mobile_progress_circle-1.0.0.min.css">
+    <!-- Custom Scrollbar-->
+    <link rel="stylesheet" href="../static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="../static/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="../static/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="../static/img/favicon.ico">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+  </head>
+  <body>
+    <!-- Side Navbar -->
+    <nav class="side-navbar">
+      <div class="side-navbar-wrapper">
+        <!-- Sidebar Header    -->
+        <div class="sidenav-header d-flex align-items-center justify-content-center">
+          <!-- User Info-->
+          <div class="sidenav-header-inner text-center">
+              <img src="../static/img/cat.jpg" alt="person" class="img-fluid rounded-circle">
+              <h2 class="h5">{{ user_id }}</h2>
+              <h2 class="h5">{{ user_name }}</h2>
+              <span>{{ user_type }}</span>
+          </div>
+          <!-- Small Brand information, appears on minimized sidebar-->
+          <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>{{ user_name }}</strong></a></div>
+        </div>
+        <!-- Sidebar Navigation Menus-->
+        <div class="main-menu">
+          <h5 class="sidenav-heading">导航</h5>
+          <ul id="side-main-menu" class="side-menu list-unstyled">                  
+            <li><a href="studentIndex.html"> <i class="icon-home"></i>学生主页                         </a></li>
+            <li><a href="studentExam.html"> <i class="icon-form"></i>考试                         </a></li>
+            <li><a href="studentExam.html"> <i class="fa fa-bar-chart"></i>查看历史考试                          </a></li>
+            <li><a href="studentExam.html"> <i class="icon-grid"></i>查看历史成绩                             </a></li>
+            <li><a href="studentExam.html"> <i class="icon-interface-windows"></i>帮助                            </a></li>
+            <li> <a href="#"> <i class="icon-mail"></i>更多...
+                <div class="badge badge-warning">6 New</div></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <style>
+        .ab table {
+            border-collapse: collapse;
+            font-family: Futura, Arial, sans-serif;
+       }
+       
+       .ab caption {
+            font-size: larger;
+            margin: 1em auto;
+       }
+       
+       .ab th,td {
+            padding: .65em;
+       }
+       
+       .ab th {
+          background: #555 none repeat scroll 0 0;
+          /* border: 1px solid #777; */
+          color: rgb(7, 7, 7);
+       }
+       
+       .ab td {
+            /* border: 1px solid #777; */
+       }
+       
+       .ab tbody tr:nth-child(odd) {
+            background: #ccc;
+       }
+       
+       .ab th:first-child {
+            border-radius: 9px 0 0 0;
+       
+       }
+       .ab th:last-child {
+            border-radius: 0 9px 0 0;
+       }
+       
+       .ab tr:last-child td:first-child {
+            border-radius: 0 0 0 9px;
+       }
+       
+       .ab tr:last-child td:last-child {
+            border-radius: 0 0 9px 0;
+       }
+       .ab tbody tr:hover {
+            background: linear-gradient(#fff,#aaa);
+            font-size: 17px;
+       }
+    </style>
+
+    <!-- 主体 -->
+    <div class="page">
+      <!-- navbar-->
+      <header class="header">
+        <nav class="navbar">
+          <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+              <div class="navbar-header">
+                  <a id="toggle-btn" href="#" class="menu-btn">
+                  <i class="icon-bars"></i>
+                  </a><a href="index.html" class="navbar-brand">
+                  <div class="brand-text d-none d-md-inline-block"><span></span><strong class="text-primary">考试系统 - 学生端</strong></div></a></div>
+              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                <!-- Notifications dropdown-->
+                <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
+                  <ul aria-labelledby="notifications" class="dropdown-menu">
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
+                        <div class="notification d-flex justify-content-between">
+                          <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages </div>
+                          <div class="notification-time"><small>4 minutes ago</small></div>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
+                        <div class="notification d-flex justify-content-between">
+                          <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                          <div class="notification-time"><small>4 minutes ago</small></div>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
+                        <div class="notification d-flex justify-content-between">
+                          <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
+                          <div class="notification-time"><small>4 minutes ago</small></div>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
+                        <div class="notification d-flex justify-content-between">
+                          <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                          <div class="notification-time"><small>10 minutes ago</small></div>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications                                            </strong></a></li>
+                  </ul>
+                </li>
+                <!-- Messages dropdown-->
+                <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
+                  <ul aria-labelledby="notifications" class="dropdown-menu">
+                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
+                        <div class="msg-profile"> <img src="../static/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                        <div class="msg-body">
+                          <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
+                        <div class="msg-profile"> <img src="../static/img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                        <div class="msg-body">
+                          <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
+                        <div class="msg-profile"> <img src="../static/img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                        <div class="msg-body">
+                          <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages    </strong></a></li>
+                  </ul>
+                </li>
+                <!-- Languages dropdown    -->
+                <li class="nav-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="../static/img/flags/16/CN.png" alt="Chinese"><span class="d-none d-sm-inline-block">中文</span></a>
+                  <ul aria-labelledby="languages" class="dropdown-menu">
+                  </ul>
+                </li>
+                <!-- Log out-->
+                <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline-block">注销</span><i class="fa fa-sign-out"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <!-- 页面显示部分 -->
+      <!-- updates-box为下拉框的id-->
+      <div id="new-updates" class="card updates recent-updated">
+        <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
+          <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="undefined" aria-controls="updates-box">高数考试成绩</a></h2><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="undefined" aria-controls="updates-box"><i class="fa fa-angle-down"></i></a>
+        </div>
+        <div id="updates-box" role="tabpanel" class="collapse show">
+          <ul class="news list-unstyled">
+          <!-- Item-->
+            <li class="d-flex justify-content-between"> 
+              <table class="table table-hover">
+                <thead>
+                  <th>试题编号</th>
+                  <th>试题名称</th>
+                  <th>出题老师</th>
+                  <th>交卷时间</th>
+                  <th>成绩状态</th>
+                  <th>最终成绩</th>
+                </thead>
+                <tbody>
+                  <tr v-for ="(paper, index) in takenlist">
+                    <td>6324</td>
+                    <td>抽象话考试</td>
+                    <td>孙笑川</td>
+                    <td>2019-11-29</td>
+                    <td v-if="paper.confirmed == 'yes'"><label class="badge badge-success">已登记</label></td>
+                    <td class="font-weight-bold" v-if="paper.confirmed == 'yes'">99</td>
+                  </tr>
+                </tbody>
+              </table>
+ 
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- 考试清单 -->
+      <!-- Recent Updates Widget          -->
+      <div id="new-updates" class="card updates recent-updated">
+          <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box2" aria-expanded="false" aria-controls="updates-box2">考试清单</a></h2><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box2" aria-expanded="false" aria-controls="updates-box2"><i class="fa fa-angle-down"></i></a>
+          </div>
+          <div id="updates-box2" role="tabpanel" class="collapse show">
+            <ul class="news list-unstyled">
+            <!-- Item-->
+              <li class="d-flex justify-content-between"> 
+                <div class="left-col d-flex">
+                  <div class="icon"><i class="icon-rss-feed"></i></div>
+                    <div class="title"><strong>高数考试</strong>
+                      <p>高数期末考试，考察内容整本书</p>
+                      <div><h6>考试时间hh:mm:ss，考试时长：xxx 分钟，发布老师：王力</h6></div>
+                    </div>
+                  </div>
+                <div class="right-col text-right">
+                  <div class="update-date">24<span class="month">Jan</span></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      <!-- 页面显示部分 -->
+       <footer class="main-footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6">
+              <p>Exam-Online-System  &copy; 2019</p>
+            </div>
+            <div class="col-sm-6 text-right">
+              HomePage <a href="http://aao.nuaa.edu.cn/" target="_blank" title="联系我们">联系我们</a> - Coding from <a href="https://github.com/NUAA-SoftwareEngineeringCourse/exam-online" title="GitHub" target="_blank">GitHub</a>
+              
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!-- JavaScript files-->
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+    <script src="../static/vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="../static/vendor/chart.js/Chart.min.js"></script>
+    <script src="../static/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="../static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../static/js/charts-home.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.js"></script>
+    <script type="text/javascript" src="../static/js/jsapi.js"></script>
+    <script type="text/javascript" src="../static/js/corechart.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.gvChart-1.0.1.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.ba-resize.min.js"></script>
+    
+    <script type="text/javascript">
+    gvChartInit();
+    $(document).ready(function(){
+      $('#myTable5').gvChart({
+        chartType: 'PieChart',
+        gvSettings: {
+          vAxis: {title: 'No of players'},
+          hAxis: {title: 'Month'},
+          width: 600,
+          height: 350
+        }
+      });
+    });
+    </script>
+    <!-- Main File-->
+    <script src="../static/js/front.js"></script>
+  </body>
+</html>
