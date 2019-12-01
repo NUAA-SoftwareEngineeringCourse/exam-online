@@ -64,11 +64,11 @@
         <div class="main-menu">
           <h5 class="sidenav-heading">导航</h5>
           <ul id="side-main-menu" class="side-menu list-unstyled">                  
-            <li><a href="teacherIndex.html"> <i class="icon-home"></i>教师主页</a></li>
-            <li><a href="teacherExam.html"> <i class="icon-form"></i>发布考试</a></li>
-            <li><a href="teacherExam.html"> <i class="fa fa-bar-chart"></i>批改试卷</a></li>
-            <li><a href="teacherExam.html"> <i class="icon-grid"></i>查看考试成绩</a></li>
-            <li><a href="teacherExam.html"> <i class="icon-interface-windows"></i>帮助</a></li>
+            <li><a href="{{ url_for('teacherIndex') }}"> <i class="icon-home"></i>教师主页</a></li>
+            <li><a href="{{ url_for('teacherExam') }}"> <i class="icon-form"></i>发布考试</a></li>
+            <li><a href="{{ url_for('teacher_modify') }}"> <i class="fa fa-bar-chart"></i>批改试卷</a></li>
+            <li><a href="{{ url_for('teacher_result') }}"> <i class="icon-grid"></i>查看考试成绩</a></li>
+            <li><a href="{{ url_for('teacherIndex') }}"> <i class="icon-interface-windows"></i>帮助</a></li>
             <li> <a href="#"> <i class="icon-mail"></i>更多...
                 <div class="badge badge-warning">6 New</div></a></li>
           </ul>
@@ -186,8 +186,7 @@
                 <tr><td>出题老师</td><td>{{ paper.teaname }}</td></tr>
                 <tr>
                   <td>是否开放</td>
-                  <td v-if="paper.penabled == 'no'">否</td>
-                  <td v-if="paper.penabled == 'yes'">是</td>
+                  <td>是</td>
                 </tr>
                 <tr><td>题目数量</td><td>{{ paper.prolist }}</td></tr>
                 <tr><td>考生人数</td><td>{{ paper.stulist }}</td></tr>
@@ -256,21 +255,33 @@
             <th>记录操作</th>
           </thead>
           <tbody>
-            <tr v-for="(ans, index) in anslist">
+            <tr>
               <td>{{ ans.paperid }}</td>
               <td>{{ ans.stuid }}</td>
               <td>{{ ans.submit_time }}</td>
-              <td v-if="ans.confirmed == 'no'"><label class="badge bg-warning">未提交</label></td>
-              <td v-if="ans.confirmed == 'yes'"><label class="badge bg-success">已提交</label></td>
-              <td v-if="ans.keguan_grade == -1"><label class="badge bg-warning">未判题</label></td>
-              <td v-if="ans.keguan_grade != -1">{{ ans.keguan_grade }}</td>
-              <td v-if="ans.zhuguan_grade == -1"><label class="badge bg-warning">未判题</label></td>
-              <td v-if="ans.zhuguan_grade != -1">{{ ans.zhuguan_grade }}</td>
-              <td>{{ '(ans.keguan_grade == -1 ? 0 : ans.keguan_grade) + (ans.zhuguan_grade == -1 ? 0 : ans.zhuguan_grade)' }}</td>
+              {% if ans.confirmed == true %}
+                  <td v-if="ans.confirmed == 'yes'"><label class="badge bg-success">已提交</label></td>
+              {% else %}
+                  <td v-if="ans.confirmed == 'no'"><label class="badge bg-warning">未提交</label></td>
+              {% endif %}
+              {% if ans.keguan_grade == -1 %}
+                  <td v-if="ans.keguan_grade == -1"><label class="badge bg-warning">未判题</label></td>
+              {% else %}
+                  <td v-if="ans.keguan_grade != -1"><label class="badge bg-success">{{ ans.keguan_grade }}</label></td>
+              {% endif %}
+              {% if ans.zhuguan_grade == -1 %}
+                  <td v-if="ans.zhuguan_grade == -1"><label class="badge bg-warning">未判题</label></td>
+              {% else %}
+                  <td v-if="ans.zhuguan_grade != -1"><label class="badge bg-success">{{ ans.zhuguan_grade }}</label></td>
+              {% endif %}
+              <td>{{ ans.keguan_grade + ans.zhuguan_grade }}</td>
               <td><button type="button" class="btn btn-gradient-info btn-sm" @click="showans(ans.stuid, ans.answers)"><i class="mdi mdi-information-outline"></i> 查看记录</button></td>
               <td><button type="button" class="btn btn-gradient-light btn-sm" @click="judge_zhuguan(ans.stuid, paper.pid)"><i class="mdi mdi-comment-check-outline"></i> 判主观题</button></td>
+              {% if ans.confirmed == false %}
               <td v-if="ans.confirmed == 'no'"><button type="button" class="btn btn-gradient-danger btn-sm" @click="delans(ans.stuid)"><i class="mdi mdi-delete"></i> 删除记录</button></td>
+              {% else %}
               <td v-if="ans.confirmed == 'yes'">不可删除已提交记录</td>
+              {% endif %}
             </tr>
           </tbody>
         </table>

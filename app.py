@@ -280,17 +280,19 @@ def teacher_modify():
                   'prolist': '123',
                   'stulist': '456',
                   'submitted': '789'})
-    return render_template('teacherModify.html', paper=paper)
+    ans = dict({'paperid': 12, 'stuid': '161630230', 'submit_time': '2019/12/01-19:00',
+                'keguan_grade': 80, 'zhuguan_grade': 90,
+                'confirmed': True})
+    return render_template('teacherModify.html', paper=paper, ans=ans)
 
 
 @app.route('/teacher_result/', methods=['POST', 'GET'])
 def teacher_result():
     student_data = sql_helper.get_students('user_name, user_id')
     paper_data = sql_helper.get_papers('paper_id, paper_title')
-    student_list = [{'name': x['user_name'], 'id': x['user_id'], 'grade': sum([ord(c) for c in x['user_name']]) % 100 + 60}
-                    for x in student_data]
-    for x in student_list:
-        print(x)
+    student_list = [
+        {'name': x['user_name'], 'id': x['user_id'], 'grade': sum([ord(c) for c in x['user_name']]) % 100 + 60}
+        for x in student_data]
     grade_segment = common_helper.get_grade_segment(student_list)
     paper = dict({'name': '高等数学',
                   'id': 1,
