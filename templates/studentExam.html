@@ -181,34 +181,26 @@
                   <th>负责老师</th>
                   <th>考试日期</th>
                   <th>考试时长 (min)</th>
-                  <th></th>
+                  <th>是否开卷</th>
+                  <th>#</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>高等数学</td>
-                  <td>王力</td>
-                  <td>2019.12.24</td>
-                  <td>120</td>
-                  <td><button class="btn btn-primary" id="start-exam-button">开始考试</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>高等数学</td>
-                  <td>王力</td>
-                  <td>2019.12.24</td>
-                  <td>120</td>
-                  <td><button class="btn btn-primary" id="start-exam-button">开始考试</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>120</td>
-                  <td><button class="btn btn-primary" id="start-exam-button">开始考试</button></td>
-                </tr>
+                {% for exam in exam_list %}
+                  <tr>
+                    <th scope="row">{{ exam.order }}</th>
+                    <td>{{ exam.title }}</td>
+                    <td>{{ exam.teacher_name }}</td>
+                    <td>{{ exam.date }}</td>
+                    <td>{{ exam.duration }}</td>
+                    {% if exam.is_open == true %}
+                    <td>是</td>
+                    {% else %}
+                    <td>否</td>
+                    {% endif %}
+                    <td><button class="btn btn-primary" onclick="start_exam{{ exam.exam_id }}()" id="start-exam-button{{ exam.exam_id }}">开始考试</button></td>
+                  </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
@@ -248,6 +240,31 @@
   <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
   <!-- Main File-->
   <script src="../static/js/front.js"></script>
+  <script type="javascript">
+    {% for exam in exam_list %}
+    function start_exam{{ exam.exam_id }}() {
+        alert({{ exam.exam_id }})
+        $('#start-exam-button{{ exam.exam_id }}').click(function () {
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:5000' + '/start_exam/',
+                async: true,
+                data:{
+                    'exam_id': exam.exam_id
+                },
+                success:function (data) {
+
+                }
+            })
+        })
+    }
+  {% endfor %}
+  $(document).ready(function () {
+      {% for exam in exam_list %}
+          start_exam{{ exam.exam_id }}(),
+      {% endfor %}
+  })
+  </script>
 </body>
 
 </html>

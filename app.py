@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_uploads import configure_uploads, UploadSet
 from config import cursor, db_connector
-from config import user_table, exam_paper_table, exam_paper_columns
+from config import user_table, exam_paper_table, teacher_student_table, exam_paper_columns
 from os import path
 
 import common_helper
@@ -34,7 +34,13 @@ def print_log(name: str, info: str):
 
 @app.route('/')
 def index():
-    return render_template('index-bak.html')
+    if session.get('user_type') is not None:
+        if session.get('user_type') == 'STUDENT':
+            return redirect(url_for('studentIndex'))
+        if session.get('user_type') == 'TEACHER':
+            return redirect(url_for('teacherIndex'))
+    else:
+        return render_template('index-bak.html')
 
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -177,10 +183,12 @@ def studentIndex():
                      'month': '', 'duration': '', 'time': '', 'teacher': ''})
     print_log('studentIndex', str(std_dict))
     exam_list = []
-    sql = 'select paper_title, paper_desc, paper_date, user_name, paper_time from ' + user_table + ' inner join ' \
-          + exam_paper_table + ' on ' + exam_paper_table + \
-          '.paper_userid=' + user_table + '.user_id'
-    cursor.execute(sql)
+    sql = 'SELECT paper_title, paper_desc, paper_date, user_name, paper_time FROM ' + \
+          exam_paper_table + ' INNER JOIN ' + user_table + ' ON user.user_id=exam_paper.paper_userid ' + \
+          'WHERE paper_userid IN ' + \
+          '(SELECT teacher_id FROM ' + teacher_student_table + ' WHERE student_id=%s)'
+    print_log('student index', sql)
+    cursor.execute(sql, session.get('user_id'))
     results = cursor.fetchall()
     for x in results:
         std_dict['title'] = x.get('paper_title')
@@ -197,8 +205,27 @@ def studentIndex():
 
 @app.route('/studentExam/', methods=['GET', 'POST'])
 def studentExam():
-    print_log('studentExam', request.method)
-    return render_template('studentExam.html')
+    print_log('student exam', request.method)
+    exam_dict = {'title': '', 'teacher_name': '', 'date': '', 'duration': 0, 'is_open': 0, 'exam_id': -1}
+    exam_list = list()
+    sql = 'SELECT paper_title, user_name, paper_date, paper_time, paper_open, paper_id FROM ' + \
+          exam_paper_table + ' INNER JOIN ' + user_table + ' ON user.user_id=exam_paper.paper_userid ' + \
+          'WHERE paper_userid IN ' + \
+          '(SELECT teacher_id FROM ' + teacher_student_table + ' WHERE student_id=%s)'
+    cursor.execute(sql, session.get('user_id'))
+    data = cursor.fetchall()
+    exam_order = 1
+    for x in data:
+        d = dict(exam_dict)
+        d['title'] = x.get('paper_title')
+        d['teacher_name'] = x.get('user_name')
+        d['date'] = x.get('paper_date')
+        d['duration'] = x.get('paper_time')
+        d['is_open'] = x.get('paper_open')
+        d['exam_id'] = x.get('paper_id')
+        d['order'], exam_order = exam_order, exam_order + 1
+        exam_list.append(d)
+    return render_template('studentExam.html', exam_list=exam_list)
 
 
 @app.route('/adminIndex/', methods=['GET', 'POST'])
@@ -230,7 +257,7 @@ def uploadFile():
     print('paper-file', paper_file, type(paper_file))
 
     # 上传文件到项目路径下的 upload_path / paper_path
-    paper_set.save(paper_file, name=paper_title + '.xlsx')
+    paper_set.save(paper_file, name=session.get('user_id') + '-' + paper_title + '.xlsx')
 
     # 插入 exam_paper 表
     # (paper_title, paper_desc, paper_time, paper_date, paper_open, paper_path, paper_userid)
@@ -251,7 +278,8 @@ def uploadFile():
 @app.route('/start_exam/', methods=['POST', 'GET'])
 def start_exam():
     print_log('start-exam', request.method)
-    return render_template('exam.html', question=common_helper.parse_paper('Test.xlsx'))
+    print_log('start-exam', request.form['exam_id'])
+    return render_template('exam.html', question=common_helper.parse_paper('Test-计算机网络.xlsx'))
 
 
 @app.route('/submit_paper/', methods=['POST', 'GET'])
