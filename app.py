@@ -261,8 +261,10 @@ def uploadFile():
 
     # 插入 exam_paper 表
     # (paper_title, paper_desc, paper_time, paper_date, paper_open, paper_path, paper_userid)
-    file_path = path.join(base_path, upload_path,
-                          paper_path, paper_title + '.xlsx')
+    file_path = path.join(base_path,
+                          upload_path,
+                          paper_path,
+                          session.get('user_id') + '-' + paper_title + '.xlsx')
     sql = 'insert into ' + exam_paper_table + exam_paper_columns + \
           'values' + '(%s, %s, %s, %s, %s, %s, %s)'
     try:
@@ -278,8 +280,12 @@ def uploadFile():
 @app.route('/start_exam/', methods=['POST', 'GET'])
 def start_exam():
     print_log('start-exam', request.method)
-    print_log('start-exam', request.form['exam_id'])
-    return render_template('exam.html', question=common_helper.parse_paper('Test-计算机网络.xlsx'))
+    print_log('start-exam', request.args.get('exam_id'))
+    sql = 'SELECT paper_path FROM ' + exam_paper_table + ' WHERE paper_id=%s'
+    cursor.execute(sql, str(request.args.get('exam_id')))
+    paper_path = cursor.fetchone().get('paper_path')
+    question = common_helper.parse_paper(paper_path)
+    return render_template('exam.html', question=question)
 
 
 @app.route('/submit_paper/', methods=['POST', 'GET'])

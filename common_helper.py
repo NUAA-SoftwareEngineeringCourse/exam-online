@@ -77,3 +77,7 @@ def get_grade_segment(student_list: list) -> dict:
         else:
             seg['levelE'] += 1
     return seg
+
+
+
+

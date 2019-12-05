@@ -198,7 +198,7 @@
                     {% else %}
                     <td>否</td>
                     {% endif %}
-                    <td><button class="btn btn-primary" onclick="start_exam{{ exam.exam_id }}()" id="start-exam-button{{ exam.exam_id }}">开始考试</button></td>
+                    <td><button class="btn btn-primary" id="start-exam-button{{ exam.exam_id }}">开始考试</button></td>
                   </tr>
                 {% endfor %}
               </tbody>
@@ -240,28 +240,17 @@
   <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
   <!-- Main File-->
   <script src="../static/js/front.js"></script>
-  <script type="javascript">
+  <script>
     {% for exam in exam_list %}
     function start_exam{{ exam.exam_id }}() {
-        alert({{ exam.exam_id }})
         $('#start-exam-button{{ exam.exam_id }}').click(function () {
-            $.ajax({
-                type: 'post',
-                url: 'http://localhost:5000' + '/start_exam/',
-                async: true,
-                data:{
-                    'exam_id': exam.exam_id
-                },
-                success:function (data) {
-
-                }
-            })
+            window.location.href = base_url_str + '/start_exam/?exam_id={{ exam.exam_id }}'
         })
     }
-  {% endfor %}
+    {% endfor %}
   $(document).ready(function () {
       {% for exam in exam_list %}
-          start_exam{{ exam.exam_id }}(),
+          start_exam{{ exam.exam_id }}()
       {% endfor %}
   })
   </script>
