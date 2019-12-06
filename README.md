@@ -28,6 +28,14 @@
   pip install xxx
   ```
 
++ 数据库建立
+  ```bash
+  cd exam-online/mysql/
+  mysql -u xxx -p
+  use xxx(your database name)
+  source xxx.sql(每个sql文件都执行一次)
+  ```
+
 
 ## TODO List
 - 主线 1
@@ -56,6 +64,5 @@
     - paper_answer(记录每个学生所完成的每份试卷的答案，未完成)
     - paper_grade(记录每个学生所完成的每份试卷的成绩，未完成)
 
-+ 2019/12/05 Update
-  - 客观题自动判断
++ 2019/12/06 Update
   - 成绩写入数据库（需要设计数据库存放成绩）
