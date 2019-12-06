@@ -8,6 +8,7 @@ import common_helper
 import os
 import time
 import sql_helper
+import json
 
 # global path
 upload_path = 'FilesUpload'
@@ -279,20 +280,38 @@ def uploadFile():
 
 @app.route('/start_exam/', methods=['POST', 'GET'])
 def start_exam():
-    print_log('start-exam', request.method)
-    print_log('start-exam', request.args.get('exam_id'))
-    sql = 'SELECT paper_path FROM ' + exam_paper_table + ' WHERE paper_id=%s'
-    cursor.execute(sql, str(request.args.get('exam_id')))
-    paper_path = cursor.fetchone().get('paper_path')
-    question = common_helper.parse_paper(paper_path)
-    return render_template('exam.html', question=question)
+    print_log('start-exam', request.method + request.args.get('exam_id'))
+
+    exam_id = request.args.get('exam_id')
+    sql = 'SELECT * FROM ' + exam_paper_table + ' WHERE paper_id=%s'
+    cursor.execute(sql, str(exam_id))
+    data = cursor.fetchone()
+
+    sql2 = 'SELECT user_name FROM ' + user_table + ' WHERE user_id=%s'
+    cursor.execute(sql2, data.get('paper_userid'))
+    data2 = cursor.fetchone()
+
+    question = common_helper.parse_paper(data.get('paper_path'))
+    exam = {'exam_id': exam_id, 'title': data.get('paper_title'),
+            'duration': data.get('paper_time'), 'teacher': data2.get('user_name')}
+    return render_template('exam.html', question=question, exam=exam)
 
 
 @app.route('/submit_paper/', methods=['POST', 'GET'])
 def submit_paper():
     print_log('submit-paper', request.method)
     answers = request.form['answers']
-    print(answers)
+    exam_id = request.form['exam_id']
+
+    print_log('submit paper', answers + ' ' + str(type(answers)))
+    print_log('submit paper', exam_id)
+
+    sql = 'SELECT * FROM ' + exam_paper_table + ' WHERE paper_id = %s'
+    cursor.execute(sql, exam_id)
+    data = cursor.fetchone()
+    grade = common_helper.compare_answer(json.loads(answers), data.get('paper_path'))
+
+    print_log('submit paper', str(grade))
     return jsonify({'success': 1})
 
 

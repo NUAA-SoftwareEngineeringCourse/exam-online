@@ -1,9 +1,12 @@
 from config import cursor, exam_paper_table, user_table
 from datetime import datetime
+from flask import jsonify
+import json
+d = dict({1: 11, 2: 22, 3: 33})
+print(d)
 
-
-d = dict({1:11, 2:22, 3:33})
-print(l)
+s = '{"0":"B","1":"B"}'
+print(type(json.loads(s)))
 
 '''
 sql = 'SELECT paper_title, paper_desc, paper_date, user_name FROM ' + user_table + ' INNER JOIN ' \

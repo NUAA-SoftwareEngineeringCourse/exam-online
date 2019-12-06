@@ -4,6 +4,11 @@ student_type = 'STUDENT'
 teacher_type = 'TEACHER'
 
 
+def print_log(name: str, info):
+    print('[' + name + ']' + '    ' + str(info))
+    return
+
+
 def check_type(user_id: str) -> str:
     if user_id != '' and user_id[0] == 'T':
         return teacher_type
@@ -27,7 +32,7 @@ def parse_paper(path: str):
 
     xlsx_file = xlrd.open_workbook(path)
     single_sheet = xlsx_file.sheet_by_index(0)
-    print(single_sheet.row_values(0))
+    print_log('parse paper', single_sheet.row_values(0))
     for i in range(1, single_sheet.nrows):
         question = single_sheet.row_values(i)
         std_single['q_text'] = question[0]
@@ -40,7 +45,7 @@ def parse_paper(path: str):
         questions_list.append(dict(std_single))
 
     multiple_sheet = xlsx_file.sheet_by_index(1)
-    print(multiple_sheet.row_values(0))
+    print_log('parse paper', multiple_sheet.row_values(0))
     for i in range(1, multiple_sheet.nrows):
         question = multiple_sheet.row_values(i)
         std_multiple['q_text'] = question[0]
@@ -53,7 +58,7 @@ def parse_paper(path: str):
         questions_list.append(dict(std_multiple))
 
     judge_sheet = xlsx_file.sheet_by_index(2)
-    print(judge_sheet.row_values(0))
+    print_log('parse paper', judge_sheet.row_values(0))
     for i in range(1, judge_sheet.nrows):
         question = judge_sheet.row_values(i)
         std_judge['q_text'] = question[0]
@@ -79,5 +84,39 @@ def get_grade_segment(student_list: list) -> dict:
     return seg
 
 
+def compare_answer(answers: dict, paper_path: str) -> int:
+    print_log('cmp ans', answers)
+    print_log('cmp ans', paper_path)
 
+    grade = 0
 
+    excel_file = xlrd.open_workbook(paper_path)
+    single_sheet = excel_file.sheet_by_index(0)
+    multiple_sheet = excel_file.sheet_by_index(1)
+    judge_sheet = excel_file.sheet_by_index(2)
+
+    single_answers = single_sheet.col_values(5)[1:]
+    single_values = [int(x) for x in single_sheet.col_values(6)[1:]]
+
+    multiple_answers = multiple_sheet.col_values(5)[1:]
+    multiple_values = [int(x) for x in multiple_sheet.col_values(6)[1:]]
+
+    judge_answers = judge_sheet.col_values(1)[1:]
+    judge_values = [int(x) for x in judge_sheet.col_values(2)[1:]]
+    for i in range(0, len(judge_answers)):
+        judge_answers[i] = '1' if judge_answers[i] == 'T' else '0'
+
+    for i in range(0, len(single_answers)):
+        if answers.get(str(i)) == single_answers[i]:
+            grade += int(single_values[i])
+
+    inc = len(single_answers)
+    for i in range(0, len(multiple_answers)):
+        if answers.get(str(inc + i)) == multiple_answers[i]:
+            grade += int(multiple_values[i])
+
+    inc += len(multiple_answers)
+    for i in range(0, len(judge_answers)):
+        if answers.get(str(inc + i)) == judge_answers[i]:
+            grade += int(judge_values[i])
+    return grade

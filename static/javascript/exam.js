@@ -22,10 +22,10 @@ function giveupbutton() {
 }
 
 
-
 // 获取选择的答案
 function submit_paper() {
-    answers = {}
+    var answers = {}
+    var exam_id = document.getElementById('exam-id-span').innerText
     $("#submit_paper").click(function () {
         $('input[type=radio]:checked').each(function () {
             answers[$(this).attr('name')] = $(this).val()
@@ -43,7 +43,8 @@ function submit_paper() {
             type: 'post',
             async: false,
             data: {
-                answers: JSON.stringify(answers)
+                'answers': JSON.stringify(answers),
+                'exam_id': exam_id,
             },
             success: function (data) {
                 console.log(data)

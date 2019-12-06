@@ -95,8 +95,11 @@
 
   {% if user_name %}
   <div class="exam">
+    <h6>考试名称：{{ exam.title }}</h6>
+    <h6>试卷ID：<span id="exam-id-span">{{ exam.exam_id }}</span></h6>
+    <h6>负责老师：{{ exam.teacher }}</h6>
+    <h6>考试时间：{{ exam.duration }} 分钟</h6>
     <strong>一、单项选择题</strong>
-
     {% for q in question %}
     {% if q.get('q_type')=='radio' %}
     <div class="p-3 mb-2 bg-info text-white rounded">
