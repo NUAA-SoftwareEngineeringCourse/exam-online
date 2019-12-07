@@ -1,5 +1,5 @@
 import config
-from config import db_connector, cursor
+from config import db_connector, cursor, student_exam_log_table, user_table
 
 
 def get_students(columns: str):
@@ -13,3 +13,11 @@ def get_papers(columns: str):
     cursor.execute(sql)
     return cursor.fetchall()
 
+
+# return [{'student_id':'', 'user_name':'', 'grade':0}, ..., {}]
+def get_students_by_paperid(paper_id):
+    sql = 'SELECT student_id, user_name, grade FROM ' + \
+          student_exam_log_table + ' INNER JOIN ' + user_table + ' ON user.user_id=student_exam_log.student_id ' + \
+          'WHERE paper_id=%s'
+    cursor.execute(sql, paper_id)
+    return cursor.fetchall()

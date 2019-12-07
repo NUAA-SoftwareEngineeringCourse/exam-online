@@ -221,14 +221,14 @@
     {% for paper in paper_list %}
       <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
         <h2 class="h5 display">
-            <a data-toggle="collapse" data-parent="#new-updates" href="#updates-box{{ paper.id }}" aria-expanded="false" aria-controls="updates-box">{{ paper.name }}成绩</a>
+            <a data-toggle="collapse" data-parent="#new-updates" href="#updates-box{{ paper.paper_id }}" aria-expanded="false" aria-controls="updates-box">{{ paper.name }}成绩</a>
         </h2>
-          <a data-toggle="collapse"  data-parent="#new-updates" href="#updates-box{{ paper.id }}" aria-expanded="false" aria-controls="updates-box">
+          <a data-toggle="collapse"  data-parent="#new-updates" href="#updates-box{{ paper.paper_id }}" aria-expanded="false" aria-controls="updates-box">
               <i class="fa fa-angle-down"></i>
           </a>
       </div>
 
-      <div id="updates-box{{ paper.id }}" role="tabpanel" class="collapse">
+      <div id="updates-box{{ paper.paper_id }}" role="tabpanel" class="collapse">
         <ul class="news list-styled">
           <!-- Item-->
           <li class="d-flex justify-content-between">
@@ -237,7 +237,7 @@
             <div>
               <div class="card-body">
                 <h3 class="card-title">基本信息</h3>
-                <p class="card-title">试卷ID：{{ paper.id }}　　参加人数：{{ paper.student_num }}　　平均分：{{ paper.avg_grade }}</p>
+                <p class="card-title">试卷ID：{{ paper.paper_id }}　　参加人数：{{ paper.student_num }}　　平均分：{{ paper.avg_grade }}</p>
                     <table class="table table-striped" style="width:500px">
                       <thead>
                         <tr>
@@ -249,8 +249,8 @@
                       <tbody>
                         {% for student in paper.student_list %}
                             <tr>
-                            <td>{{ student.id }}</td>
-                            <td>{{ student.name }}</td>
+                            <td>{{ student.student_id }}</td>
+                            <td>{{ student.user_name }}</td>
                             <td>{{ student.grade }}</td>
                             </tr>
                         {% endfor %}
@@ -260,7 +260,7 @@
             </div>
             <!--图表-->
             <div style="width:600px;margin:0 auto;">
-              <table id='gradeSegmentTable{{ paper.id }}'>
+              <table id='gradeSegmentTable{{ paper.paper_id }}'>
                 <h3></h3>
                 <h3 class="card-title">成绩分布</h3>
                 <thead>
@@ -327,7 +327,7 @@
   <script type="text/javascript">
     gvChartInit();
     $(document).ready(function () {
-      $('#gradeSegmentTable{{ paper.id }}').gvChart({
+      $('#gradeSegmentTable{{ paper.paper_id }}').gvChart({
         chartType: 'PieChart',
         gvSettings: {
           vAxis: { title: 'No of players' },

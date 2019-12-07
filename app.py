@@ -385,22 +385,28 @@ def teacher_modify():
 
 @app.route('/teacher_result/', methods=['POST', 'GET'])
 def teacher_result():
-    student_data = sql_helper.get_students('user_name, user_id')
-    paper_data = sql_helper.get_papers('paper_id, paper_title')
-    student_list = [
-        {'name': x['user_name'], 'id': x['user_id'], 'grade': sum([ord(c) for c in x['user_name']]) % 100 + 60}
-        for x in student_data]
-    grade_segment = common_helper.get_grade_segment(student_list)
-    paper = dict({'name': '高等数学',
-                  'id': 1,
-                  'student_num': len(student_list),
-                  'avg_grade': sum([x['grade'] for x in student_list]) / len(student_list),
-                  'student_list': student_list,
-                  'grade_segment': grade_segment})
+    # std_student_dict = {'user_name': '', 'student_id': '', 'grade': 0}
+    std_paper_dict = {'name': '', 'paper_id': -1, 'student_num': '', 'avg_grade': 0, 'student_list': [],
+                      'grade_segment': {}}
     paper_list = []
-    for x in paper_data:
-        paper['name'], paper['id'] = x['paper_title'], x['paper_id']
-        paper_list.append(dict(paper))
+
+    # 查询该教师发布的考试
+    sql = 'SELECT paper_id, paper_title FROM ' + exam_paper_table + ' WHERE paper_userid=%s'
+    cursor.execute(sql, session.get('user_id'))
+    published_exams = cursor.fetchall()
+
+    for exam in published_exams:
+        paper_dict = dict(std_paper_dict)
+        # 已完成该考试的学生列表
+        student_list = sql_helper.get_students_by_paperid(exam.get('paper_id'))
+        paper_dict['name'] = exam.get('paper_title')
+        paper_dict['paper_id'] = exam.get('paper_id')
+        paper_dict['student_num'] = len(student_list)
+        paper_dict['avg_grade'] = sum([int(x.get('grade')) for x in student_list]) / paper_dict['student_num']
+        paper_dict['student_list'] = student_list
+        paper_dict['grade_segment'] = common_helper.get_grade_segment(student_list)
+        paper_list.append(paper_dict)
+
     return render_template('teacherResult.html', paper_list=paper_list)
 
 
