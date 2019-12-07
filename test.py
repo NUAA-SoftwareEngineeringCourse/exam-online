@@ -1,13 +1,3 @@
-def get():
-    return (1, '111')
+l = [1, 2, 3, 45]
 
-
-x, y = get()
-
-print(x, type(x))
-print(y, type(y))
-
-from datetime import datetime
-
-d = datetime.now()
-print(d.date())
+print(2 in l)

@@ -11,10 +11,11 @@ db_connector = pymysql.connect(
 cursor = db_connector.cursor(cursor=pymysql.cursors.DictCursor)
 
 # global table names
-user_table = 'user'
-exam_paper_table = 'exam_paper'
-teacher_student_table = 'teacher_student'
-student_exam_log_table = 'student_exam_log'
+# the spaces is for join the sql query string
+user_table = ' user '
+exam_paper_table = ' exam_paper '
+teacher_student_table = ' teacher_student '
+student_exam_log_table = ' student_exam_log '
 
 
 # exam_paper table columns

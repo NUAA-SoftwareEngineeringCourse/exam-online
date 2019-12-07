@@ -209,14 +209,23 @@ def studentExam():
     print_log('student exam', request.method)
     exam_dict = {'title': '', 'teacher_name': '', 'date': '', 'duration': 0, 'is_open': 0, 'exam_id': -1}
     exam_list = list()
+    # 该学生关联的老师发布的所有考试
     sql = 'SELECT paper_title, user_name, paper_date, paper_time, paper_open, paper_id FROM ' + \
           exam_paper_table + ' INNER JOIN ' + user_table + ' ON user.user_id=exam_paper.paper_userid ' + \
           'WHERE paper_userid IN ' + \
           '(SELECT teacher_id FROM ' + teacher_student_table + ' WHERE student_id=%s)'
     cursor.execute(sql, session.get('user_id'))
     data = cursor.fetchall()
+
+    # 该学生已经完成的考试
+    sql = 'SELECT paper_id FROM ' + student_exam_log_table + ' WHERE student_id = %s'
+    cursor.execute(sql, session.get('user_id'))
+    finished_exam_ids = [x.get('paper_id') for x in cursor.fetchall()]
+
     exam_order = 1
     for x in data:
+        if x.get('paper_id') in finished_exam_ids:
+            continue
         d = dict(exam_dict)
         d['title'] = x.get('paper_title')
         d['teacher_name'] = x.get('user_name')
