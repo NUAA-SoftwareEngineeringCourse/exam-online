@@ -4,6 +4,7 @@ paper_id int(5) not null,
 student_id varchar(16) not null,
 answer_json varchar(255) not null,
 grade int(3) not null,
+full_grade int(3) not null,
 foreign key (paper_id) references `exam_paper`(paper_id),
 foreign key (student_id) references `user`(user_id)
 );
