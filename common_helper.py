@@ -104,10 +104,10 @@ def compare_answer(answers: dict, paper_path: str) -> int:
     judge_answers = judge_sheet.col_values(1)[1:]
     judge_values = [int(x) for x in judge_sheet.col_values(2)[1:]]
     for i in range(0, len(judge_answers)):
-        if judge_answers[i] == 'T' or judge_answers[i] == 'True' or judge_answers[i] == '对':
+        if judge_answers[i] == 'T' or judge_answers[i].lower() == 'true' or judge_answers[i] == '对':
             judge_answers[i] = '1'
-        elif judge_answers[i] == 'F' or judge_answers[i] == 'False' or judge_answers[i] == '错':
-            judge_answers[i] = 0
+        elif judge_answers[i] == 'F' or judge_answers[i].lower() == 'false' or judge_answers[i] == '错':
+            judge_answers[i] = '0'
 
     for i in range(0, len(single_answers)):
         if answers.get(str(i)) == single_answers[i]:
@@ -115,7 +115,7 @@ def compare_answer(answers: dict, paper_path: str) -> int:
 
     inc = len(single_answers)
     for i in range(0, len(multiple_answers)):
-        if answers.get(str(inc + i)) == multiple_answers[i]:
+        if set(answers.get(str(inc + i))) == set(multiple_answers[i]):
             grade += int(multiple_values[i])
 
     inc += len(multiple_answers)
@@ -125,3 +125,33 @@ def compare_answer(answers: dict, paper_path: str) -> int:
 
     full_grade = sum(single_values) + sum(multiple_values) + sum(judge_values)
     return grade, full_grade
+
+
+def get_std_answers(path: str):
+    excel_file = xlrd.open_workbook(path)
+    single_sheet = excel_file.sheet_by_index(0)
+    multiple_sheet = excel_file.sheet_by_index(1)
+    judge_sheet = excel_file.sheet_by_index(2)
+
+    std_ans = {}
+    single_ans = single_sheet.col_values(5)[1:]
+    multiple_ans = multiple_sheet.col_values(5)[1:]
+    judge_ans = judge_sheet.col_values(1)[1:]
+
+    for i in range(0, len(judge_ans)):
+        if judge_ans[i] == 'T' or judge_ans[i].lower() == 'true' or judge_ans[i] == '对':
+            judge_ans[i] = '1'
+        elif judge_ans[i] == 'F' or judge_ans[i].lower() == 'false' or judge_ans[i] == '错':
+            judge_ans[i] = '0'
+
+    order = 0
+    for x in single_ans:
+        std_ans[str(order)], order = x, order + 1
+
+    for y in multiple_ans:
+        std_ans[str(order)], order = y, order + 1
+
+    for z in judge_ans:
+        std_ans[str(order)], order = z, order + 1
+
+    return std_ans

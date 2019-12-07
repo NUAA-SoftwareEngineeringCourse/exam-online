@@ -410,6 +410,51 @@ def teacher_result():
     return render_template('teacherResult.html', paper_list=paper_list)
 
 
+@app.route('/show_answers/', methods=['POST', 'GET'])
+def show_answers():
+    # 获取 get 方法的参数
+    exam_id = request.args.get('exam_id')
+    student_id = request.args.get('student_id')
+
+    # 找到试卷文件，并提取出试题和正确答案
+    sql = 'SELECT paper_path FROM ' + exam_paper_table + \
+          'WHERE paper_id=%s'
+    cursor.execute(sql, exam_id)
+    path = cursor.fetchone().get('paper_path')
+    std_ans = common_helper.get_std_answers(path)
+    question = common_helper.parse_paper(path)
+
+    # 找到学生选择的试卷的答案
+    sql = 'SELECT answer_json FROM ' + student_exam_log_table + \
+          'WHERE student_id=%s and paper_id=%s'
+    cursor.execute(sql, (student_id, exam_id))
+    answers = json.loads(cursor.fetchone().get('answer_json'))
+
+    print(answers, len(answers))
+    print(std_ans, len(std_ans))
+    print(len(question))
+
+    for i in range(0, len(question)):
+        if question[i].get('q_type') == 'checkbox':
+            is_correct = set(answers[str(i)]) == set(std_ans[str(i)])
+        else:
+            is_correct = answers[str(i)] == std_ans[str(i)]
+        question[i]['is_correct'] = is_correct
+        question[i]['selected'] = answers[str(i)]
+        question[i]['std_ans'] = std_ans[str(i)]
+
+    # 找到试卷相关信息
+    sql = 'SELECT * FROM ' + \
+          exam_paper_table + 'INNER JOIN' + user_table + 'ON user.user_id=exam_paper.paper_userid ' + \
+          'WHERE paper_id=%s'
+    cursor.execute(sql, exam_id)
+    data = cursor.fetchone()
+    exam = {'title': data.get('paper_title'), 'exam_id': exam_id, 'teacher': data.get('user_name'),
+            'duration': data.get('paper_time')}
+
+    return render_template('show-answers.html', question=question, exam=exam)
+
+
 @app.route('/zhuguanti/', methods=['POST', 'GET'])
 def zhuguanti():
     return render_template('zhuguanti.html')

@@ -157,7 +157,7 @@
                 </ul>
               </li>
               <!-- Log out-->
-              <li class="nav-item"><a href="login.html" class="nav-link logout"> <span
+              <li class="nav-item"><a href="{{ url_for('logout') }}" class="nav-link logout"> <span
                     class="d-none d-sm-inline-block">Logout</span><i class="fa fa-sign-out"></i></a>
               </li>
             </ul>
@@ -196,7 +196,7 @@
                     <td>{{ exam.duration }}</td>
                     <td>{{ exam.grade }} / {{ exam.full_grade }}</td>
                     <td>{{ exam.exam_id }}</td>
-                    <td><a href="https://www.baidu.com">我的答案</a></td>
+                    <td><a href="{{ url_for('show_answers', exam_id=exam.exam_id, student_id=user_id) }}">我的答案</a></td>
                   </tr>
                 {% endfor %}
               </tbody>
