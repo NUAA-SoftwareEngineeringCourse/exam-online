@@ -399,6 +399,11 @@ def teacher_result():
         paper_dict = dict(std_paper_dict)
         # 已完成该考试的学生列表
         student_list = sql_helper.get_students_by_paperid(exam.get('paper_id'))
+
+        # 如果 student_list 为空，没有学生参加考试，则不显示
+        if student_list is None or len(student_list) == 0:
+            continue
+
         paper_dict['name'] = exam.get('paper_title')
         paper_dict['paper_id'] = exam.get('paper_id')
         paper_dict['student_num'] = len(student_list)
@@ -435,13 +440,15 @@ def show_answers():
     print(len(question))
 
     for i in range(0, len(question)):
+        question[i]['std_ans'] = std_ans[str(i)]
+        if answers.get(str(i)) is None:
+            continue
         if question[i].get('q_type') == 'checkbox':
             is_correct = set(answers[str(i)]) == set(std_ans[str(i)])
         else:
             is_correct = answers[str(i)] == std_ans[str(i)]
         question[i]['is_correct'] = is_correct
         question[i]['selected'] = answers[str(i)]
-        question[i]['std_ans'] = std_ans[str(i)]
 
     # 找到试卷相关信息
     sql = 'SELECT * FROM ' + \
