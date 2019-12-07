@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_uploads import configure_uploads, UploadSet
 from config import cursor, db_connector
-from config import user_table, exam_paper_table, teacher_student_table, exam_paper_columns
+from config import user_table, exam_paper_table, teacher_student_table, exam_paper_columns, student_exam_log_table
 from os import path
 
 import common_helper
@@ -309,15 +309,50 @@ def submit_paper():
     sql = 'SELECT * FROM ' + exam_paper_table + ' WHERE paper_id = %s'
     cursor.execute(sql, exam_id)
     data = cursor.fetchone()
-    grade = common_helper.compare_answer(json.loads(answers), data.get('paper_path'))
-
-    print_log('submit paper', str(grade))
+    # 单选题、多选题、判断题判分
+    grade, full_grade = common_helper.compare_answer(json.loads(answers), data.get('paper_path'))
+    print_log('submit paper', 'grade = ' + str(grade))
+    print_log('submit paper', 'full grade = ' + str(full_grade))
+    # 写入数据库
+    sql = 'INSERT INTO ' + student_exam_log_table + ' VALUES (%s, %s, %s, %s, %s)'
+    print_log('submit paper', 'sql = ' + sql)
+    try:
+        cursor.execute(sql, (exam_id, session.get('user_id'), str(answers), grade, full_grade))
+        db_connector.commit()
+    except:
+        db_connector.rollback()
     return jsonify({'success': 1})
 
 
 @app.route('/student_history/', methods=['POST', 'GET'])
 def student_history():
-    return render_template('studentHistory.html')
+    print_log('student history', request.method)
+    student_id = session.get('user_id')
+    history_list = list()
+    std_dict = dict({'order': 0, 'title': '', 'teacher': '', 'date': '',
+                     'duration': '', 'grade': 0, 'full_grade': 100,
+                     'exam_id': -1})
+    # 三个表进行 INNER JOIN, 👴就是一个 sql 工具人
+    sql = 'SELECT student_exam_log.paper_id, grade, full_grade, paper_title, paper_time, paper_date, user_name FROM ' + \
+          '(student_exam_log INNER JOIN exam_paper ON student_exam_log.`paper_id`=exam_paper.`paper_id`) ' + \
+          ' INNER JOIN `user` ON user.`user_id`=exam_paper.`paper_userid` ' + \
+          ' WHERE student_exam_log.student_id = %s'
+    cursor.execute(sql, student_id)
+    data = cursor.fetchall()
+
+    order = 1
+    for x in data:
+        d = dict(std_dict)
+        d['order'], order = order, order + 1
+        d['title'] = x.get('paper_title')
+        d['teacher'] = x.get('user_name')
+        d['date'] = x.get('paper_date').date()
+        d['duration'] = x.get('paper_time')
+        d['grade'] = x.get('grade')
+        d['full_grade'] = x.get('full_grade')
+        d['exam_id'] = x.get('paper_id')
+        history_list.append(d)
+    return render_template('studentHistory.html', exam_history=history_list)
 
 
 @app.route('/student_help/', methods=['GET', 'POST'])

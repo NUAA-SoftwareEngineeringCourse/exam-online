@@ -22,6 +22,7 @@
   * Debugger PIN: 263-797-513
   * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
   ```
+  **访问域名请使用：`http://localhost:5000`，请勿使用 `http://127.0.0.1:5000/`**。
 
 + 如果出现某个库无法 `import`, 例如提示：`can not find/import moudle xxx`，则运行：
   ```bash
@@ -64,5 +65,5 @@
     - paper_answer(记录每个学生所完成的每份试卷的答案，未完成)
     - paper_grade(记录每个学生所完成的每份试卷的成绩，未完成)
 
-+ 2019/12/06 Update
-  - 成绩写入数据库（需要设计数据库存放成绩）
++ 2019/12/07 Update
+  - 需要添加考试完成后，在 `studentExam` 页面中， “开始完试” 变为灰色的 “已完成考试”，否则考生总是可以参加某次考试

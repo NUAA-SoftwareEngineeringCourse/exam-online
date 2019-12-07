@@ -182,28 +182,23 @@
                   <th>考试日期</th>
                   <th>考试时长 (min)</th>
                   <th>所得分数 / 总分</th>
+                  <th>试卷ID</th>
                   <th>#</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>高等数学</td>
-                  <td>王力</td>
-                  <td>2019.12.24</td>
-                  <td>120</td>
-                  <td>90 / 100</td>
-                  <td><a href="https://www.baidu.com">我的答案</a></td>
-                </tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>高等数学</td>
-                  <td>王力</td>
-                  <td>2019.12.24</td>
-                  <td>120</td>
-                  <td>80 / 100</td>
-                  <td><a href="https://www.baidu.com">我的答案</a></td>
-                </tr>
+                {% for exam in exam_history %}
+                  <tr>
+                    <th scope="row">{{ exam.order }}</th>
+                    <td>{{ exam.title }}</td>
+                    <td>{{ exam.teacher }}</td>
+                    <td>{{ exam.date }}</td>
+                    <td>{{ exam.duration }}</td>
+                    <td>{{ exam.grade }} / {{ exam.full_grade }}</td>
+                    <td>{{ exam.exam_id }}</td>
+                    <td><a href="https://www.baidu.com">我的答案</a></td>
+                  </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>

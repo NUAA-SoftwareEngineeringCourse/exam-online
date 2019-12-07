@@ -104,7 +104,10 @@ def compare_answer(answers: dict, paper_path: str) -> int:
     judge_answers = judge_sheet.col_values(1)[1:]
     judge_values = [int(x) for x in judge_sheet.col_values(2)[1:]]
     for i in range(0, len(judge_answers)):
-        judge_answers[i] = '1' if judge_answers[i] == 'T' else '0'
+        if judge_answers[i] == 'T' or judge_answers[i] == 'True' or judge_answers[i] == '对':
+            judge_answers[i] = '1'
+        elif judge_answers[i] == 'F' or judge_answers[i] == 'False' or judge_answers[i] == '错':
+            judge_answers[i] = 0
 
     for i in range(0, len(single_answers)):
         if answers.get(str(i)) == single_answers[i]:
@@ -119,4 +122,6 @@ def compare_answer(answers: dict, paper_path: str) -> int:
     for i in range(0, len(judge_answers)):
         if answers.get(str(inc + i)) == judge_answers[i]:
             grade += int(judge_values[i])
-    return grade
+
+    full_grade = sum(single_values) + sum(multiple_values) + sum(judge_values)
+    return grade, full_grade
