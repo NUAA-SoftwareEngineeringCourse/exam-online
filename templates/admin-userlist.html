@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>在线考试系统 - 管理员</title>
+  <script src="../static/xinziyuan/js/jquery-3.3.1.min.js"></script>
+  <script src="../static/xinziyuan/js/vue.min.js"></script>
+  <script src="../static/xinziyuan/js/vue-resource.min.js"></script>
+  <script src="../static/xinziyuan/js/common.js"></script>
+  <script src="../static/xinziyuan/backend.js"></script>
+  <script type="text/javascript" src="../static/javascript/admin.js"></script>
+  <link rel="stylesheet" href="../static/xinziyuan/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../static/xinziyuan/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../static/xinziyuan/css/style.css">
+  <link rel="stylesheet" href="../static/xinziyuan/css/overdiv.css">
+  <link rel="shortcut icon" href="../static/xinziyuan/images/favicon.png" />
+</head>
+
+<body class="content-wrapper">
+<div class="float_top">
+  <button class="btn btn-inverse-info btn-sm" onclick="javascript:smoothscroll();"><i class="mdi mdi-format-vertical-align-top"></i> 返回顶部</button>
+</div>
+
+<div id="usermanage">
+  <div class="page-header">
+    <h1>用户列表</h1>
+  </div>
+
+  <div class="card">
+  <div class="card-body">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>用户名</th>
+        <th>姓名</th>
+        <th>密码</th>
+        <th>联系邮箱</th>
+        <th>用户类型</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in user_list %}
+      {% if user.user_type != 'ADMIN' %}
+      <tr>
+        <td>{{ user.user_id }}</td>
+        <td>{{ user.user_name }}</td>
+        <td>{{ user.password }}</td>
+        <td>{{ user.user_email }}</td>
+        {% if user.user_type == 'STUDENT' %}
+        <td><label class="badge badge-info">学生用户</label></td>
+        {% else %}
+        <td><label class="badge badge-success">教师用户</label></td>
+        {% endif %}
+        <!-- <td>{{ user.usertype }}</td> -->
+        <td><button type="button" onclick="deleteU({{user.user_id}})" class="btn btn-gradient-danger btn-sm" ><i class="mdi mdi-account-minus"></i> 删除</button></td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="../static/xinziyuan/js/admin-userlist.js"></script>
+
+</body>
+</html>

@@ -1,77 +1,163 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
-    <script src="{{ url_for('static', filename='javascript/admin.js') }}"></script>
-    <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/css/fileinput.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/fileinput.min.js"></script>
-{% endblock %}
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>在线考试系统后台管理</title>
+  <!-- plugins:css -->
+  <script src="../static/xinziyuan/js/jquery-3.3.1.min.js"></script>
+  <script src="../static/xinziyuan/js/vue.min.js"></script>
+  <script src="../static/xinziyuan/js/vue-resource.min.js"></script>
+  <script src="../static/xinziyuan/js/common.js"></script>
+  <script src="../static/xinziyuan/backend.js"></script>
+  <script type="text/javascript" src="../static/javascript/admin.js"></script>
+  <link rel="stylesheet" href="../static/xinziyuan/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../static/xinziyuan/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../static/xinziyuan/css/style.css">
+  <link rel="shortcut icon" href="../static/xinziyuan/images/favicon.png" />
+</head>
 
-{% block body %}
+<body>
+  <div class="container-scroller" id="verify">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="adminIndex"><img src="../static/img/xiaoming.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="adminIndex"><img src="../static/xinziyuan/images/logo-mini.svg" alt="logo"/></a>
+      </div>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">后台管理</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ url_for('index') }}">首页 <span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
-            </div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <div class="nav-profile-text">
+          <p class="navbar-brand mb-1 text-black" style="margin-top: 15px;">在线考试系统 - 管理员</p>
         </div>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <div class="nav-profile-img">
+                <img src="../static/xinziyuan/images/faces-clipart/pic-2.png" alt="image">
+                <span class="availability-status online"></span>             
+              </div>
+              <div class="nav-profile-text">
+                <p class="mb-1 text-black">{{ loginuser }}</p>
+              </div>
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+             <!-- <a class="dropdown-item" href="#">
+                <i class="mdi mdi-cached mr-2 text-success"></i>
+                Activity Log
+              </a> -->
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" @click="logout()">
+                <i class="mdi mdi-logout mr-2 text-primary"></i>
+                注销登录
+              </a>
+            </div>
+          </li>
+          
+          <li class="nav-item nav-logout d-none d-lg-block">
+            <a class="nav-link" href="#" @click="logout()">
+              <i class="mdi mdi-power"></i>
+            </a>
+          </li>
+
+          <li class="nav-item nav-settings d-none d-lg-block">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-format-line-spacing"></i>
+            </a>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
     </nav>
-    <div class="container" style="margin-top: 30px">
 
-        <form action="{{ url_for('uploadFile') }}" enctype="multipart/form-data" method="post">
-            <div class="form-group">
-                <label for="file">只允许上传 docx 格式的文档</label>
-                <input type="file" class="form-control-file" name="file" required>
-                <hr>
-            </div>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <a href="#" class="nav-link">
+              <div class="nav-profile-image">
+                <img src="../static/xinziyuan/images/faces-clipart/pic-2.png" alt="profile">
+                <span class="login-status online"></span> <!--change to offline or busy as needed-->              
+              </div>
+              <div class="nav-profile-text d-flex flex-column">
+                <span class="font-weight-bold mb-2">{{ loginuser }}</span>
+                <span class="text-secondary text-small">管理员用户</span>
+              </div>
+              <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+            </a>
+          </li>
 
-            <div class="form-group">
-                <input type="text" class="form-control" name="papername" placeholder="这里填写试卷名称" required>
-                <hr>
-                <div class="invalid-feedback">
-                    邮箱格式错误
-                </div>
+          <!-- <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#paper-managment" aria-expanded="false" aria-controls="paper-managment">
+              <span class="menu-title">试卷管理</span>
+              <i class="menu-arrow"></i>
+              <i class="mdi mdi-buffer menu-icon"></i>
+            </a>
+            <div class="collapse" id="paper-managment">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" target="main_frame" href="pages/teacher/paper-manage.html">试卷列表</a></li>
+                <li class="nav-item"><a class="nav-link" target="main_frame" href="pages/teacher/paper-create.html">创建试卷</a></li>
+              </ul>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">上传</button>
-                <hr>
-            </div>
-        </form>
+          </li> -->
 
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">序号</th>
-                <th scope="col">考生姓名</th>
-                <th scope="col">试卷名称</th>
-                <th scope="col">分数</th>
-                <th scope="col">考试时间</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for user in user_grade_data %}
-                <tr>
-                    <th scope="row">{{ loop.index }}</th>
-                    <td>{{ user.user_name }}</td>
-                    <td>{{ user.paper_name }}</td>
-                    <td>{{ user.exam_grade }}</td>
-                    <td>{{ user.create_time }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+          <li class="nav-item">
+            <a class="nav-link" target="main_frame" href="/admin_userlist" >
+              <span class="menu-title">用户列表</span>
+              <i class="mdi mdi-account-multiple menu-icon"></i>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" target="main_frame" href="{{ url_for('admin_createUser') }}" >
+              <span class="menu-title">添加用户</span>
+              <i class="mdi mdi-account-plus menu-icon"></i>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" target="main_frame" href="/admin_examlist" >
+              <span class="menu-title">试卷管理</span>
+              <i class="mdi mdi-file-check menu-icon"></i>
+            </a>
+          </li>
+
+
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel" width="100%" height="100%">
+        <!-- <div class="content-wrapper">
+
+        </div> -->
+        <!-- partial -->
+        <iframe width="100%" height="100%" style="border: 0" class="content-wrapper" name="main_frame" src="/admin_userlist"></iframe>
+      </div>
+      <!-- main-panel ends -->
     </div>
-    <script>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
 
-    </script>
-{% endblock %}
+  <!-- plugins:js -->
+  <script src="../static/xinziyuan/vendors/js/vendor.bundle.base.js"></script>
+  <script src="../static/xinziyuan/vendors/js/vendor.bundle.addons.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="../static/xinziyuan/js/off-canvas.js"></script>
+  <script src="../static/xinziyuan/js/misc.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="../static/xinziyuan/js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>

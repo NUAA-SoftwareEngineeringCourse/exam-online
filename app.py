@@ -467,5 +467,81 @@ def zhuguanti():
     return render_template('zhuguanti.html')
 
 
+'''
+leo's code begin
+'''
+
+
+@app.route('/admin_userlist/', methods=['GET', 'POST'])
+def admin_userlist():
+    user_list = list()
+    user_dict = {'user_id:': '', 'password': '', 'user_type': ''}
+    sql = 'SELECT * FROM ' + user_table
+    cursor.execute(sql)
+    userdata = cursor.fetchall()
+    for x in userdata:
+        u = dict(user_dict)
+        u['user_id'] = x.get('user_id')
+        u['password'] = x.get('user_password')
+        u['user_type'] = x.get('user_type')
+        u['user_name'] = x.get('user_name')
+        u['user_email'] = x.get('user_email')
+        user_list.append(u)
+    return render_template('admin-userlist.html', user_list=user_list)
+
+
+@app.route('/admin_examlist/', methods=['GET', 'POST'])
+def admin_examlist():
+    exam_list = list()
+    exam_dict = {'exam_id:': '', 'exam_title': '', 'teacher': '', 'exam_date': ''}
+    sql = 'SELECT paper_title,paper_id,paper_date,user_name FROM exam_paper inner join user on user_id=paper_userid'
+    cursor.execute(sql)
+    data = cursor.fetchall()
+    for x in data:
+        e = dict(exam_dict)
+        e['exam_id'] = x.get('paper_id')
+        e['exam_title'] = x.get('paper_title')
+        e['teacher'] = x.get('user_name')
+        e['exam_date'] = x.get('paper_date')
+        exam_list.append(e)
+    return render_template('admin-examlist.html', exam_list=exam_list)
+
+
+@app.route('/deleteUser', methods=['GET', 'POST'])
+def deleteUser():
+    if request.method == 'GET':
+        return 'register-GET'
+    else:
+        user_id = request.form['user_id']
+        sql = ' DELETE FROM ' + user_table + ' WHERE user_id = ' + user_id
+        try:
+            flag = cursor.execute(sql)
+            db_connector.commit()
+        except Exception as e:
+            db_connector.rollback()
+    return jsonify({'success': flag})
+
+
+@app.route('/deleteExam', methods=['GET', 'POST'])
+def deleteExam():
+    if request.method == 'GET':
+        return 'register-GET'
+    else:
+        exam_id = request.form['exam_id']
+        print(exam_id)
+        sql = ' DELETE FROM exam_paper WHERE paper_id = ' + exam_id
+        try:
+            flag = cursor.execute(sql)
+            db_connector.commit()
+        except Exception as e:
+            db_connector.rollback()
+    return jsonify({'success': flag})
+
+
+@app.route('/admin_createUser/', methods=['POST', 'GET'])
+def admin_createUser():
+    return render_template('admin-create.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True, threaded=True, port=5000)
