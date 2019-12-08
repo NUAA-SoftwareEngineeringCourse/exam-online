@@ -3,7 +3,8 @@ base_url_str = 'http://localhost:5000'
 // 提交试卷提示框
 function submit() {
     $('#submit').click(function () {
-        $('#submit_modal').modal('show')
+        if (check_finished() == true)
+            $('#submit_modal').modal('show')
     })
 }
 

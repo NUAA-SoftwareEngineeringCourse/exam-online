@@ -205,7 +205,9 @@
                       </div>
                     </div>
                     <div class="right-col text-right">
-                      <div class="update-date">{{ exam.day }}<span class="month">{{ exam.month }}</span></div>
+                      <div class="update-date">{{ exam.day }}
+                          <span class="month">{{ exam.month }}, {{ exam.year }}</span>
+                      </div>
                     </div>
                   </li>
                   {% endfor %}

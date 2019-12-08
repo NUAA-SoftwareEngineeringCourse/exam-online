@@ -3,6 +3,7 @@
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static',filename='css/exam.css') }}">
 <script src="{{ url_for('static',filename='javascript/exam.js') }}"></script>
+<script src="../static/javascript/previewPaper.js"></script>
 {% endblock %}
 
 {% block body %}
@@ -34,14 +35,11 @@
               </div>
             </div>
             <div style="padding:0 0;margin-left: 12.39px">
-              <button type="button" class="btn btn-success  form-control my-2 my-sm-0" id="submit">
-                提交试卷
+              <button id="ret-teacher-index-btn" type="button" class="btn btn-success  form-control my-2 my-sm-0" onclick="" >
+                返回主页
               </button>
             </div>
             <div style="padding:0 0;margin-left: 12.39px">
-              <button type="button" class="btn btn-danger form-control my-2 my-sm-0" id="give_up">
-                放弃考试
-              </button>
             </div>
             {% endif %}
           </div>
@@ -97,7 +95,7 @@
   <div class="exam">
     <h6>考试名称：{{ exam.title }}</h6>
     <h6>试卷ID：<span id="exam-id-span">{{ exam.exam_id }}</span></h6>
-    <h6>负责老师：{{ exam.teacher }}</h6>
+    <h6>考试日期：{{ exam.date }}</h6>
     <h6>考试时间：{{ exam.duration }} 分钟</h6>
     <strong>一、单项选择题</strong>
     {% for q in question %}
@@ -146,29 +144,6 @@
     </div>
     {% endif %}
     {% endfor %}
-
-    <script>
-      function check_finished() {
-        {% for q in question %}
-            var boxes = document.getElementsByName({{ q.id }})
-            var is_finish = false;
-            for (var i=0; i<boxes.length; i++)
-            {
-                if (boxes[i].checked == true)
-                {
-                    is_finish = true;
-                    break;
-                }
-            }
-            if (is_finish == false)
-            {
-                alert('请回答题目 {{ q.id }} 后再次提交。');
-                return false;
-            }
-        {% endfor %}
-        return true;
-      }
-    </script>
   </div>
 
   {% else %}

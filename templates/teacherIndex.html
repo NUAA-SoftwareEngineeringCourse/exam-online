@@ -208,11 +208,14 @@
                         <p>{{ exam.description }}</p>
                         <p>考试时间：{{ exam.time }}</p>
                         <p>考试时长：{{ exam.duration }} 分钟</p>
+                        <p>是否开卷：{{ exam.is_open }}</p>
+                        <a href="{{ url_for('previwe_paper', exam_id=exam.exam_id) }}">预览考卷</a>
                       </div>
                     </div>
                     <div class="right-col text-right">
                       <div class="update-date">{{ exam.day }}
-                        <span class="month">{{ exam.month }}</span></div>
+                        <span class="month">{{ exam.month }}, {{ exam.year }}</span>
+                      </div>
                     </div>
                   </li>
                   {% endfor %}

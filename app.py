@@ -147,11 +147,12 @@ def teacherIndex():
     teacher_id = session.get('user_id')
     if teacher_id is None:
         return '请先登录!'
-    std_dict = dict({'title': 'Exam-Title',
-                     'description': 'Exam-Desc', 'day': 'Day', 'month': 'Month'})
+
+    std_dict = dict({'title': '', 'description': '', 'is_open': 0, 'exam_id': 0,
+                     'day': '', 'month': '', 'year': ''})
     print_log('teacherIndex', str(std_dict))
     exam_list = []
-    sql = 'select paper_title, paper_desc, paper_date, paper_time from ' + \
+    sql = 'select paper_id, paper_title, paper_desc, paper_date, paper_time, paper_open from ' + \
           exam_paper_table + ' where paper_userid=%s'
 
     cursor.execute(sql, teacher_id)
@@ -162,8 +163,11 @@ def teacherIndex():
         paper_date = x.get('paper_date')
         std_dict['day'] = paper_date.day
         std_dict['month'] = common_helper.month_int2str(paper_date.month)
+        std_dict['year'] = paper_date.year
         std_dict['duration'] = x.get('paper_time')
         std_dict['time'] = paper_date.time()
+        std_dict['is_open'] = '是' if int(x.get('paper_open')) == 1 else '否'
+        std_dict['exam_id'] = x.get('paper_id')
         exam_list.append(dict(std_dict))
     return render_template('teacherIndex.html', exam_list=exam_list)
 
@@ -180,7 +184,8 @@ def studentIndex():
     student_id = session.get('user_id')
     if student_id is None:
         return '请先登录!'
-    std_dict = dict({'title': '', 'description': '', 'day': '',
+
+    std_dict = dict({'title': '', 'description': '', 'day': '', 'year': '',
                      'month': '', 'duration': '', 'time': '', 'teacher': ''})
     print_log('studentIndex', str(std_dict))
     exam_list = []
@@ -197,6 +202,7 @@ def studentIndex():
         date = x.get('paper_date')
         std_dict['day'] = date.day
         std_dict['month'] = common_helper.month_int2str(date.month)
+        std_dict['year'] = date.year
         std_dict['duration'] = x.get('paper_time')
         std_dict['time'] = date.time()
         std_dict['teacher'] = x.get('user_name')
@@ -460,6 +466,24 @@ def show_answers():
             'duration': data.get('paper_time')}
 
     return render_template('show-answers.html', question=question, exam=exam)
+
+
+@app.route('/preview_paper/', methods=['POST', 'GET'])
+def previwe_paper():
+    print_log('preview paper', request.method)
+
+    exam_id = request.args.get('exam_id')
+    teacher_id = session.get('user_id')
+
+    sql = 'SELECT paper_path, paper_title, paper_time, paper_date FROM ' + \
+          exam_paper_table + ' INNER JOIN ' + user_table + ' ON exam_paper.paper_userid=user.user_id ' + \
+          'WHERE paper_id=%s and paper_userid=%s'
+    cursor.execute(sql, (exam_id, teacher_id))
+    data = cursor.fetchone()
+    exam_dict = {'title': data.get('paper_title'), 'exam_id': exam_id, 'duration': data.get('paper_time'),
+                 'date': data.get('paper_date')}
+    return render_template('preview-paper.html', question=common_helper.parse_paper(data.get('paper_path')),
+                           exam=exam_dict)
 
 
 @app.route('/zhuguanti/', methods=['POST', 'GET'])
