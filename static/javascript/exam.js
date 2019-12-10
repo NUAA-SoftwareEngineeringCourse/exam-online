@@ -39,6 +39,18 @@ function submit_paper() {
                 answers[name] = $(this).val()
             }
         })
+        // alert('hello')
+        var textarea_array = document.getElementsByClassName('textarea');
+        for (var i=0; i<textarea_array.length; i++)
+        {
+            var name = textarea_array[i].getAttribute('name');
+            var content = textarea_array[i].value;
+            answers[name] = content;
+            // alert(name + content);
+        }
+        // $('textarea[type=textarea]').each(function () {
+        //     answers[$(this).attr('name')] = $(this).val()
+        // })
         $.ajax({
             url: base_url_str + '/submit_paper/',
             type: 'post',

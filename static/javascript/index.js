@@ -280,6 +280,12 @@ function goto_admin()
 }
 
 
+function goto_about_more()
+{
+    window.location.href = 'https://github.com/NUAA-SoftwareEngineeringCourse/exam-online'
+}
+
+
 
 
 $(document).ready(function () {

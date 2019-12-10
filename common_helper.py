@@ -30,6 +30,8 @@ def parse_paper(path: str):
                         id=0, A='', B='', C='', D='', value=0)
     std_judge = dict(q_type='decide', q_text='', id=0, value=0)
 
+    std_subjective = dict(q_type='textarea', q_text='', id=0, value=0)
+
     xlsx_file = xlrd.open_workbook(path)
     single_sheet = xlsx_file.sheet_by_index(0)
     print_log('parse paper', single_sheet.row_values(0))
@@ -65,6 +67,15 @@ def parse_paper(path: str):
         std_judge['value'] = question[2]
         std_judge['id'], id_inc = id_inc, id_inc + 1
         questions_list.append(dict(std_judge))
+
+    subjective_sheet = xlsx_file.sheet_by_index(3)
+    print_log('parse paper', subjective_sheet.row_values(0))
+    for i in range(1, subjective_sheet.nrows):
+        question = subjective_sheet.row_values(i)
+        std_subjective['q_text'] = question[0]
+        std_subjective['value'] = question[1]
+        std_subjective['id'], id_inc = id_inc, id_inc + 1
+        questions_list.append(dict(std_subjective))
     return questions_list
 
 
@@ -155,3 +166,4 @@ def get_std_answers(path: str):
         std_ans[str(order)], order = z, order + 1
 
     return std_ans
+

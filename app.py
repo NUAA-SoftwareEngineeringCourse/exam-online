@@ -41,7 +41,7 @@ def index():
         if session.get('user_type') == 'TEACHER':
             return redirect(url_for('teacherIndex'))
     else:
-        return render_template('index-bak.html')
+        return render_template('index.html')
 
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -147,6 +147,8 @@ def teacherIndex():
     teacher_id = session.get('user_id')
     if teacher_id is None:
         return '请先登录!'
+    elif session.get('user_type') == 'STUDENT':
+        return '无权访问教师页面！'
 
     std_dict = dict({'title': '', 'description': '', 'is_open': 0, 'exam_id': 0,
                      'day': '', 'month': '', 'year': ''})
@@ -329,7 +331,7 @@ def submit_paper():
     print_log('submit paper', 'grade = ' + str(grade))
     print_log('submit paper', 'full grade = ' + str(full_grade))
     # 写入数据库
-    sql = 'INSERT INTO ' + student_exam_log_table + ' VALUES (%s, %s, %s, %s, %s)'
+    sql = 'INSERT INTO ' + student_exam_log_table + ' VALUES (%s, %s, %s, %s, %s, -1)'
     print_log('submit paper', 'sql = ' + sql)
     try:
         cursor.execute(sql, (exam_id, session.get('user_id'), str(answers), grade, full_grade))
@@ -345,10 +347,10 @@ def student_history():
     student_id = session.get('user_id')
     history_list = list()
     std_dict = dict({'order': 0, 'title': '', 'teacher': '', 'date': '',
-                     'duration': '', 'grade': 0, 'full_grade': 100,
+                     'duration': '', 'grade': 0, 'full_grade': 100, 'subjective_grade': 0,
                      'exam_id': -1})
     # 三个表进行 INNER JOIN, 👴就是一个 sql 工具人
-    sql = 'SELECT student_exam_log.paper_id, grade, full_grade, paper_title, paper_time, paper_date, user_name FROM ' + \
+    sql = 'SELECT student_exam_log.paper_id, grade, full_grade, subjective_grade, paper_title, paper_time, paper_date, user_name FROM ' + \
           '(student_exam_log INNER JOIN exam_paper ON student_exam_log.`paper_id`=exam_paper.`paper_id`) ' + \
           ' INNER JOIN `user` ON user.`user_id`=exam_paper.`paper_userid` ' + \
           ' WHERE student_exam_log.student_id = %s'
@@ -366,6 +368,7 @@ def student_history():
         d['grade'] = x.get('grade')
         d['full_grade'] = x.get('full_grade')
         d['exam_id'] = x.get('paper_id')
+        d['subjective_grade'] = x.get('subjective_grade') if x.get('subjective_grade') != -1 else '未发布'
         history_list.append(d)
     return render_template('studentHistory.html', exam_history=history_list)
 

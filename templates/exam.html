@@ -146,10 +146,23 @@
     </div>
     {% endif %}
     {% endfor %}
-
+    <hr>
+    <strong>
+        四、主观题
+    </strong>
+    {% for q in question %}
+    {% if q.get('q_type')=='textarea' %}
+        <div class="p-3 mb-2 bg-info text-white rounded">
+        <p>{{ q.id }} . {{ q.q_text }}</p>
+        <p>分值：{{ q.value }}</p>
+            <textarea class="textarea" rows="10" cols="150" name="{{ q.id }}">在此写上你的回答。</textarea>
+        </div>
+    {% endif %}
+    {% endfor %}
     <script>
       function check_finished() {
         {% for q in question %}
+            {% if q.q_type != 'textarea' %}
             var boxes = document.getElementsByName({{ q.id }})
             var is_finish = false;
             for (var i=0; i<boxes.length; i++)
@@ -165,6 +178,7 @@
                 alert('请回答题目 {{ q.id }} 后再次提交。');
                 return false;
             }
+            {% endif %}
         {% endfor %}
         return true;
       }
