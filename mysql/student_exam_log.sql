@@ -11,6 +11,7 @@ create table `student_exam_log` (
 	`answer_json` varchar (255) not null ,
 	`grade` int (3) not null ,
 	`full_grade` int (3) not null ,
+	`subjective_grade` int(3) not null ,
 	foreign key (paper_id) references `exam_paper`(paper_id) ,
 	foreign key (student_id) references `user`(user_id)
 ); 

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e85c9fd-b688-4174-a643-49d69ba7dc6b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/static/javascript/showAnswer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test-操作系统.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Test-操作系统.xlsx" afterDir="false" />
@@ -32,8 +33,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="349" column="90" selection-start-line="349" selection-start-column="90" selection-end-line="349" selection-end-column="90" />
+            <state relative-caret-position="174">
+              <caret line="427" column="16" selection-start-line="427" selection-start-column="4" selection-end-line="427" selection-end-column="16" />
               <folding>
                 <element signature="e#0#86#0" expanded="true" />
               </folding>
@@ -44,8 +45,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/studentHistory.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="200" column="42" selection-start-line="200" selection-start-column="42" selection-end-line="200" selection-end-column="42" />
+            <state relative-caret-position="303">
+              <caret line="202" column="51" selection-start-line="202" selection-start-column="51" selection-end-line="202" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -215,7 +216,7 @@
       <scroll-view-position x="0" y="0" />
     </layout>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1940" />
@@ -351,12 +352,12 @@
       <workItem from="1575715332722" duration="2275000" />
       <workItem from="1575785407020" duration="9692000" />
       <workItem from="1575887798911" duration="3338000" />
-      <workItem from="1575978075108" duration="6335000" />
+      <workItem from="1575978075108" duration="6632000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="174589000" />
+    <option name="totallyTimeSpent" value="174886000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -368,15 +369,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.3966942" visible="true" weight="0.18096514" />
-      <window_info id="Structure" order="1" sideWeight="0.60330576" side_tool="true" visible="true" weight="0.18096514" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.39655173" visible="true" weight="0.18096514" />
+      <window_info id="Structure" order="1" sideWeight="0.6034483" side_tool="true" visible="true" weight="0.18096514" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.04249292" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.14305949" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.562323" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -385,7 +386,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.04249292" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.26062322" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3286119" />
       <window_info anchor="bottom" id="Thumbnails" order="13" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -724,15 +725,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/studentHistory.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="200" column="42" selection-start-line="200" selection-start-column="42" selection-end-line="200" selection-end-column="42" />
+        <state relative-caret-position="303">
+          <caret line="202" column="51" selection-start-line="202" selection-start-column="51" selection-end-line="202" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="349" column="90" selection-start-line="349" selection-start-column="90" selection-end-line="349" selection-end-column="90" />
+        <state relative-caret-position="174">
+          <caret line="427" column="16" selection-start-line="427" selection-start-column="4" selection-end-line="427" selection-end-column="16" />
           <folding>
             <element signature="e#0#86#0" expanded="true" />
           </folding>
