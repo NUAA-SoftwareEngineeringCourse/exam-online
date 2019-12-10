@@ -73,7 +73,7 @@ def parse_paper(path: str):
     for i in range(1, subjective_sheet.nrows):
         question = subjective_sheet.row_values(i)
         std_subjective['q_text'] = question[0]
-        std_subjective['value'] = question[1]
+        std_subjective['value'] = question[2]
         std_subjective['id'], id_inc = id_inc, id_inc + 1
         questions_list.append(dict(std_subjective))
     return questions_list
@@ -105,6 +105,7 @@ def compare_answer(answers: dict, paper_path: str) -> int:
     single_sheet = excel_file.sheet_by_index(0)
     multiple_sheet = excel_file.sheet_by_index(1)
     judge_sheet = excel_file.sheet_by_index(2)
+    subjective_sheet = excel_file.sheet_by_index(3)
 
     single_answers = single_sheet.col_values(5)[1:]
     single_values = [int(x) for x in single_sheet.col_values(6)[1:]]
@@ -114,6 +115,9 @@ def compare_answer(answers: dict, paper_path: str) -> int:
 
     judge_answers = judge_sheet.col_values(1)[1:]
     judge_values = [int(x) for x in judge_sheet.col_values(2)[1:]]
+
+    subjective_values = [int(x) for x in subjective_sheet.col_values(2)[1:]]
+
     for i in range(0, len(judge_answers)):
         if judge_answers[i] == 'T' or judge_answers[i].lower() == 'true' or judge_answers[i] == '对':
             judge_answers[i] = '1'
@@ -134,7 +138,7 @@ def compare_answer(answers: dict, paper_path: str) -> int:
         if answers.get(str(inc + i)) == judge_answers[i]:
             grade += int(judge_values[i])
 
-    full_grade = sum(single_values) + sum(multiple_values) + sum(judge_values)
+    full_grade = sum(single_values) + sum(multiple_values) + sum(judge_values) + sum(subjective_values)
     return grade, full_grade
 
 
@@ -143,11 +147,13 @@ def get_std_answers(path: str):
     single_sheet = excel_file.sheet_by_index(0)
     multiple_sheet = excel_file.sheet_by_index(1)
     judge_sheet = excel_file.sheet_by_index(2)
+    subjective_sheet = excel_file.sheet_by_index(3)
 
     std_ans = {}
     single_ans = single_sheet.col_values(5)[1:]
     multiple_ans = multiple_sheet.col_values(5)[1:]
     judge_ans = judge_sheet.col_values(1)[1:]
+    subjective_ans = subjective_sheet.col_values(1)[1:]
 
     for i in range(0, len(judge_ans)):
         if judge_ans[i] == 'T' or judge_ans[i].lower() == 'true' or judge_ans[i] == '对':
@@ -165,5 +171,6 @@ def get_std_answers(path: str):
     for z in judge_ans:
         std_ans[str(order)], order = z, order + 1
 
+    for s in subjective_ans:
+        std_ans[str(order)], order = s, order + 1
     return std_ans
-

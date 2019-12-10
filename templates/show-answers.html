@@ -144,6 +144,22 @@
     </div>
     {% endif %}
     {% endfor %}
+    <hr>
+    <strong>
+        四、主观题
+    </strong>
+    {% for q in question %}
+    {% if q.get('q_type')=='textarea' %}
+        <div class="p-3 mb-2 bg-info text-white rounded">
+        <p>{{ q.id }} . {{ q.q_text }}</p>
+        <p>分值：{{ q.value }}</p>
+        <p>你的答案：</p>
+        <textarea class="textarea" rows="5" cols="150" name="{{ q.id }}">{{ q.selected }}</textarea>
+        <p>标准答案：</p>
+        <textarea class="textarea" rows="5" cols="150" name="{{ q.id }}">{{ q.std_ans }}</textarea>
+        </div>
+    {% endif %}
+    {% endfor %}
   </div>
   <script>
     $(document).ready(function () {
