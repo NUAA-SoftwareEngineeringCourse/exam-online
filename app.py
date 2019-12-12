@@ -35,11 +35,15 @@ def print_log(name: str, info: str):
 
 @app.route('/')
 def index():
-    if session.get('user_type') is not None:
-        if session.get('user_type') == 'STUDENT':
-            return redirect(url_for('studentIndex'))
-        if session.get('user_type') == 'TEACHER':
+    user_id = session.get('user_id')
+    print_log('index', str(user_id))
+    if user_id is not None:
+        if user_id[0] == 'T':
             return redirect(url_for('teacherIndex'))
+        elif user_id[0] == 'A':
+            return redirect(url_for('adminIndex'))
+        else:
+            return redirect(url_for('studentIndex'))
     else:
         return render_template('index.html')
 
@@ -86,15 +90,14 @@ def check_id() -> object:
 
 @app.context_processor
 def my_context():
-    print_log('my_context', '')
-    user_id = session.get('user_id') if session.get(
-        'user_id') is not None else ''
+    user_id = session.get('user_id') if session.get('user_id') is not None else ''
     if user_id != '':
         sql = 'select user_name, user_type from ' + user_table + ' where `user_id` = %s'
         cursor.execute(sql, user_id)
         result = cursor.fetchone()
         user_name = result.get('user_name')
         user_type = result.get('user_type')
+        print_log('my context', str(user_name) + str(user_type) + str(user_id))
         return {'user_id': user_id, 'user_name': user_name, 'user_type': user_type}
     else:
         return {}
@@ -130,15 +133,6 @@ def logout():
     if request.method == 'GET':
         return redirect(url_for('index'))
     return jsonify({'success': 1})
-
-
-@app.route('/exam_result/', methods=['GET', 'POST'])
-def exam_result():
-    time_str = str(time.asctime(time.localtime(time.time())))
-    user_grade = [dict(paper_name='Math-Paper', exam_grade=100, create_time=time_str),
-                  dict(paper_name='Chinese-Paper', exam_grade=100, create_time=time_str),
-                  dict(paper_name='English-Paper', exam_grade=100, create_time=time_str)]
-    return render_template('results.html', user_grade=user_grade)
 
 
 @app.route('/teacherIndex/', methods=['POST', 'GET'])
@@ -248,12 +242,7 @@ def studentExam():
 
 @app.route('/adminIndex/', methods=['GET', 'POST'])
 def adminIndex():
-    time_str = str(time.asctime(time.localtime(time.time())))
-    data = [dict(user_name='sin', paper_name='math', exam_grade=100, create_time=time_str),
-            dict(user_name='kin', paper_name='chinese',
-                 exam_grade=100, create_time=time_str),
-            dict(user_name='ben', paper_name='english', exam_grade=100, create_time=time_str)]
-    return render_template('admin.html', user_grade_data=data)
+    return render_template('admin.html')
 
 
 @app.route('/uploadFile/', methods=['POST', 'GET'])
@@ -331,7 +320,7 @@ def submit_paper():
     print_log('submit paper', 'grade = ' + str(grade))
     print_log('submit paper', 'full grade = ' + str(full_grade))
     # 写入数据库
-    sql = 'INSERT INTO ' + student_exam_log_table + ' VALUES (%s, %s, %s, %s, %s, -1)'
+    sql = 'INSERT INTO ' + student_exam_log_table + ' VALUES (%s, %s, %s, %s, %s, -1, now())'
     print_log('submit paper', 'sql = ' + sql)
     try:
         cursor.execute(sql, (exam_id, session.get('user_id'), str(answers), grade, full_grade))
@@ -380,16 +369,104 @@ def student_help():
 
 @app.route('/teacher_modify/', methods=['POST', 'GET'])
 def teacher_modify():
-    paper = dict({'pid': '1234',
-                  'pname': '高等数学',
-                  'teaname': '王力',
-                  'prolist': '123',
-                  'stulist': '456',
-                  'submitted': '789'})
-    ans = dict({'paperid': 12, 'stuid': '161630230', 'submit_time': '2019/12/01-19:00',
-                'keguan_grade': 80, 'zhuguan_grade': 90,
-                'confirmed': True})
-    return render_template('teacherModify.html', paper=paper, ans=ans)
+    print_log('teacher modify', request.method)
+    std_exam_dict = dict(exam_id='', exam_title='', exam_date='', student_submit_exam_list=[])
+    std_submit_exam_dict = dict(student_id=0, student_name='', submit_time='', grade=100, subjective_grade=-1)
+    exam_list = []
+
+    sql = 'SELECT * FROM ' + exam_paper_table + ' WHERE paper_userid=%s'
+    cursor.execute(sql, session.get('user_id'))
+    data = cursor.fetchall()
+    for exam in data:
+        exam_dict = dict(std_exam_dict)
+        exam_dict['exam_id'] = exam.get('paper_id')
+        exam_dict['exam_title'] = exam.get('paper_title')
+        exam_dict['exam_date'] = exam.get('paper_date')
+
+        submit_list = []
+        sql = 'SELECT * FROM ' + student_exam_log_table + ' INNER JOIN ' + user_table + \
+              'ON student_exam_log.student_id=user.user_id ' + \
+              'WHERE paper_id=%s'
+        cursor.execute(sql, exam.get('paper_id'))
+        for submit_log in cursor.fetchall():
+            submit_dict = dict(std_submit_exam_dict)
+            submit_dict['student_name'] = submit_log.get('user_name')
+            submit_dict['student_id'] = submit_log.get('user_id')
+            submit_dict['submit_time'] = submit_log.get('submit_time')
+            submit_dict['grade'] = submit_log.get('grade')
+            submit_dict['subjective_grade'] = submit_log.get('subjective_grade')
+            submit_list.append(submit_dict)
+
+        exam_dict['student_submit_exam_list'] = submit_list
+        exam_list.append(exam_dict)
+
+    return render_template('teacherModify.html', exam_list=exam_list)
+
+
+@app.route('/teacher_check_paper', methods=['GET', 'POST'])
+def teacher_check_paper():
+    # 这个函数跟学生的 show_answers() 逻辑是一样的
+    print_log('teacher check paper', request.method)
+
+    # 提取GET方法的参数
+    paper_id = request.args.get('paper_id')
+    student_id = request.args.get('student_id')
+    student_name = request.args.get('student_name')
+
+    # 找到试卷文件，并提取出试题和正确答案
+    sql = 'SELECT paper_path FROM ' + exam_paper_table + 'WHERE paper_id=%s'
+    cursor.execute(sql, paper_id)
+    path = cursor.fetchone().get('paper_path')
+    std_ans = common_helper.get_std_answers(path)
+    question = common_helper.parse_paper(path)
+
+    # 找到学生选择的试卷的答案
+    sql = 'SELECT answer_json FROM ' + student_exam_log_table + \
+          'WHERE student_id=%s and paper_id=%s'
+    cursor.execute(sql, (student_id, paper_id))
+    answers = json.loads(cursor.fetchone().get('answer_json'))
+
+    for i in range(0, len(question)):
+        question[i]['std_ans'] = std_ans[str(i)]
+        if answers.get(str(i)) is None:
+            continue
+        if question[i].get('q_type') == 'checkbox':
+            is_correct = set(answers[str(i)]) == set(std_ans[str(i)])
+        else:
+            is_correct = answers[str(i)] == std_ans[str(i)]
+        question[i]['is_correct'] = is_correct
+        question[i]['selected'] = answers[str(i)]
+
+    # 找到试卷相关信息
+    sql = 'SELECT * FROM ' + \
+          exam_paper_table + 'INNER JOIN' + user_table + 'ON user.user_id=exam_paper.paper_userid ' + \
+          'WHERE paper_id=%s'
+    cursor.execute(sql, paper_id)
+    data = cursor.fetchone()
+    exam = {'title': data.get('paper_title'), 'exam_id': paper_id, 'teacher': data.get('user_name'),
+            'duration': data.get('paper_time')}
+
+    return render_template('teacher-check-paper.html', question=question, exam=exam,
+                           student=dict(student_name=student_name, student_id=student_id))
+
+
+@app.route('/teacher_submit_grade', methods=['POST', 'GET'])
+def teacher_submit_grade():
+    print_log('teacher submit grade', request.method)
+    paper_id = request.form['paper_id']
+    student_id = request.form['student_id']
+    subjective_grade = request.form['subjective_grade']
+    print_log('teacher submit grade', str(paper_id) + ' ' + str(student_id) + ' ' + str(subjective_grade))
+
+    sql = 'UPDATE ' + student_exam_log_table + ' SET subjective_grade=%s ' + \
+          'WHERE paper_id=%s AND student_id=%s'
+    try:
+        cursor.execute(sql, (subjective_grade, paper_id, student_id))
+        db_connector.commit()
+    except:
+        db_connector.rollback()
+
+    return redirect(url_for('teacher_modify'))
 
 
 @app.route('/teacher_result/', methods=['POST', 'GET'])
@@ -485,13 +562,9 @@ def previwe_paper():
     data = cursor.fetchone()
     exam_dict = {'title': data.get('paper_title'), 'exam_id': exam_id, 'duration': data.get('paper_time'),
                  'date': data.get('paper_date')}
-    return render_template('preview-paper.html', question=common_helper.parse_paper(data.get('paper_path')),
+    return render_template('preview-paper.html',
+                           question=common_helper.parse_paper(data.get('paper_path')),
                            exam=exam_dict)
-
-
-@app.route('/zhuguanti/', methods=['POST', 'GET'])
-def zhuguanti():
-    return render_template('zhuguanti.html')
 
 
 '''

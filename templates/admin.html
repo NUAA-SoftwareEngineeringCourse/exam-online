@@ -49,7 +49,7 @@
                 Activity Log
               </a> -->
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#" @click="logout()">
+              <a class="dropdown-item" href="{{ url_for('logout') }}">
                 <i class="mdi mdi-logout mr-2 text-primary"></i>
                 注销登录
               </a>
@@ -57,7 +57,7 @@
           </li>
           
           <li class="nav-item nav-logout d-none d-lg-block">
-            <a class="nav-link" href="#" @click="logout()">
+            <a class="nav-link" href="{{ url_for('logout') }}">
               <i class="mdi mdi-power"></i>
             </a>
           </li>

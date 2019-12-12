@@ -285,6 +285,11 @@ function goto_about_more()
     window.location.href = 'https://github.com/NUAA-SoftwareEngineeringCourse/exam-online'
 }
 
+function goto_index(){
+    window.location.href = base_url_str
+}
+
+
 
 
 

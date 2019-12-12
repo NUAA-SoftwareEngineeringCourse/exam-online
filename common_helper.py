@@ -88,7 +88,7 @@ def get_grade_segment(student_list: list) -> dict:
             seg['levelB'] += 1
         elif x['grade'] >= 71:
             seg['levelC'] += 1
-        elif x['grade'] >= 61:
+        elif x['grade'] >= 60:
             seg['levelD'] += 1
         else:
             seg['levelE'] += 1

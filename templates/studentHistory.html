@@ -177,14 +177,14 @@
               <thead>
                 <tr>
                   <th>序号</th>
+                  <th>试卷ID</th>
                   <th>考试科目</th>
                   <th>负责老师</th>
                   <th>考试日期</th>
                   <th>考试时长 (min)</th>
                   <th>客观题分数</th>
                   <th>主观题分数</th>
-                  <th>总分</th>
-                  <th>试卷ID</th>
+                  <th>试卷总分</th>
                   <th>#</th>
                 </tr>
               </thead>
@@ -192,6 +192,7 @@
                 {% for exam in exam_history %}
                   <tr>
                     <th scope="row">{{ exam.order }}</th>
+                    <td>{{ exam.exam_id }}</td>
                     <td>{{ exam.title }}</td>
                     <td>{{ exam.teacher }}</td>
                     <td>{{ exam.date }}</td>
@@ -199,7 +200,6 @@
                     <td>{{ exam.grade }}</td>
                     <td>{{ exam.subjective_grade }}</td>
                     <td>{{ exam.full_grade }}</td>
-                    <td>{{ exam.exam_id }}</td>
                     <td><a href="{{ url_for('show_answers', exam_id=exam.exam_id, student_id=user_id) }}">我的答案</a></td>
                   </tr>
                 {% endfor %}

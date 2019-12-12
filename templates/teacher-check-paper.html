@@ -2,7 +2,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static',filename='css/exam.css') }}">
-<script src="{{ url_for('static',filename='javascript/exam.js') }}"></script>
+<script src="../static/javascript/global.js"></script>
 {% endblock %}
 
 {% block body %}
@@ -34,23 +34,18 @@
               </div>
             </div>
             <div style="padding:0 0;margin-left: 12.39px">
-              <button class="btn btn-github  form-control my-2 my-sm-0" id="timer"></button>
-            </div>
-            <div style="padding:0 0;margin-left: 12.39px">
-              <button type="button" class="btn btn-success  form-control my-2 my-sm-0" id="submit">
-                提交试卷
+              <button id="submit-subjective-grade" type="button" class="btn btn-success  form-control my-2 my-sm-0">
+                提交评分
               </button>
             </div>
             <div style="padding:0 0;margin-left: 12.39px">
-              <button type="button" class="btn btn-danger form-control my-2 my-sm-0" id="give_up">
-                放弃考试
-              </button>
             </div>
             {% endif %}
           </div>
         </div>
-      </div>
     </nav>
+  </div>
+
   </div>
 
   <div class="modal fade" tabindex="-1" role="dialog" id="submit_modal">
@@ -100,19 +95,19 @@
   <div class="exam">
     <h6>考试名称：{{ exam.title }}</h6>
     <h6>试卷ID：<span id="exam-id-span">{{ exam.exam_id }}</span></h6>
-    <h6>负责老师：{{ exam.teacher }}</h6>
-    <h6>考试时间：{{ exam.duration }} 分钟</h6>
+    <h6>考生学号：{{ student.student_id }}</h6>
+    <h6>考生姓名：{{ student.student_name }}</h6>
     <strong>一、单项选择题</strong>
     {% for q in question %}
     {% if q.get('q_type')=='radio' %}
-    <div class="p-3 mb-2 bg-info text-white rounded">
-      <p>{{ q.id }}.{{ q.q_text }}</p>
+    <div {% if q.is_correct == true %} class="p-3 mb-2 bg-info text-white rounded" {% else %} class="p-3 mb-2 text-white rounded" style="background-color: orangered" {% endif %}>
+      <p>{{ q.id }} . {{ q.q_text }}</p>
       <p>分值：{{ q.value }}</p>
       <input type="radio" name="{{ q.id }}" value="A"> {{ q.A }}<br>
       <input type="radio" name="{{ q.id }}" value="B"> {{ q.B }}<br>
       <input type="radio" name="{{ q.id }}" value="C"> {{ q.C }}<br>
       <input type="radio" name="{{ q.id }}" value="D"> {{ q.D }}<br>
-      <br>
+      <p>考生答案：{{ q.selected }}<br>正确答案：{{ q.std_ans }}</p>
     </div>
     {% endif %}
 
@@ -123,14 +118,14 @@
     </strong>
     {% for q in question %}
     {% if q.get('q_type')=='checkbox' %}
-    <div class="p-3 mb-2 bg-info text-white rounded">
+    <div {% if q.is_correct == true %} class="p-3 mb-2 bg-info text-white rounded" {% else %} class="p-3 mb-2 text-white rounded" style="background-color: orangered" {% endif %}>
       <p>{{ q.id }}.{{ q.q_text }}</p>
       <p>分值：{{ q.value }}</p>
       <input type="checkbox" name="{{ q.id }}" value="A"> {{ q.A }} <br>
       <input type="checkbox" name="{{ q.id }}" value="B"> {{ q.B }} <br>
       <input type="checkbox" name="{{ q.id }}" value="C"> {{ q.C }} <br>
       <input type="checkbox" name="{{ q.id }}" value="D"> {{ q.D }} <br>
-      <br>
+      <p>考生答案：{{ q.selected }}<br>正确答案：{{ q.std_ans }}</p>
     </div>
     {% endif %}
     {% endfor %}
@@ -140,12 +135,12 @@
     </strong>
     {% for q in question %}
     {% if q.get('q_type')=='decide' %}
-    <div class="p-3 mb-2 bg-info text-white rounded">
+    <div {% if q.is_correct == true %} class="p-3 mb-2 bg-info text-white rounded" {% else %} class="p-3 mb-2 text-white rounded" style="background-color: orangered" {% endif %}>
       <p>{{ q.id }}.{{ q.q_text }}</p>
       <p>分值：{{ q.value }}</p>
       <input type="radio" name="{{ q.id }}" value="1"> 对 <br>
       <input type="radio" name="{{ q.id }}" value="0"> 错 <br>
-      <br>
+      <p>考生答案：{{ q.selected }}<br>正确答案：{{ q.std_ans }}</p>
     </div>
     {% endif %}
     {% endfor %}
@@ -158,52 +153,58 @@
         <div class="p-3 mb-2 bg-info text-white rounded">
         <p>{{ q.id }} . {{ q.q_text }}</p>
         <p>分值：{{ q.value }}</p>
-            <textarea class="textarea" rows="10" cols="150" name="{{ q.id }}">在此写上你的回答。</textarea>
+        <p>考生答案：</p>
+        <textarea class="textarea" rows="5" cols="150" name="{{ q.id }}">{{ q.selected }}</textarea>
+        <p>标准答案：</p>
+        <textarea class="textarea" rows="5" cols="150" name="{{ q.id }}">{{ q.std_ans }}</textarea>
+        <p>考生本题得分：</p><input type="text" class="subjective-grade-text" name="{{ q.id }}">
         </div>
     {% endif %}
     {% endfor %}
-    <script>
-      function check_finished() {
+  </div>
+  <!--该js完成主观题评分的提交-->
+  <script>
+  function submit_subjective_grade() {
+    $('#submit-subjective-grade').click(function () {
+        var grades = document.getElementsByClassName('subjective-grade-text');
+        var sum = 0;
+        for (var i=0; i<grades.length; i++){
+            sum += parseInt(grades[i].value)
+        }
+        alert(sum)
+        $.ajax({
+            url: base_url_str + '/teacher_submit_grade',
+            async: true,
+            type: 'post',
+            data:{
+                'subjective_grade': sum,
+                'paper_id': {{ exam.exam_id }},
+                'student_id': {{ student.student_id }}
+            },
+            success:function () {
+                window.location.href = base_url_str + '/teacher_modify/'
+            }
+        })
+    })
+  }
+  </script>
+  <!--该js令对应的题目显示考生答案-->
+  <script>
+    $(document).ready(function () {
+        submit_subjective_grade()
         {% for q in question %}
-            {% if q.q_type != 'textarea' %}
             var boxes = document.getElementsByName({{ q.id }})
-            var is_finish = false;
-            for (var i=0; i<boxes.length; i++)
+            for(var i=0; i<boxes.length; i++)
             {
-                if (boxes[i].checked == true)
-                {
-                    is_finish = true;
-                    break;
+                if (boxes[i].type != 'text')
+                    boxes[i].disabled = true;
+                if ("{{ q.selected }}".indexOf(boxes[i].value) != -1) {
+                    boxes[i].checked = true;
                 }
             }
-            if (is_finish == false)
-            {
-                alert('请回答题目 {{ q.id }} 后再次提交。');
-                return false;
-            }
-            {% endif %}
         {% endfor %}
-        return true;
-      }
-    </script>
-    <script type="text/javascript">
-    var maxtime = {{ exam.duration }} * 60; //
-    function CountDown() {
-        if (maxtime >= 0) {
-            minutes = Math.floor(maxtime / 60);
-            seconds = Math.floor(maxtime % 60);
-            msg = "" + minutes + "分" + seconds + "秒";
-            document.all["timer"].innerHTML = msg;
-            if (maxtime == 5 * 60) alert("距离结束仅剩5分钟");
-            --maxtime;
-        } else {
-            clearInterval(timer);
-            alert("时间到，结束!");
-        }
-    }
-    timer = setInterval("CountDown()", 1000);
-    </script>
-  </div>
+    })
+  </script>
 
   {% else %}
   <script>
@@ -225,3 +226,4 @@
   {% endif %}
 </body>
 {% endblock %}
+

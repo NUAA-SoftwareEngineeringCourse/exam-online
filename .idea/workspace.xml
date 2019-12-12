@@ -3,9 +3,25 @@
   <component name="ChangeListManager">
     <list default="true" id="3e85c9fd-b688-4174-a643-49d69ba7dc6b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test-操作系统.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Test-操作系统.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test-数据结构.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Test-数据结构.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test-计算机网络.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Test-计算机网络.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/common_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/show-answers.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/show-answers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/javascript/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/javascript/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/charts.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/exam.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/exam.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/forms.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/results.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/studentHistory.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/studentHistory.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/studentResult.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tables.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/teacherModify.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/zhuguanti.html" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,7 +30,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/exam_online$SinWeb.coverage" NAME="SinWeb Coverage Results" MODIFIED="1575987596228" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/exam_online$SinWeb.coverage" NAME="SinWeb Coverage Results" MODIFIED="1576156523576" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/SinWeb$SinWeb.coverage" NAME="SinWeb Coverage Results" MODIFIED="1573566782735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
@@ -22,8 +38,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
-              <caret line="470" column="37" selection-start-line="470" selection-start-column="37" selection-end-line="470" selection-end-column="37" />
+            <state relative-caret-position="566">
+              <caret line="495" column="37" lean-forward="true" selection-start-line="495" selection-start-column="37" selection-end-line="495" selection-end-column="37" />
               <folding>
                 <element signature="e#0#86#0" expanded="true" />
               </folding>
@@ -32,64 +48,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/show-answers.html">
+        <entry file="file://$PROJECT_DIR$/sql_helper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="157" column="24" selection-start-line="157" selection-start-column="24" selection-end-line="157" selection-end-column="24" />
+            <state relative-caret-position="403">
+              <caret line="19" column="72" selection-start-line="19" selection-start-column="72" selection-end-line="19" selection-end-column="72" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/studentHistory.html">
+        <entry file="file://$PROJECT_DIR$/templates/teacherModify.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4646">
-              <caret line="202" column="51" selection-start-line="202" selection-start-column="51" selection-end-line="202" selection-end-column="51" />
+            <state relative-caret-position="507">
+              <caret line="284" column="137" selection-start-line="284" selection-start-column="137" selection-end-line="284" selection-end-column="137" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common_helper.py">
+        <entry file="file://$PROJECT_DIR$/templates/teacher-check-paper.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="140" column="102" selection-start-line="140" selection-start-column="102" selection-end-line="140" selection-end-column="102" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/exam.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="160" column="16" lean-forward="true" selection-start-line="148" selection-end-line="160" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/javascript/exam.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1449">
-              <caret line="63" column="63" selection-start-line="63" selection-start-column="63" selection-end-line="63" selection-end-column="63" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="12" column="94" selection-start-line="12" selection-start-column="94" selection-end-line="12" selection-end-column="94" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/javascript/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6440">
-              <caret line="280" selection-start-line="280" selection-end-line="280" />
+            <state relative-caret-position="92">
+              <caret line="4" column="43" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
+              <folding>
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#nav#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#nav#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#3;n#body#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#3;n#body#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -108,40 +94,41 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>.id</find>
-      <find>id</find>
-      <find>.name</find>
-      <find>teacher_result</find>
-      <find>注销</find>
-      <find>Logout</find>
-      <find>logout</find>
-      <find>我的答案</find>
-      <find>user_id</find>
-      <find>start</find>
-      <find>paper_path</find>
-      <find>p-3 mb-2 bg-info text-white rounded</find>
-      <find>path</find>
-      <find>check_id</find>
-      <find>用户列表</find>
-      <find>exam.</find>
-      <find>提交试卷</find>
-      <find>studentExam</find>
       <find>zhuguanti</find>
       <find>开始考</find>
       <find>parse_paper</find>
       <find>teacherIndex</find>
       <find>preview</find>
-      <find>进入主页</find>
       <find>user_type</find>
       <find>name</find>
       <find>user_name</find>
       <find>alert</find>
       <find>submit</find>
       <find>show</find>
+      <find>高数考试</find>
+      <find>进入主页</find>
+      <find>work</find>
+      <find>teacherModify</find>
+      <find>exam.id</find>
+      <find>paper_id</find>
+      <find>index</find>
+      <find>adminIndex</find>
+      <find>submit_paper</find>
+      <find>exam</find>
+      <find>card-</find>
+      <find>注销</find>
+      <find>card</find>
+      <find>card-body</find>
+      <find>返回主页</find>
+      <find>我的答案</find>
+      <find>批改试卷</find>
+      <find>modify</find>
+      <find>提交评分</find>
     </findStrings>
     <replaceStrings>
       <replace>../static/css</replace>
       <replace>../static/images</replace>
+      <replace>exam.exam_id</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -150,7 +137,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/config-mysql.py" />
         <option value="$PROJECT_DIR$/templates/teacher.html" />
         <option value="$PROJECT_DIR$/templates/student.html" />
@@ -168,15 +154,12 @@
         <option value="$PROJECT_DIR$/mysql/student_exam.sql" />
         <option value="$PROJECT_DIR$/static/js/front.js" />
         <option value="$PROJECT_DIR$/config.py" />
-        <option value="$PROJECT_DIR$/sql_helper.py" />
-        <option value="$PROJECT_DIR$/templates/teacherModify.html" />
         <option value="$PROJECT_DIR$/templates/teacherResult.html" />
         <option value="$PROJECT_DIR$/templates/studentExam.html" />
         <option value="$PROJECT_DIR$/templates/studentHelp.html" />
         <option value="$PROJECT_DIR$/static/javascript/show-answer.js" />
         <option value="$PROJECT_DIR$/mysql/teacher_student.sql" />
         <option value="$PROJECT_DIR$/mysql/user.sql" />
-        <option value="$PROJECT_DIR$/templates/admin.html" />
         <option value="$PROJECT_DIR$/templates/admin-create.html" />
         <option value="$PROJECT_DIR$/templates/admin-examlist.html" />
         <option value="$PROJECT_DIR$/templates/admin-userlist.html" />
@@ -189,15 +172,22 @@
         <option value="$PROJECT_DIR$/static/javascript/showAnswer.js" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/templates/preview-paper.html" />
-        <option value="$PROJECT_DIR$/static/javascript/index.js" />
-        <option value="$PROJECT_DIR$/templates/index.html" />
-        <option value="$PROJECT_DIR$/templates/exam.html" />
         <option value="$PROJECT_DIR$/static/javascript/exam.js" />
-        <option value="$PROJECT_DIR$/templates/studentHistory.html" />
         <option value="$PROJECT_DIR$/mysql/student_exam_log.sql" />
+        <option value="$PROJECT_DIR$/templates/show-answers.html" />
+        <option value="$PROJECT_DIR$/static/javascript/index.js" />
+        <option value="$PROJECT_DIR$/templates/exam.html" />
+        <option value="$PROJECT_DIR$/templates/index.html" />
+        <option value="$PROJECT_DIR$/templates/admin.html" />
+        <option value="$PROJECT_DIR$/templates/studentHistory.html" />
+        <option value="$PROJECT_DIR$/templates/pigaishijuan.html" />
+        <option value="$PROJECT_DIR$/static/javascript/teacher_check_paper.js" />
+        <option value="$PROJECT_DIR$/templates/teacherModify.html" />
+        <option value="$PROJECT_DIR$/static/javascript/global.js" />
+        <option value="$PROJECT_DIR$/templates/teacher-check-paper.html" />
         <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/common_helper.py" />
-        <option value="$PROJECT_DIR$/templates/show-answers.html" />
+        <option value="$PROJECT_DIR$/sql_helper.py" />
       </list>
     </option>
   </component>
@@ -220,6 +210,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -245,13 +236,24 @@
             <path>
               <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
               <item name="exam-online" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="javascript" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="exam-online" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="vendor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="exam-online" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -264,17 +266,17 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Other File Types" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\Program Files\PyCharm\workspace\exam-online\static\img" />
-      <recent name="E:\Program Files\PyCharm\workspace\exam-online" />
-      <recent name="E:\Program Files\PyCharm\workspace\exam-online\static" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Program Files\PyCharm\workspace\exam-online\templates" />
       <recent name="E:\Program Files\PyCharm\workspace\exam-online\static\javascript" />
       <recent name="E:\Program Files\PyCharm\workspace\exam-online\static" />
       <recent name="E:\Program Files\PyCharm\workspace\exam-online\static\js" />
       <recent name="E:\Program Files\PyCharm\workspace\exam-online\static\css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Program Files\PyCharm\workspace\exam-online\static\img" />
+      <recent name="E:\Program Files\PyCharm\workspace\exam-online" />
+      <recent name="E:\Program Files\PyCharm\workspace\exam-online\static" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -353,12 +355,15 @@
       <workItem from="1575785407020" duration="9692000" />
       <workItem from="1575887798911" duration="3338000" />
       <workItem from="1575978075108" duration="6835000" />
-      <workItem from="1575986657300" duration="906000" />
+      <workItem from="1575986657300" duration="2617000" />
+      <workItem from="1575989774751" duration="405000" />
+      <workItem from="1576051323291" duration="444000" />
+      <workItem from="1576128907076" duration="18875000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="175995000" />
+    <option name="totallyTimeSpent" value="197430000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -371,14 +376,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.75979555" visible="true" weight="0.18297587" />
-      <window_info id="Structure" order="1" sideWeight="0.24020442" side_tool="true" visible="true" weight="0.18297587" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.46103895" visible="true" weight="0.14477211" />
+      <window_info id="Structure" order="1" sideWeight="0.53896105" side_tool="true" visible="true" weight="0.14477211" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.04249292" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.16855524" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.44050992" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5694051" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -387,7 +391,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.36260623" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.34560907" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3286119" />
       <window_info anchor="bottom" id="Thumbnails" order="13" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -401,161 +405,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../SinWeb/templates/base.html" />
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/flask_uploads.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="305" column="8" selection-start-line="305" selection-start-column="8" selection-end-line="305" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../.PyCharm2018.3/system/python_stubs/2122032222/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="737" column="8" selection-start-line="737" selection-start-column="8" selection-end-line="737" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/images/boy.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascript/teacherExam.js" />
-    <entry file="file://$PROJECT_DIR$/templates/results.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="49" column="15" selection-start-line="49" selection-start-column="15" selection-end-line="49" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/charts-custom.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/studentResult.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1301">
-          <caret line="206" column="22" selection-start-line="206" selection-start-column="22" selection-end-line="206" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/xinziyuan/js/misc.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/icon.jpg" />
-    <entry file="file://$PROJECT_DIR$/templates/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-414">
-          <caret line="3" column="26" lean-forward="true" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/front.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="29" column="7" lean-forward="true" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysql/exampaper.sql" />
-    <entry file="file://$PROJECT_DIR$/templates/teacherExam.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="175" column="59" selection-start-line="175" selection-start-column="57" selection-end-line="175" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/teacherModify.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="142" column="47" selection-start-line="142" selection-start-column="47" selection-end-line="142" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/teacherResult.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="210" column="45" selection-start-line="210" selection-start-column="45" selection-end-line="210" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/studentHelp.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="155" column="46" selection-start-line="155" selection-start-column="37" selection-end-line="155" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/tables.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-322" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/bootstrap/css/bootstrap.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="5" column="129441" selection-start-line="5" selection-start-column="129441" selection-end-line="5" selection-end-column="129441" />
-          <folding>
-            <element signature="e#61909#62109#2" expanded="true" />
-            <element signature="e#62317#62466#2" expanded="true" />
-            <element signature="e#62968#63114#2" expanded="true" />
-            <element signature="e#63415#63581#1" expanded="true" />
-            <element signature="e#74301#74544#2" expanded="true" />
-            <element signature="e#75411#75660#2" expanded="true" />
-            <element signature="e#101957#102147#2" expanded="true" />
-            <element signature="e#102193#102383#2" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/studentExam.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1782">
-          <caret line="165" column="45" selection-start-line="165" selection-start-column="45" selection-end-line="165" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/pymysql/err.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="108" selection-start-line="108" selection-end-line="108" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sql_helper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="13" column="45" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascript/admin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-365" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/admin-create.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="85" column="46" selection-start-line="85" selection-start-column="46" selection-end-line="85" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/admin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="117" column="86" selection-start-line="117" selection-start-column="86" selection-end-line="117" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/admin-userlist.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1104">
@@ -622,20 +471,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/zhuguanti.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="215" column="30" lean-forward="true" selection-start-line="215" selection-start-column="30" selection-end-line="215" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascript/showAnswer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/javascript/previewPaper.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -660,34 +495,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/studentHistory.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4646">
-          <caret line="202" column="51" selection-start-line="202" selection-start-column="51" selection-end-line="202" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascript/exam.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1449">
-          <caret line="63" column="63" selection-start-line="63" selection-start-column="63" selection-end-line="63" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" column="94" selection-start-line="12" selection-start-column="94" selection-end-line="12" selection-end-column="94" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascript/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6440">
-          <caret line="280" selection-start-line="280" selection-end-line="280" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysql/student_exam_log.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
@@ -695,34 +502,229 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common_helper.py">
+    <entry file="file://$PROJECT_DIR$/templates/teacherModify.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="140" column="102" selection-start-line="140" selection-start-column="102" selection-end-line="140" selection-end-column="102" />
+        <state relative-caret-position="3289">
+          <caret line="143" column="72" selection-start-line="143" selection-start-column="72" selection-end-line="143" selection-end-column="72" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/exam.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="160" column="16" lean-forward="true" selection-start-line="148" selection-end-line="160" selection-end-column="16" />
+        <state relative-caret-position="120">
+          <caret line="189" column="34" selection-start-line="189" selection-start-column="34" selection-end-line="189" selection-end-column="34" />
+          <folding>
+            <element signature="e#1655#1695#0#HTML" expanded="true" />
+            <element signature="e#1655#1695#0#HTML" expanded="true" />
+            <element signature="e#1878#1918#0#HTML" expanded="true" />
+            <element signature="e#5974#6589#0#HTML" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/img/xiaoming.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/img/template-mac.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/img/multiselect-switch.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/img/mockup7.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/img/mockup6.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/img/mockup3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/img/China-Flag.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/boy.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/girl.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/work1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/work2.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/work3-bak.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/work3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="68" column="42" lean-forward="true" selection-start-line="68" selection-start-column="42" selection-end-line="68" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/teacherResult.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="333" column="44" selection-start-line="333" selection-start-column="36" selection-end-line="333" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/pigaishijuan.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="250" column="46" selection-start-line="250" selection-start-column="46" selection-end-line="250" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/admin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="790">
+          <caret line="59" column="62" selection-start-line="59" selection-start-column="62" selection-end-line="59" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="5" column="77951" selection-start-line="5" selection-start-column="77904" selection-end-line="5" selection-end-column="77951" />
+          <folding>
+            <element signature="e#25977#26211#2" expanded="true" />
+            <element signature="e#26816#26969#1" expanded="true" />
+            <element signature="e#27009#27243#1" expanded="true" />
+            <element signature="e#30336#30612#2" expanded="true" />
+            <element signature="e#31245#31398#1" expanded="true" />
+            <element signature="e#31438#31714#1" expanded="true" />
+            <element signature="e#61310#61497#2" expanded="true" />
+            <element signature="e#61726#61862#2" expanded="true" />
+            <element signature="e#62265#62398#2" expanded="true" />
+            <element signature="e#63869#64022#1" expanded="true" />
+            <element signature="e#76076#76306#2" expanded="true" />
+            <element signature="e#77173#77409#2" expanded="true" />
+            <element signature="e#104435#104612#2" expanded="true" />
+            <element signature="e#104658#104835#2" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/studentResult.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1044">
+          <caret line="180" column="46" selection-start-line="180" selection-start-column="46" selection-end-line="180" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/results.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-140">
+          <caret line="58" column="68" selection-start-line="58" selection-start-column="68" selection-end-line="58" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/zhuguanti.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2007">
+          <caret line="136" column="46" selection-start-line="136" selection-start-column="46" selection-end-line="136" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/show-answers.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3611">
+          <caret line="157" column="20" lean-forward="true" selection-start-line="157" selection-start-column="20" selection-end-line="157" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascript/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="288" column="39" selection-start-line="288" selection-start-column="39" selection-end-line="288" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascript/showAnswer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" selection-start-line="8" selection-end-line="10" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/studentHistory.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="202" column="110" selection-start-line="202" selection-start-column="106" selection-end-line="202" selection-end-column="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascript/teacher_check_paper.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/teacherModify.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="507">
+          <caret line="284" column="137" selection-start-line="284" selection-start-column="137" selection-end-line="284" selection-end-column="137" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascript/exam.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascript/global.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="38" selection-start-column="38" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_helper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="90" column="29" selection-start-line="90" selection-start-column="29" selection-end-line="90" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/teacher-check-paper.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" column="43" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#nav#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#nav#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#3;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#3;n#body#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="470" column="37" selection-start-line="470" selection-start-column="37" selection-end-line="470" selection-end-column="37" />
+        <state relative-caret-position="566">
+          <caret line="495" column="37" lean-forward="true" selection-start-line="495" selection-start-column="37" selection-end-line="495" selection-end-column="37" />
           <folding>
             <element signature="e#0#86#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/show-answers.html">
+    <entry file="file://$PROJECT_DIR$/sql_helper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="157" column="24" selection-start-line="157" selection-start-column="24" selection-end-line="157" selection-end-column="24" />
+        <state relative-caret-position="403">
+          <caret line="19" column="72" selection-start-line="19" selection-start-column="72" selection-end-line="19" selection-end-column="72" />
         </state>
       </provider>
     </entry>
