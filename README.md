@@ -30,7 +30,7 @@
   pip install xxx
   ```
 
-+ 数据库建立
++ 数据库建立  
   此处未经过测试，该 sql 脚本由 `mysqldump` 导出。
   `exam_paper` 的 `paper_path` 字段存储上传文件的路径，使用的是绝对路径，请修改为 **你电脑上的相应绝对路径** 。
   ```bash
