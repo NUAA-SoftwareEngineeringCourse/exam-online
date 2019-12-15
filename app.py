@@ -649,7 +649,6 @@ def teacher_personal_info():
     user_id = session.get('user_id')
     sql = 'SELECT * FROM user WHERE user_id = \'' + user_id + '\' '
 
-    user_list = list()
     user_dict = {'user_id:': '', 'user_name': '', 'user_email': ''}
 
     cursor.execute(sql)
@@ -659,6 +658,19 @@ def teacher_personal_info():
     u['user_name'] = userdata[0].get('user_name')
     u['user_email'] = userdata[0].get('user_email')
     return render_template('teacher-personInfo.html', person=u)
+
+
+@app.route('/student_personal_info/', methods=['POST', 'GET'])
+def student_personal_info():
+    user_id = session.get('user_id')
+    sql = 'SELECT * FROM ' + user_table + ' WHERE user_id=%s'
+    cursor.execute(sql, user_id)
+    data = cursor.fetchone()
+    u = dict()
+    u['user_id'] = user_id
+    u['user_name'] = data.get('user_name')
+    u['user_email'] = data.get('user_email')
+    return render_template('student-personInfo.html', person=u)
 
 
 @app.route('/modifyPwd/', methods=['POST', 'GET'])
@@ -684,7 +696,10 @@ def modifyPwd():
         return '密码长度不足8位！'
     sql = 'update user set user_password = \'' + newpwd + '\'  where user_id = \'' + user_id + '\' '
     cursor.execute(sql)
-    return redirect(url_for('teacher_personal_info'))
+    if user_id[0] == 'T':
+        return redirect(url_for('teacher_personal_info'))
+    else:
+        return redirect(url_for('student_personal_info'))
 
 
 if __name__ == '__main__':
