@@ -4,10 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ user_name }} - 教师端</title>
+  <title>{{ user_name }} - 学生端</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
+
   <!-- Bootstrap CSS-->
   <link rel="stylesheet" href="../static/vendor/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome CSS-->
@@ -56,19 +57,12 @@
       <div class="main-menu">
         <h5 class="sidenav-heading">导航</h5>
         <ul id="side-main-menu" class="side-menu list-unstyled">
-          <li><a href="{{ url_for('teacherIndex') }}"> <i class="icon-home"></i>教师主页 </a></li>
-          <li><a href="{{ url_for('teacher_personal_info') }}"> <i class="icon-flask"></i>个人资料</a></li>
-          <li><a href="{{ url_for('teacherExam') }}"> <i class="icon-form"></i>发布考试 </a></li>
-          <li><a href="{{ url_for('teacher_modify') }}"> <i class="fa fa-bar-chart"></i>批改试卷 </a></li>
-          <li><a href="{{ url_for('teacher_result') }}"> <i class="icon-grid"></i>查看考试成绩 </a></li>
-          <li><a href="{{ url_for('teacherIndex') }}"> <i class="icon-interface-windows"></i>帮助 </a></li>
-          <li>
-            <a href="#">
-              <i class="icon-mail"></i>
-              更多...
-              <div class="badge badge-warning">New</div>
-            </a>
-          </li>
+          <li><a href="{{ url_for('studentIndex') }}"> <i class="icon-home"></i>学生主页 </a></li>
+          <li><a href="{{ url_for('student_personal_info') }}"> <i class="icon-flask"></i>个人资料</a></li>
+          <li><a href="{{ url_for('studentExam') }}"> <i class="icon-form"></i>开始考试</a></li>
+          <li><a href="{{ url_for('student_history') }}"> <i class="icon-grid"></i>查看历史成绩 </a></li>
+          <li><a href="{{ url_for('student_help') }}"> <i class="icon-interface-windows"></i>帮助 </a></li>
+          <li> <a href="#"> <i class="icon-mail"></i>更多...<div class="badge badge-warning">New</div></a></li>
         </ul>
       </div>
     </div>
@@ -81,12 +75,16 @@
       <nav class="navbar">
         <div class="container-fluid">
           <div class="navbar-holder d-flex align-items-center justify-content-between">
-            <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars">
-                </i></a><a href="index.html" class="navbar-brand">
+            <div class="navbar-header">
+              <a id="toggle-btn" href="#" class="menu-btn">
+                <i class="icon-bars"></i>
+              </a>
+              <a href="index.html" class="navbar-brand">
                 <div class="brand-text d-none d-md-inline-block">
-                  <strong class="text-primary">考试系统 - 教师端</strong>
+                  <strong class="text-primary">考试系统 - 学生端</strong>
                 </div>
-              </a></div>
+              </a>
+            </div>
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
               <!-- Notifications dropdown-->
               <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#"
@@ -179,51 +177,107 @@
       </nav>
     </header>
     <!-- 页面显示部分 -->
-
-    <!-- 考试清单 -->
-    <section class="mt-30px mb-30px">
+    <!-- Breadcrumb-->
+    <div class="breadcrumb-holder">
       <div class="container-fluid">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ url_for('studentIndex') }}">主页</a></li>
+          <li class="breadcrumb-item active">个人中心</li>
+        </ul>
+      </div>
+    </div>
+    <section class="forms">
+      <div class="container-fluid">
+        <!-- Page Header-->
+        <header>
+          <h1 class="h3 display">个人中心</h1>
+        </header>
         <div class="row">
-          <div class="col-lg-7 col-md-12">
-            <!-- Recent Updates Widget          -->
-            <div id="new-updates" class="card updates recent-updated">
-              <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
-                <h2 class="h5 display">
-                  <a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true"
-                    aria-controls="updates-box">我已发布的考试</a>
-                </h2>
-                <a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true"
-                  aria-controls="updates-box">
-                  <i class="fa fa-angle-down"></i>
-                </a>
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header d-flex align-items-center">
+                <h4>个人资料信息</h4>
               </div>
-              <div id="updates-box" role="tabpanel" class="collapse show">
-                <ul class="news list-unstyled">
-                  <!-- 动态模板，产生已发布的考试-->
-                  {% for exam in exam_list %}
-                  <li class="d-flex justify-content-between">
-                    <div class="left-col d-flex">
-                      <div class="icon"><i class="icon-rss-feed"></i></div>
-                      <div class="title">
-                        <strong> {{ exam.title }}</strong>
-                        <p>{{ exam.description }}</p>
-                        <p>考试时间：{{ exam.time }}</p>
-                        <p>考试时长：{{ exam.duration }} 分钟</p>
-                        <p>是否开卷：{{ exam.is_open }}</p>
-                        <a href="{{ url_for('previwe_paper', exam_id=exam.exam_id) }}">预览考卷</a>
-                      </div>
+              <div class="card-body">
+                  <div class="form-group row">
+                    <label class="col-lg-1 form-control-label"><strong>账户id</strong></label>
+                    <div class="col-sm-10">
+                      <input disabled="disabled" type="text" class="form-control" name="exam-title-input" value="{{person.user_id}}"
+                        id="exam-title-input" required>
                     </div>
-                    <div class="right-col text-right">
-                      <div class="update-date">{{ exam.day }}
-                        <span class="month">{{ exam.month }}, {{ exam.year }}</span>
-                      </div>
+                  </div>
+                  <div class="line"></div>
+
+                  
+                  <div class="form-group row">
+                    <label class="col-lg-1 form-control-label"><strong>姓名</strong></label>
+                    <div class="col-sm-10">
+                      <input  disabled="disabled" type="text" class="form-control" name="exam-title-input" value="{{person.user_name}}"
+                        id="exam-title-input" required>
                     </div>
-                  </li>
-                  {% endfor %}
-                </ul>
+                  </div>
+                  <div class="line"></div>
+
+                  
+                  <div class="form-group row">
+                    <label class="col-lg-1 form-control-label"><strong>邮箱</strong></label>
+                    <div class="col-sm-10">
+                      <input  disabled="disabled" type="text" class="form-control" name="exam-title-input" value="{{person.user_email}}"
+                        id="exam-title-input" required>
+                    </div>
+                  </div>
+                  <div class="line"></div>
+
               </div>
             </div>
-            <!-- Recent Updates Widget End-->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header d-flex align-items-center">
+                <h4>修改密码</h4>
+              </div>
+              <div class="card-body">
+                <form class="form-horizontal" action="{{ url_for('modifyPwd') }}" method="post"
+                  enctype="multipart/form-data">
+                  <div class="form-group row">
+                    <label class="col-lg-1 form-control-label"><strong>原密码</strong></label>
+                    <div class="col-sm-10">
+                      <input placeholder="原密码" type="text" class="form-control" name="old_pwd"
+                        id="old_pwd" required>
+                    </div>
+                  </div>
+                  <div class="line"></div>
+
+                  
+                  <div class="form-group row">
+                    <label class="col-lg-1 form-control-label"><strong>新密码</strong></label>
+                    <div class="col-sm-10">
+                      <input placeholder="新密码" type="text" class="form-control" name="new_pwd"
+                        id="new_pwd" required>
+                    </div>
+                  </div>
+                  <div class="line"></div>
+                  
+                  <div class="form-group row">
+                    <label class="col-lg-1 form-control-label"><strong>确认密码</strong></label>
+                    <div class="col-sm-10">
+                      <input placeholder="确认密码" type="text" class="form-control" name="con_pwd"
+                        id="con_pwd" required>
+                    </div>
+                  </div>
+                  <div class="line"></div>
+                  
+                  <div class="form-group row">
+                    <div class="col-sm-2 offset-sm-1">
+                      <button type="submit" class="btn btn-primary" id="pwdbutton" >确定修改</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
