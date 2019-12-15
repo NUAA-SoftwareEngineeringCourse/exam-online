@@ -19,7 +19,7 @@ student_exam_log_table = ' student_exam_log '
 
 
 # exam_paper table columns
-exam_paper_columns = '(paper_title, paper_desc, paper_time, paper_date, paper_open, paper_path, paper_userid)'
+exam_paper_columns = '(paper_title, paper_desc, paper_time, paper_date, paper_open, paper_path, paper_userid, paper_class)'
 
 
 # Sample for insert and select

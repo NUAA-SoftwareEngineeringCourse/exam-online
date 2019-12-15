@@ -185,10 +185,10 @@ def studentIndex():
                      'month': '', 'duration': '', 'time': '', 'teacher': ''})
     print_log('studentIndex', str(std_dict))
     exam_list = []
-    sql = 'SELECT paper_title, paper_desc, paper_date, user_name, paper_time FROM ' + \
-          exam_paper_table + ' INNER JOIN ' + user_table + ' ON user.user_id=exam_paper.paper_userid ' + \
-          'WHERE paper_userid IN ' + \
-          '(SELECT teacher_id FROM ' + teacher_student_table + ' WHERE student_id=%s)'
+    sql = 'SELECT * FROM ' + \
+          exam_paper_table + ' INNER JOIN ' + teacher_student_table + ' ON exam_paper.paper_id=teacher_student.paper_id ' + \
+          'INNER JOIN ' + user_table + ' ON user.user_id=teacher_student.teacher_id ' + \
+          'WHERE student_id=%s'
     print_log('student index', sql)
     cursor.execute(sql, session.get('user_id'))
     results = cursor.fetchall()
@@ -211,11 +211,11 @@ def studentExam():
     print_log('student exam', request.method)
     exam_dict = {'title': '', 'teacher_name': '', 'date': '', 'duration': 0, 'is_open': 0, 'exam_id': -1}
     exam_list = list()
-    # 该学生关联的老师发布的所有考试
-    sql = 'SELECT paper_title, user_name, paper_date, paper_time, paper_open, paper_id FROM ' + \
-          exam_paper_table + ' INNER JOIN ' + user_table + ' ON user.user_id=exam_paper.paper_userid ' + \
-          'WHERE paper_userid IN ' + \
-          '(SELECT teacher_id FROM ' + teacher_student_table + ' WHERE student_id=%s)'
+    # 该学生关联的老师发布的考试
+    sql = 'SELECT * FROM ' + \
+          exam_paper_table + ' INNER JOIN ' + teacher_student_table + ' ON exam_paper.paper_id=teacher_student.paper_id ' + \
+          'INNER JOIN ' + user_table + ' ON user.user_id=teacher_student.teacher_id ' + \
+          'WHERE student_id=%s'
     cursor.execute(sql, session.get('user_id'))
     data = cursor.fetchall()
 
@@ -256,12 +256,14 @@ def uploadFile():
     paper_date = request.form.get('exam-date-input')
     paper_open = (request.form.get('optionsRadios') == 'open-paper')
     paper_file = request.files['exam-file-input']
+    paper_class = request.form.get('exam-class-input')
     print('paper-title', paper_title, type(paper_title))
     print('paper-desc', paper_desc, type(paper_desc))
     print('paper-time', paper_time, type(paper_time))
     print('paper-date', paper_date, type(paper_date))
     print('paper-open', paper_open, type(paper_open))
     print('paper-file', paper_file, type(paper_file))
+    print('paper-class', paper_class)
 
     # 上传文件到项目路径下的 upload_path / paper_path
     paper_set.save(paper_file, name=session.get('user_id') + '-' + paper_title + '.xlsx')
@@ -273,13 +275,36 @@ def uploadFile():
                           paper_path,
                           session.get('user_id') + '-' + paper_title + '.xlsx')
     sql = 'insert into ' + exam_paper_table + exam_paper_columns + \
-          'values' + '(%s, %s, %s, %s, %s, %s, %s)'
+          'values' + '(%s, %s, %s, %s, %s, %s, %s, %s)'
     try:
         cursor.execute(sql, (paper_title, paper_desc, paper_time,
-                             paper_date, paper_open, file_path, user_id))
+                             paper_date, paper_open, file_path,
+                             user_id, paper_class))
         db_connector.commit()
     except Exception as e:
         db_connector.rollback()
+
+    # 获取上面新增试卷的ID
+    sql = 'SELECT max(paper_id) FROM ' + exam_paper_table
+    cursor.execute(sql)
+    paper_id = cursor.fetchone().get('max(paper_id)')
+
+    print_log('upload files', str(paper_id))
+
+    # 在 teacher_student 中建立关联
+    for c in paper_class.split(';'):
+        if c != '':
+            sql = 'SELECT * FROM `user` WHERE user_id LIKE %s'
+            cursor.execute(sql, c+'%')
+            students = cursor.fetchall()
+            for s in students:
+                print_log('upload files', s.get('user_id'))
+                sql = 'INSERT INTO ' + teacher_student_table + ' VALUES (%s,%s,%s)'
+                try:
+                    cursor.execute(sql, (user_id, s.get('user_id'), paper_id))
+                    db_connector.commit()
+                except:
+                    db_connector.rollback()
 
     return redirect(url_for('teacherIndex'))
 
