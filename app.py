@@ -643,5 +643,49 @@ def admin_createUser():
     return render_template('admin-create.html')
 
 
+# leo's code: personal info
+@app.route('/teacher_personal_info/', methods=['GET', 'POST'])
+def teacher_personal_info():
+    user_id = session.get('user_id')
+    sql = 'SELECT * FROM user WHERE user_id = \'' + user_id + '\' '
+
+    user_list = list()
+    user_dict = {'user_id:': '', 'user_name': '', 'user_email': ''}
+
+    cursor.execute(sql)
+    userdata = cursor.fetchall()
+    u = dict(user_dict)
+    u['user_id'] = userdata[0].get('user_id')
+    u['user_name'] = userdata[0].get('user_name')
+    u['user_email'] = userdata[0].get('user_email')
+    return render_template('teacher-personInfo.html', person=u)
+
+
+@app.route('/modifyPwd/', methods=['POST', 'GET'])
+def modifyPwd():
+    user_id = session.get('user_id')
+    if user_id is None:
+        return '请先登录！'
+
+    sql = 'SELECT * FROM user WHERE user_id = \'' + user_id + '\' '
+    cursor.execute(sql)
+    userdata = cursor.fetchall()
+    password = userdata[0].get('user_password')
+
+    oldpwd = request.form.get('old_pwd')
+    newpwd = request.form.get('new_pwd')
+    conpwd = request.form.get('con_pwd')
+
+    if password != oldpwd:
+        return '原密码不正确！'
+    if newpwd != conpwd:
+        return '确认密码不一致！'
+    if len(newpwd) < 8:
+        return '密码长度不足8位！'
+    sql = 'update user set user_password = \'' + newpwd + '\'  where user_id = \'' + user_id + '\' '
+    cursor.execute(sql)
+    return redirect(url_for('teacher_personal_info'))
+
+
 if __name__ == '__main__':
     app.run(debug=True, threaded=True, port=5000)
