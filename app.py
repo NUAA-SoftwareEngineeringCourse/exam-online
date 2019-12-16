@@ -4,9 +4,9 @@ from config import cursor, db_connector
 from config import user_table, exam_paper_table, teacher_student_table, exam_paper_columns, student_exam_log_table
 from os import path
 
+
 import common_helper
 import os
-import time
 import sql_helper
 import json
 
@@ -317,6 +317,7 @@ def start_exam():
     sql = 'SELECT * FROM ' + exam_paper_table + ' WHERE paper_id=%s'
     cursor.execute(sql, str(exam_id))
     data = cursor.fetchone()
+
 
     sql2 = 'SELECT user_name FROM ' + user_table + ' WHERE user_id=%s'
     cursor.execute(sql2, data.get('paper_userid'))

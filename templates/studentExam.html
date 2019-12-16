@@ -253,7 +253,19 @@
     {% for exam in exam_list %}
     function start_exam{{ exam.exam_id }}() {
         $('#start-exam-button{{ exam.exam_id }}').click(function () {
-            window.location.href = base_url_str + '/start_exam/?exam_id={{ exam.exam_id }}'
+            var now = new Date().getTime();
+            var open_time = new Date("{{ exam.date }}").getTime();
+            var diff = now - open_time;
+            if (!(diff>0 && diff<15*60))
+            {
+                alert("{{ exam.title }}考试未开放!")
+                {#window.location.href = base_url_str + '/start_exam/?exam_id={{ exam.exam_id }}'#}
+                return
+            }
+            else
+            {
+                window.location.href = base_url_str + '/start_exam/?exam_id={{ exam.exam_id }}'
+            }
         })
     }
     {% endfor %}
