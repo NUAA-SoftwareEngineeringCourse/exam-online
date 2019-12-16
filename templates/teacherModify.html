@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ user_name }} - 查看成绩</title>
+  <title>{{ user_name }} - 批改试卷</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
@@ -240,7 +240,7 @@
             {{ exam.exam_id }} - {{ exam.exam_title }} - {{ exam.exam_date }}
           </a>
         </h2>
-        <a data-toggle="collapse"  data-parent="#new-updates" href="#updates-box1{{ exam.exam_id }}" aria-expanded="false" aria-controls="updates-box">
+        <a data-toggle="collapse"  data-parent="#new-updates" href="#updates-box{{ exam.exam_id }}" aria-expanded="false" aria-controls="updates-box">
           <i class="fa fa-angle-down"></i>
         </a>
       </div>
