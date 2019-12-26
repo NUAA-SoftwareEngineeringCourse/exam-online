@@ -256,7 +256,7 @@
             var now = new Date().getTime();
             var open_time = new Date("{{ exam.date }}").getTime();
             var diff = now - open_time;
-            if (!(diff>0 && diff<15*60))
+            if (!(diff>0 && diff<15*60*1000))
             {
                 alert("{{ exam.title }}考试未开放!")
                 {#window.location.href = base_url_str + '/start_exam/?exam_id={{ exam.exam_id }}'#}

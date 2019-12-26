@@ -32,7 +32,10 @@
 
 + 数据库建立  
   此处未经过测试，该 sql 脚本由 `mysqldump` 导出。
+  > mysqldump.exe -u root -p sinweb > sinweb.sql  
+  
   `exam_paper` 的 `paper_path` 字段存储上传文件的路径，使用的是绝对路径，请修改为 **你电脑上的相应绝对路径** 。
+  
   ```bash
   cd exam-online/mysql/
   mysql -u xxx -p
@@ -48,6 +51,7 @@
   - ✔学生个人资料页面。
   - ✔在 `exam_paper` 中加入字段 `paper_id`。
   - ✔教师考试定时开放，未到规定时间，学生禁止进入该场考试的页面 (开放后 15 min 允许进入考试)。
+  - 增加 “从题库中选取题目并组合为试卷” 的功能。
   - 教师功能：成绩单导出成为一个 Excel ，包含排名等信息。
 
   

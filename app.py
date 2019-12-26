@@ -4,7 +4,6 @@ from config import cursor, db_connector
 from config import user_table, exam_paper_table, teacher_student_table, exam_paper_columns, student_exam_log_table
 from os import path
 
-
 import common_helper
 import os
 import sql_helper
@@ -46,6 +45,11 @@ def index():
             return redirect(url_for('studentIndex'))
     else:
         return render_template('index.html')
+
+
+@app.route('/hello', methods=['GET'])
+def hello_world():
+    return 'Hello World!'
 
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -295,7 +299,7 @@ def uploadFile():
     for c in paper_class.split(';'):
         if c != '':
             sql = 'SELECT * FROM `user` WHERE user_id LIKE %s'
-            cursor.execute(sql, c+'%')
+            cursor.execute(sql, c + '%')
             students = cursor.fetchall()
             for s in students:
                 print_log('upload files', s.get('user_id'))
@@ -306,6 +310,8 @@ def uploadFile():
                 except:
                     db_connector.rollback()
 
+    # 插入试题数据库
+    sql_helper.insert_questions(paper_id=paper_id, paper_path=file_path)
     return redirect(url_for('teacherIndex'))
 
 
@@ -317,7 +323,6 @@ def start_exam():
     sql = 'SELECT * FROM ' + exam_paper_table + ' WHERE paper_id=%s'
     cursor.execute(sql, str(exam_id))
     data = cursor.fetchone()
-
 
     sql2 = 'SELECT user_name FROM ' + user_table + ' WHERE user_id=%s'
     cursor.execute(sql2, data.get('paper_userid'))
@@ -620,7 +625,7 @@ def admin_userlist():
 def admin_examlist():
     exam_list = list()
     exam_dict = {'exam_id:': '', 'exam_title': '', 'teacher': '', 'exam_date': ''}
-    sql = 'SELECT paper_title,paper_id,paper_date,user_name FROM exam_paper inner join user on user_id=paper_userid'
+    sql = 'SELECT paper_title,paper_id,paper_date,user_name,paper_time,paper_class FROM exam_paper inner join user on user_id=paper_userid'
     cursor.execute(sql)
     data = cursor.fetchall()
     for x in data:
@@ -629,6 +634,8 @@ def admin_examlist():
         e['exam_title'] = x.get('paper_title')
         e['teacher'] = x.get('user_name')
         e['exam_date'] = x.get('paper_date')
+        e['exam_duration'] = x.get('paper_time')
+        e['exam_class'] = x.get('paper_class')
         exam_list.append(e)
     return render_template('admin-examlist.html', exam_list=exam_list)
 
@@ -726,6 +733,16 @@ def modifyPwd():
         return redirect(url_for('teacher_personal_info'))
     else:
         return redirect(url_for('student_personal_info'))
+
+
+@app.route('/admin_add_user/', methods=['GET', 'POST'])
+def admin_add_user():
+    name = request.args.get('uname')
+    id = request.args.get('id')
+    pwd = request.args.get('pwd')
+    role = request.args.get('role')
+    print_log('admin add user', str(name) + str(id) + str(role))
+    return redirect(url_for('adminIndex'))
 
 
 if __name__ == '__main__':

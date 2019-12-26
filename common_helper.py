@@ -43,6 +43,7 @@ def parse_paper(path: str):
         std_single['B'] = question[2]
         std_single['C'] = question[3]
         std_single['D'] = question[4]
+        std_single['answer'] = question[5]
         std_single['value'] = int(question[6])
         std_single['id'], id_inc = id_inc, id_inc + 1
         questions_list.append(dict(std_single))
@@ -56,6 +57,7 @@ def parse_paper(path: str):
         std_multiple['B'] = question[2]
         std_multiple['C'] = question[3]
         std_multiple['D'] = question[4]
+        std_multiple['answer'] = question[5]
         std_multiple['value'] = question[6]
         std_multiple['id'], id_inc = id_inc, id_inc + 1
         questions_list.append(dict(std_multiple))
@@ -65,6 +67,7 @@ def parse_paper(path: str):
     for i in range(1, judge_sheet.nrows):
         question = judge_sheet.row_values(i)
         std_judge['q_text'] = question[0]
+        std_judge['answer'] = question[1]
         std_judge['value'] = question[2]
         std_judge['id'], id_inc = id_inc, id_inc + 1
         questions_list.append(dict(std_judge))
@@ -74,6 +77,7 @@ def parse_paper(path: str):
     for i in range(1, subjective_sheet.nrows):
         question = subjective_sheet.row_values(i)
         std_subjective['q_text'] = question[0]
+        std_subjective['answer'] = question[1]
         std_subjective['value'] = question[2]
         std_subjective['id'], id_inc = id_inc, id_inc + 1
         questions_list.append(dict(std_subjective))

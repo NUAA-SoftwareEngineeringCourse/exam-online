@@ -35,7 +35,8 @@
         <th>试卷名称</th>
         <th>发起人</th>
         <th>考试日期</th>
-        <th>删除</th>
+        <th>考试时间</th>
+        <th>考试班级</th>
       </tr>
     </thead>
     <tbody>
@@ -45,7 +46,8 @@
         <td>{{ exam.exam_title  }}</td>
         <td>{{ exam.teacher }}</td>
         <td>{{ exam.exam_date }}</td>
-        <td><button type="button" onclick="deleteE({{exam.exam_id}})" class="btn btn-gradient-danger btn-sm"><i class="mdi mdi-account-minus"></i> 删除</button></td>
+        <td>{{ exam.exam_duration }}</td>
+        <td>{{ exam.exam_class }}</td>
       </tr>
       {%endfor%}
     </tbody>
