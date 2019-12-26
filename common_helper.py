@@ -1,5 +1,7 @@
 import xlrd
-import datetime
+import xlwt
+from config import choice_question_table, judge_question_table, subjective_question_table
+from config import cursor, db_connector
 
 student_type = 'STUDENT'
 teacher_type = 'TEACHER'
@@ -179,3 +181,84 @@ def get_std_answers(path: str):
     for s in subjective_ans:
         std_ans[str(order)], order = s, order + 1
     return std_ans
+
+
+def add_sheet_header(header: list, sheet: xlwt.Worksheet):
+    col = 0
+    for h in header:
+        sheet.write(0, col, h)
+        col += 1
+    return
+
+
+def add_choice_row(sheet: xlwt.Worksheet, data: dict, row: int):
+    sheet.write(row, 0, data.get('q_description'))
+    sheet.write(row, 1, data.get('q_A'))
+    sheet.write(row, 2, data.get('q_B'))
+    sheet.write(row, 3, data.get('q_C'))
+    sheet.write(row, 4, data.get('q_D'))
+    sheet.write(row, 5, data.get('q_answer'))
+    sheet.write(row, 6, data.get('q_value'))
+    return
+
+
+def add_judge_row(sheet: xlwt.Worksheet, data: dict, row: int):
+    sheet.write(row, 0, data.get('q_description'))
+    sheet.write(row, 1, data.get('q_answer'))
+    sheet.write(row, 2, data.get('q_value'))
+    return
+
+
+def add_subjective_row(sheet: xlwt.Worksheet, data: dict, row: int):
+    add_judge_row(sheet, data, row)
+    return
+
+
+def write_paper_file(question_ids: dict, output_file:str):
+    print_log('write paper file', question_ids)
+
+    choice_sql = 'SELECT * FROM ' + choice_question_table + 'WHERE q_id=%s'
+    judge_sql = 'SELECT * FROM ' + judge_question_table + 'WHERE q_id=%s'
+    subjective_sql = 'SELECT * FROM ' + subjective_question_table + 'WHERE q_id=%s'
+
+    choice_header = ['Description', 'A', 'B', 'C', 'D', 'Answer', 'Value']
+    judge_header = ['Description', 'Answer', 'Value']
+    subjective_header = list(judge_header)
+
+    workbook = xlwt.Workbook()
+    single_sheet = workbook.add_sheet('单项选择题')
+    multi_sheet = workbook.add_sheet('多项选择题')
+    judge_sheet = workbook.add_sheet('判断题')
+    subjective_sheet = workbook.add_sheet('主观题')
+
+    add_sheet_header(choice_header, single_sheet)
+    add_sheet_header(choice_header, multi_sheet)
+    add_sheet_header(judge_header, judge_sheet)
+    add_sheet_header(subjective_header, subjective_sheet)
+
+    single_row, multi_row, judge_row, subjective_row = 1, 1, 1, 1
+
+    for choice_id in question_ids.get('choice'):
+        cursor.execute(choice_sql, choice_id)
+        data = cursor.fetchone()
+        if len(data.get('q_answer')) == 1:
+            add_choice_row(sheet=single_sheet, data=data, row=single_row)
+            single_row += 1
+        else:
+            add_choice_row(sheet=multi_sheet, data=data, row=multi_row)
+            multi_row += 1
+
+    for judge_id in question_ids.get('judge'):
+        cursor.execute(judge_sql, judge_id)
+        data = cursor.fetchone()
+        add_judge_row(sheet=judge_sheet, data=data, row=judge_row)
+        judge_row += 1
+
+    for subjective_id in question_ids.get('subjective'):
+        cursor.execute(subjective_sql, subjective_id)
+        data = cursor.fetchone()
+        add_subjective_row(sheet=subjective_sheet, data=data, row=subjective_row)
+        subjective_row += 1
+    workbook.save(output_file)
+    return
+

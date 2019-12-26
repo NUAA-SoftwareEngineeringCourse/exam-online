@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, session, redirect, u
 from flask_uploads import configure_uploads, UploadSet
 from config import cursor, db_connector
 from config import user_table, exam_paper_table, teacher_student_table, exam_paper_columns, student_exam_log_table
+from config import choice_question_table, judge_question_table, subjective_question_table
 from os import path
 
 import common_helper
@@ -743,6 +744,70 @@ def admin_add_user():
     role = request.args.get('role')
     print_log('admin add user', str(name) + str(id) + str(role))
     return redirect(url_for('adminIndex'))
+
+
+# 增加从题库生成试卷的功能
+@app.route('/generate_paper/', methods=['GET', 'POST'])
+def generate_paper():
+    questions = request.form.get('selected_questions')
+    exam_title = request.form.get('exam_title')
+    exam_tips = request.form.get('exam_tips')
+    exam_duration = request.form.get('exam_duration')
+    exam_datetime = request.form.get('exam_datetime')
+    exam_class = request.form.get('exam_class')
+    print_log('generate paper', str(questions))
+    print(exam_title, exam_tips, exam_duration, exam_datetime, exam_class)
+
+    output = os.path.join(file_dest, session.get('user_id') + '-' + exam_title + '.xls')
+    common_helper.write_paper_file(question_ids=questions, output_file=output)
+
+    sql = 'INSERT INTO ' + exam_paper_table + exam_paper_columns + \
+          'VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'
+    try:
+        cursor.execute(sql, (
+            exam_title, exam_tips, exam_duration, exam_datetime, 0, output, session.get('user_id'), exam_class))
+        db_connector.commit()
+    except:
+        db_connector.rollback()
+
+    # 在 teacher_student 中建立关联
+    for c in exam_class.split(';'):
+        # TODO
+        print('<><><待完成><><>')
+        print(c)
+        print('<><><><><>')
+    return jsonify({'success': 1})
+
+
+@app.route('/get_questions/', methods=['GET', 'POST'])
+def get_questions():
+    keyword = request.args.get('keyword')
+    print_log('get questions', str(keyword))
+    if keyword is None or keyword == '':
+        return render_template('teacherQuestion.html')
+
+    sql = 'SELECT paper_id FROM ' + exam_paper_table + ' WHERE paper_title LIKE "%' + keyword + '%"'
+    choice_sql = 'SELECT * FROM ' + choice_question_table + 'WHERE q_paperid=%s'
+    judge_sql = 'SELECT * FROM ' + judge_question_table + 'WHERE q_paperid=%s'
+    subjective_sql = 'SELECT * FROM ' + subjective_question_table + 'WHERE q_paperid=%s'
+    cursor.execute(sql)
+    paper_ids = [x.get('paper_id') for x in cursor.fetchall()]
+    print(paper_ids)
+
+    choice_list, judge_list, subjective_list = [], [], []
+
+    for pid in paper_ids:
+        cursor.execute(choice_sql, pid)
+        for q in cursor.fetchall():
+            choice_list.append(q)
+        cursor.execute(judge_sql, pid)
+        for q in cursor.fetchall():
+            judge_list.append(q)
+        cursor.execute(subjective_sql, pid)
+        for q in cursor.fetchall():
+            subjective_list.append(q)
+    return render_template('teacherQuestion.html', choice_list=choice_list, judge_list=judge_list,
+                           subjective_list=subjective_list)
 
 
 if __name__ == '__main__':
