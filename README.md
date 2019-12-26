@@ -35,7 +35,7 @@
   > mysqldump.exe -u root -p sinweb > sinweb.sql  
   
   `exam_paper` 的 `paper_path` 字段存储上传文件的路径，使用的是绝对路径，请修改为 **你电脑上的相应绝对路径** 。
-  
+  然后把 `exam-online/Test-xxx.xlsx` 拷贝到数据库中的目录下，**注意根据数据库修改文件名**。
   ```bash
   cd exam-online/mysql/
   mysql -u xxx -p
