@@ -750,12 +750,13 @@ def admin_add_user():
 @app.route('/generate_paper/', methods=['GET', 'POST'])
 def generate_paper():
     questions = request.form.get('selected_questions')
+    questions = json.loads(questions)
     exam_title = request.form.get('exam_title')
     exam_tips = request.form.get('exam_tips')
     exam_duration = request.form.get('exam_duration')
     exam_datetime = request.form.get('exam_datetime')
     exam_class = request.form.get('exam_class')
-    print_log('generate paper', str(questions))
+    print('[generate paper]', str(questions), type(questions))
     print(exam_title, exam_tips, exam_duration, exam_datetime, exam_class)
 
     output = os.path.join(file_dest, session.get('user_id') + '-' + exam_title + '.xls')
@@ -769,13 +770,17 @@ def generate_paper():
         db_connector.commit()
     except:
         db_connector.rollback()
+        return jsonify({'success': 0})
+
+    # 获取上面新增试卷的ID
+    sql = 'SELECT max(paper_id) FROM ' + exam_paper_table
+    cursor.execute(sql)
+    paper_id = cursor.fetchone().get('max(paper_id)')
 
     # 在 teacher_student 中建立关联
-    for c in exam_class.split(';'):
-        # TODO
-        print('<><><待完成><><>')
-        print(c)
-        print('<><><><><>')
+    if -1 == sql_helper.insert_teacher_student(paper_class=exam_class, teacher_id=session.get('user_id'),
+                                               paper_id=paper_id):
+        return jsonify({'success': 0})
     return jsonify({'success': 1})
 
 

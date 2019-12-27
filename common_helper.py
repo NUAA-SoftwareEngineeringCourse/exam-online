@@ -126,9 +126,10 @@ def compare_answer(answers: dict, paper_path: str) -> int:
     subjective_values = [int(x) for x in subjective_sheet.col_values(2)[1:]]
 
     for i in range(0, len(judge_answers)):
-        if judge_answers[i] == 'T' or judge_answers[i].lower() == 'true' or judge_answers[i] == '对':
+        s = str(judge_answers[i]).lower()
+        if s[0] == 't' or s[0] == '1' or s == '对':
             judge_answers[i] = '1'
-        elif judge_answers[i] == 'F' or judge_answers[i].lower() == 'false' or judge_answers[i] == '错':
+        elif s == 'f' or s[0] == '0' or s == '错':
             judge_answers[i] = '0'
 
     for i in range(0, len(single_answers)):
@@ -163,9 +164,10 @@ def get_std_answers(path: str):
     subjective_ans = subjective_sheet.col_values(1)[1:]
 
     for i in range(0, len(judge_ans)):
-        if judge_ans[i] == 'T' or judge_ans[i].lower() == 'true' or judge_ans[i] == '对':
+        s = str(judge_ans[i]).lower()
+        if s[0] == 't' or s[0] == '1' or s == '对':
             judge_ans[i] = '1'
-        elif judge_ans[i] == 'F' or judge_ans[i].lower() == 'false' or judge_ans[i] == '错':
+        elif s[0] == 'f' or s[0] == '0' or s == '错':
             judge_ans[i] = '0'
 
     order = 0

@@ -272,6 +272,15 @@
                         'exam_datetime': exam_datetime,
                         'exam_class': exam_class
                     },
+                    success: function (data) {
+                        if (data['success'] == 1){
+                            window.location.href = "{{ url_for('teacherIndex') }}"
+                        }
+                        else{
+                            alert('信息错误，请仔细检查！')
+                        }
+
+                    }
 
                 })
             }

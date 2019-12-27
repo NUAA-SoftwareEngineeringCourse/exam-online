@@ -5,11 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/common_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/teacher-personInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teacher-personInfo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/teacherExam.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teacherExam.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/teacherIndex.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teacherIndex.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/teacherModify.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teacherModify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/teacherResult.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teacherResult.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/teacherQuestion.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teacherQuestion.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,16 +15,16 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/exam_online$SinWeb.coverage" NAME="SinWeb Coverage Results" MODIFIED="1577365539557" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/exam_online$SinWeb.coverage" NAME="SinWeb Coverage Results" MODIFIED="1577451757572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/SinWeb$SinWeb.coverage" NAME="SinWeb Coverage Results" MODIFIED="1573566782735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="772" selection-start-line="772" selection-end-line="774" selection-end-column="88" />
+            <state relative-caret-position="198">
+              <caret line="764" column="17" selection-start-line="764" selection-start-column="11" selection-end-line="764" selection-end-column="17" />
               <folding>
                 <element signature="e#0#86#0" expanded="true" />
               </folding>
@@ -35,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common_helper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="260" column="27" selection-start-line="260" selection-start-column="27" selection-end-line="260" selection-end-column="27" />
+            <state relative-caret-position="244">
+              <caret line="131" column="28" selection-start-line="131" selection-start-column="28" selection-end-line="131" selection-end-column="28" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -47,23 +44,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/teacherQuestion.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+            <state relative-caret-position="37">
+              <caret line="276" column="76" selection-start-line="276" selection-start-column="76" selection-end-line="276" selection-end-column="76" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sql_helper.py">
+        <entry file="file://$PROJECT_DIR$/static/javascript/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="38" column="56" selection-start-line="38" selection-start-column="56" selection-end-line="38" selection-end-column="56" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1599">
+              <caret line="288" column="39" selection-start-line="288" selection-start-column="39" selection-end-line="288" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -82,14 +76,11 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>主页</find>
-      <find>teacher_result</find>
       <find>teacherExam</find>
       <find>uploadFile</find>
       <find>studentIndex</find>
       <find>studen</find>
       <find>studentexam</find>
-      <find>insert</find>
       <find>studentExam</find>
       <find>exam-class-input</find>
       <find>开始考试</find>
@@ -111,7 +102,10 @@
       <find>javascript</find>
       <find>考试科目</find>
       <find>exam-submit-button</find>
+      <find>uploads</find>
       <find>upload</find>
+      <find>对</find>
+      <find>insert</find>
     </findStrings>
     <replaceStrings>
       <replace>../static/css</replace>
@@ -165,17 +159,17 @@
         <option value="$PROJECT_DIR$/templates/studentExam.html" />
         <option value="$PROJECT_DIR$/mysql/test.sql" />
         <option value="$PROJECT_DIR$/config.py" />
-        <option value="$PROJECT_DIR$/sql_helper.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/templates/teacher-personInfo.html" />
         <option value="$PROJECT_DIR$/templates/teacherExam.html" />
         <option value="$PROJECT_DIR$/templates/teacherIndex.html" />
         <option value="$PROJECT_DIR$/templates/teacherModify.html" />
         <option value="$PROJECT_DIR$/templates/teacherResult.html" />
-        <option value="$PROJECT_DIR$/templates/teacherQuestion.html" />
-        <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/sql_helper.py" />
+        <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/common_helper.py" />
+        <option value="$PROJECT_DIR$/templates/teacherQuestion.html" />
       </list>
     </option>
   </component>
@@ -185,8 +179,8 @@
     </layout>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="195" />
-    <option name="y" value="21" />
+    <option name="x" value="72" />
+    <option name="y" value="53" />
     <option name="width" value="1710" />
     <option name="height" value="1050" />
   </component>
@@ -198,6 +192,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -205,11 +200,15 @@
               <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
               <item name="exam-online" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="exam-online" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -321,12 +320,13 @@
       <workItem from="1576893550292" duration="3842000" />
       <workItem from="1576899811859" duration="6640000" />
       <workItem from="1577344227475" duration="8890000" />
-      <workItem from="1577355735460" duration="12300000" />
+      <workItem from="1577355735460" duration="13285000" />
+      <workItem from="1577448311480" duration="3657000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="247128000" />
+    <option name="totallyTimeSpent" value="251770000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -340,12 +340,12 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8540856" visible="true" weight="0.1930295" />
-      <window_info id="Structure" order="1" sideWeight="0.14591439" side_tool="true" visible="true" weight="0.1930295" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.75961536" visible="true" weight="0.22855228" />
+      <window_info id="Structure" order="1" sideWeight="0.24038461" side_tool="true" visible="true" weight="0.22855228" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.44050992" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.2776204" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.55807364" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -354,7 +354,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.2719547" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3243626" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3286119" />
       <window_info anchor="bottom" id="Thumbnails" order="13" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -368,12 +368,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/img/mockup6.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/img/mockup3.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/img/China-Flag.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -481,11 +475,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascript/admin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-483" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/admin-examlist.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="966">
@@ -574,20 +563,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascript/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4151">
-          <caret line="288" column="39" selection-start-line="288" selection-start-column="39" selection-end-line="288" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/javascript/studentExam.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -612,54 +587,80 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/teacherQuestion.html">
+    <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-240">
-          <caret line="261" selection-start-line="261" selection-end-line="261" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascript/exam.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1283">
-          <caret selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sql_helper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="38" column="56" selection-start-line="38" selection-start-column="56" selection-end-line="38" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="45">
+          <caret line="23" column="123" lean-forward="true" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="123" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        <state relative-caret-position="253">
+          <caret line="11" column="108" selection-start-line="11" selection-start-column="108" selection-end-line="11" selection-end-column="108" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="772" selection-start-line="772" selection-end-line="774" selection-end-column="88" />
+        <state relative-caret-position="198">
+          <caret line="764" column="17" selection-start-line="764" selection-start-column="11" selection-end-line="764" selection-end-column="17" />
           <folding>
             <element signature="e#0#86#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sql_helper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-446">
+          <caret line="34" column="18" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/common_helper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="260" column="27" selection-start-line="260" selection-start-column="27" selection-end-line="260" selection-end-column="27" />
+        <state relative-caret-position="244">
+          <caret line="131" column="28" selection-start-line="131" selection-start-column="28" selection-end-line="131" selection-end-column="28" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascript/exam.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascript/admin.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascript/previewPaper.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascript/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1599">
+          <caret line="288" column="39" selection-start-line="288" selection-start-column="39" selection-end-line="288" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/teacherQuestion.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="37">
+          <caret line="276" column="76" selection-start-line="276" selection-start-column="76" selection-end-line="276" selection-end-column="76" />
         </state>
       </provider>
     </entry>

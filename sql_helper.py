@@ -1,6 +1,6 @@
 import config
 import common_helper
-from config import db_connector, cursor, student_exam_log_table, user_table
+from config import db_connector, cursor, student_exam_log_table, user_table, teacher_student_table
 
 
 def get_students(columns: str):
@@ -53,7 +53,8 @@ def insert_questions(paper_id, paper_path):
         value = x.get('value')
         if q_type == 'radio' or q_type == 'checkbox':
             try:
-                cursor.execute(choice_sql, (q_text, value, answer, x.get('A'), x.get('B'), x.get('C'), x.get('D'), paper_id))
+                cursor.execute(choice_sql,
+                               (q_text, value, answer, x.get('A'), x.get('B'), x.get('C'), x.get('D'), paper_id))
                 db_connector.commit()
             except:
                 db_connector.rollback()
@@ -71,3 +72,21 @@ def insert_questions(paper_id, paper_path):
             except:
                 db_connector.rollback()
     return
+
+
+def insert_teacher_student(paper_class: str, teacher_id, paper_id):
+    # 在 teacher_student 中建立关联
+    for c in paper_class.split(';'):
+        if c != '':
+            sql = 'SELECT * FROM `user` WHERE user_id LIKE %s'
+            cursor.execute(sql, c + '%')
+            students = cursor.fetchall()
+            for s in students:
+                print('[upload files]', s.get('user_id'))
+                sql = 'INSERT INTO ' + teacher_student_table + ' VALUES (%s,%s,%s)'
+                try:
+                    cursor.execute(sql, (teacher_id, s.get('user_id'), paper_id))
+                    db_connector.commit()
+                except:
+                    db_connector.rollback()
+                    return -1
