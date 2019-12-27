@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3e85c9fd-b688-4174-a643-49d69ba7dc6b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/common_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/teacherQuestion.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teacherQuestion.html" afterDir="false" />
-    </list>
+    <list default="true" id="3e85c9fd-b688-4174-a643-49d69ba7dc6b" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,50 +13,7 @@
     <SUITE FILE_PATH="coverage/SinWeb$SinWeb.coverage" NAME="SinWeb Coverage Results" MODIFIED="1573566782735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="764" column="17" selection-start-line="764" selection-start-column="11" selection-end-line="764" selection-end-column="17" />
-              <folding>
-                <element signature="e#0#86#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common_helper.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="131" column="28" selection-start-line="131" selection-start-column="28" selection-end-line="131" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/teacherQuestion.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="37">
-              <caret line="276" column="76" selection-start-line="276" selection-start-column="76" selection-end-line="276" selection-end-column="76" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/javascript/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1599">
-              <caret line="288" column="39" selection-start-line="288" selection-start-column="39" selection-end-line="288" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -200,11 +151,6 @@
               <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
               <item name="exam-online" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
-              <item name="exam-online" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -321,12 +267,12 @@
       <workItem from="1576899811859" duration="6640000" />
       <workItem from="1577344227475" duration="8890000" />
       <workItem from="1577355735460" duration="13285000" />
-      <workItem from="1577448311480" duration="3657000" />
+      <workItem from="1577448311480" duration="3796000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="251770000" />
+    <option name="totallyTimeSpent" value="251909000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -340,12 +286,12 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.75961536" visible="true" weight="0.22855228" />
-      <window_info id="Structure" order="1" sideWeight="0.24038461" side_tool="true" visible="true" weight="0.22855228" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.9423077" visible="true" weight="0.22855228" />
+      <window_info id="Structure" order="1" sideWeight="0.057692308" side_tool="true" visible="true" weight="0.22855228" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.44050992" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.55807364" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.55807364" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -354,7 +300,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3243626" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.04249292" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3286119" />
       <window_info anchor="bottom" id="Thumbnails" order="13" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -607,32 +553,12 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="764" column="17" selection-start-line="764" selection-start-column="11" selection-end-line="764" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#86#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sql_helper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-446">
           <caret line="34" column="18" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="18" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common_helper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="131" column="28" selection-start-line="131" selection-start-column="28" selection-end-line="131" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -661,6 +587,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="37">
           <caret line="276" column="76" selection-start-line="276" selection-start-column="76" selection-end-line="276" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_helper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="131" column="28" selection-start-line="131" selection-start-column="28" selection-end-line="131" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="764" column="17" selection-start-line="764" selection-start-column="11" selection-end-line="764" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#86#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
