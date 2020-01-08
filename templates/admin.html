@@ -108,7 +108,7 @@
           </li> -->
 
           <li class="nav-item">
-            <a class="nav-link" target="main_frame" href="/admin_userlist" >
+            <a class="nav-link" target="main_frame" href="{{ url_for('admin_userlist') }}" >
               <span class="menu-title">用户列表</span>
               <i class="mdi mdi-account-multiple menu-icon"></i>
             </a>
@@ -122,7 +122,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" target="main_frame" href="/admin_examlist" >
+            <a class="nav-link" target="main_frame" href="{{ url_for('admin_examlist') }}" >
               <span class="menu-title">试卷管理</span>
               <i class="mdi mdi-file-check menu-icon"></i>
             </a>
@@ -137,7 +137,9 @@
 
         </div> -->
         <!-- partial -->
-        <iframe width="100%" height="100%" style="border: 0" class="content-wrapper" name="main_frame" src="/admin_userlist"></iframe>
+        <iframe width="100%" height="100%" style="border: 0" class="content-wrapper" name="main_frame" src="/admin_userlist">
+
+        </iframe>
       </div>
       <!-- main-panel ends -->
     </div>

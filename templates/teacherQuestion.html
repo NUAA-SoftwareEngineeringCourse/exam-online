@@ -200,12 +200,28 @@
     </header>
     <!-- 页面显示部分 -->
     <div class="p-3 mb-2 bg-info text-black-50 rounded">
-        <label><strong>输入关键字：</strong></label><input type="text" id="query-keyword">
+        <label><strong>输入关键字：</strong></label><input type="text" id="query-keyword"><br>
+        <label><strong>选择题数量：</strong></label><input type="text" id="xuanze">
+        <label><strong>难题数量：</strong></label><input type="text" id="nanti1">
+        <br>
+        <label><strong>判断题数量：</strong></label><input type="text" id="panduan">
+        <label><strong>难题数量：</strong></label><input type="text" id="nanti2">
+        <br>
+        <label><strong>简答题数量：</strong></label><input type="text" id="jianda">
+        <label><strong>难题数量：</strong></label><input type="text" id="nanti3">
+        <br>
         <button id="query-button" onclick="query_action()">查询</button>
         <script>
             function query_action() {
                 var val = document.getElementById('query-keyword').value;
-                window.location.href = base_url_str + '/get_questions/?keyword=' + val;
+                var nanti1 = document.getElementById('nanti1').value;
+                var nanti2 = document.getElementById('nanti2').value;
+                var nanti3 = document.getElementById('nanti3').value;
+                var xuanze = document.getElementById('xuanze').value;
+                var panduan = document.getElementById('panduan').value;
+                var jianda = document.getElementById('jianda').value;
+
+                window.location.href = base_url_str + '/get_questions/?keyword=' + val +'&' + 'nanti1=' + nanti1 +'&' + 'nanti2=' + nanti2+'&' + 'nanti3=' + nanti3+'&' + 'xuanze=' + xuanze+'&' + 'panduan=' + panduan+'&' + 'jianda=' + jianda;
             }
         </script>
     </div>
@@ -213,19 +229,31 @@
     <div class="p-3 mb-2 bg-info text-white rounded">
         <h3>一、选择题部分</h3>
         {% for q in choice_list %}
-            <input type="checkbox" id="{{ q.q_id }}" name="choice">{{ q.q_description }}<br>
+            {% if q.q_difficulty == 3 %}
+            <input type="checkbox" id="{{ q.q_id }}" name="choice" checked="true">★【历史出题次数: {{ q.q_counter }}】{{ q.q_description }}<br>
+            {% else %}
+            <input type="checkbox" id="{{ q.q_id }}" name="choice" checked="true">【历史出题次数: {{ q.q_counter }}】{{ q.q_description }}<br>
+            {% endif %}
         {% endfor %}
     </div>
     <div class="p-3 mb-2 bg-info text-white rounded">
         <h3>二、判断题部分</h3>
         {% for q in judge_list %}
-            <input type="checkbox" id="{{ q.q_id }}" name="judge">{{ q.q_description }}<br>
+            {% if q.q_difficulty == 3 %}
+            <input type="checkbox" id="{{ q.q_id }}" name="judge" checked="true">★【历史出题次数: {{ q.q_counter }}】{{ q.q_description }}<br>
+            {% else %}
+            <input type="checkbox" id="{{ q.q_id }}" name="judge" checked="true">【历史出题次数: {{ q.q_counter }}】{{ q.q_description }}<br>
+            {% endif %}
         {% endfor %}
     </div>
     <div class="p-3 mb-2 bg-info text-white rounded">
         <h3>三、主观题部分</h3>
         {% for q in subjective_list %}
-            <input type="checkbox" id="{{ q.q_id }}" name="subjective">{{ q.q_description }}<br>
+           {% if q.q_difficulty == 3 %}
+            <input type="checkbox" id="{{ q.q_id }}" name="subjective" checked="true">★【历史出题次数: {{ q.q_counter }}】{{ q.q_description }}<br>
+            {% else %}
+            <input type="checkbox" id="{{ q.q_id }}" name="subjective" checked="true">【历史出题次数: {{ q.q_counter }}】{{ q.q_description }}<br>
+            {% endif %}
         {% endfor %}
     </div>
     <div class="p-3 mb-2 bg-info text-white rounded">

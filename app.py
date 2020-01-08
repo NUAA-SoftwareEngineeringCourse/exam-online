@@ -9,12 +9,17 @@ import common_helper
 import os
 import sql_helper
 import json
+import random
 
 # global path
 upload_path = 'FilesUpload'
 paper_path = 'ExamPapers'
+user_file_path = 'UsersFile'
+
 base_path = path.dirname(path.abspath(__file__))
 paper_set = UploadSet(paper_path)
+user_set = UploadSet(user_file_path)
+
 file_dest = path.join(base_path, upload_path)
 
 app = Flask(__name__)
@@ -25,7 +30,7 @@ app.config['UPLOADS_DEFAULT_URL'] = 'http://localhost:5000/uploadFile/'
 app.config['UPLOADS_DEFAULT_DEST'] = file_dest
 
 # 让上传文件的配置生效
-configure_uploads(app, paper_set)
+configure_uploads(upload_sets={paper_set, user_set}, app=app)
 
 
 def print_log(name: str, info: str):
@@ -46,11 +51,6 @@ def index():
             return redirect(url_for('studentIndex'))
     else:
         return render_template('index.html')
-
-
-@app.route('/hello', methods=['GET'])
-def hello_world():
-    return 'Hello World!'
 
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -606,20 +606,8 @@ leo's code begin
 
 @app.route('/admin_userlist/', methods=['GET', 'POST'])
 def admin_userlist():
-    user_list = list()
-    user_dict = {'user_id:': '', 'password': '', 'user_type': ''}
-    sql = 'SELECT * FROM ' + user_table
-    cursor.execute(sql)
-    userdata = cursor.fetchall()
-    for x in userdata:
-        u = dict(user_dict)
-        u['user_id'] = x.get('user_id')
-        u['password'] = x.get('user_password')
-        u['user_type'] = x.get('user_type')
-        u['user_name'] = x.get('user_name')
-        u['user_email'] = x.get('user_email')
-        user_list.append(u)
-    return render_template('admin-userlist.html', user_list=user_list)
+    import admin_helper
+    return render_template('admin-userlist.html', user_list=admin_helper.admin_get_user_list())
 
 
 @app.route('/admin_examlist/', methods=['GET', 'POST'])
@@ -738,12 +726,28 @@ def modifyPwd():
 
 @app.route('/admin_add_user/', methods=['GET', 'POST'])
 def admin_add_user():
-    name = request.args.get('uname')
-    id = request.args.get('id')
-    pwd = request.args.get('pwd')
-    role = request.args.get('role')
-    print_log('admin add user', str(name) + str(id) + str(role))
-    return redirect(url_for('adminIndex'))
+    if request.method == 'GET':
+        name = request.args.get('uname')
+        id = request.args.get('id')
+        pwd = request.args.get('pwd')
+        role = request.args.get('role')
+        email = request.args.get('email')
+    else:
+        name = request.form.get('uname')
+        id = request.form.get('id')
+        pwd = request.form.get('pwd')
+        role = request.form.get('role')
+        email = request.form.get('email')
+    print('[admin add user]', name, id, pwd, email, role)
+    sql = 'INSERT INTO ' + user_table + ' VALUES (%s, %s, %s, %s, now(), now(), %s)'
+    try:
+        cursor.execute(sql, (id, name, email, pwd, role))
+        db_connector.commit()
+        return jsonify({'success': 1})
+    except:
+        print('[admin add user]', 'insert failed')
+        db_connector.rollback()
+        return jsonify({'success': 0})
 
 
 # 增加从题库生成试卷的功能
@@ -790,29 +794,116 @@ def get_questions():
     print_log('get questions', str(keyword))
     if keyword is None or keyword == '':
         return render_template('teacherQuestion.html')
+    now_year = 2017
+    update_year = 2020
+
+    xuanze = int(request.args.get('xuanze'))
+    panduan = int(request.args.get('panduan'))
+    jianda = int(request.args.get('jianda'))
+    nanti1 = int(request.args.get('nanti1'))
+    nanti2 = int(request.args.get('nanti2'))
+    nanti3 = int(request.args.get('nanti3'))
+
+    update_sql = 'UPDATE {} SET q_year=2020, q_counter=q_counter+1 WHERE q_id=%s'
 
     sql = 'SELECT paper_id FROM ' + exam_paper_table + ' WHERE paper_title LIKE "%' + keyword + '%"'
     choice_sql = 'SELECT * FROM ' + choice_question_table + 'WHERE q_paperid=%s'
     judge_sql = 'SELECT * FROM ' + judge_question_table + 'WHERE q_paperid=%s'
     subjective_sql = 'SELECT * FROM ' + subjective_question_table + 'WHERE q_paperid=%s'
+
     cursor.execute(sql)
     paper_ids = [x.get('paper_id') for x in cursor.fetchall()]
     print(paper_ids)
 
     choice_list, judge_list, subjective_list = [], [], []
 
+    diff_key = 'q_difficulty'
     for pid in paper_ids:
         cursor.execute(choice_sql, pid)
-        for q in cursor.fetchall():
-            choice_list.append(q)
+        choices_data = sorted(cursor.fetchall(), key=lambda x: x.get('q_counter'))
+        for q in choices_data:
+            k = random.randint(0, 10000) % 3
+            if int(q.get('q_year')) <= now_year and xuanze > 0 and k > 0:
+                if q.get(diff_key) == 3 and nanti1 > 0:
+                    q['is_selected'] = 1
+                    choice_list.append(q)
+                    xuanze -= 1
+                    nanti1 -= 1
+                elif q.get(diff_key) < 3:
+                    q['is_selected'] = 1
+                    choice_list.append(q)
+                    xuanze -= 1
+                if xuanze == 0:
+                    break
+
         cursor.execute(judge_sql, pid)
-        for q in cursor.fetchall():
-            judge_list.append(q)
+        judge_data = sorted(cursor.fetchall(), key=lambda x: x.get('q_counter'))
+        for q in judge_data:
+            k = random.randint(0, 10000) % 5
+            if q.get('q_year') <= now_year and panduan > 0 and k > 0:
+                if q.get(diff_key) == 3 and nanti2 > 0:
+                    q['is_selected'] = 1
+                    judge_list.append(q)
+                    panduan -= 1
+                    nanti2 -= 1
+                elif q.get(diff_key) < 3:
+                    q['is_selected'] = 1
+                    judge_list.append(q)
+                    panduan -= 1
+                if panduan == 0:
+                    break
+
         cursor.execute(subjective_sql, pid)
-        for q in cursor.fetchall():
-            subjective_list.append(q)
+        subjective_data = sorted(cursor.fetchall(), key=lambda x: x.get('q_counter'))
+        for q in subjective_data:
+            k = random.randint(0, 10000) % 3
+            if q.get('q_year') <= now_year and jianda > 0 and k > 0:
+                if q.get(diff_key) == 3 and nanti3 > 0:
+                    q['is_selected'] = 1
+                    subjective_list.append(q)
+                    jianda -= 1
+                    nanti3 -= 1
+                elif q.get(diff_key) < 3:
+                    q['is_selected'] = 1
+                    subjective_list.append(q)
+                    jianda -= 1
+                if jianda == 0:
+                    break
+    # for x in choice_list:
+    #     cursor.execute(update_sql.format(choice_question_table), x.get('q_id'))
+    #
+    # for x in judge_list:
+    #     cursor.execute(update_sql.format(judge_question_table), x.get('q_id'))
+
+    print(update_sql.format(subjective_question_table))
+    for x in subjective_list:
+        try:
+            cursor.execute(update_sql.format(subjective_question_table), x.get('q_id'))
+            db_connector.commit()
+        except:
+            db_connector.rollback()
+
     return render_template('teacherQuestion.html', choice_list=choice_list, judge_list=judge_list,
                            subjective_list=subjective_list)
+
+
+@app.route('/admin_add_users_by_file/', methods=['GET', 'POST'])
+def admin_add_users_by_file():
+    import admin_helper
+    import global_helper
+    global_helper.cmd_exec('rm -r \"' + path.join(file_dest, user_file_path) + '\"')
+    print('[admin add users by file]', request.method)
+    user_file = request.files['upload_userlist']
+    file_name = 'Admin-Add-Users.xls'
+    user_set.save(storage=user_file, folder=path.join(file_dest, user_file_path), name=file_name)
+    user_excel = path.join(file_dest, user_file_path, file_name)
+
+    flag = admin_helper.insert_users_by_file(user_excel)
+
+    if flag:
+        return render_template('admin-userlist.html', user_list=admin_helper.admin_get_user_list())
+    else:
+        return '<h1>导入失败，请检查数据后重试。</h1>'
 
 
 if __name__ == '__main__':
