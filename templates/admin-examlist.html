@@ -37,19 +37,21 @@
         <th>考试日期</th>
         <th>考试时间</th>
         <th>考试班级</th>
+        <th>操作</th>
       </tr>
     </thead>
     <tbody>
       {% for exam in exam_list %}
       <tr>
         <td>{{ exam.exam_id }}</td>
-        <td>{{ exam.exam_title  }}</td>
-        <td>{{ exam.teacher }}</td>
+        <td><a href="{{ url_for('previwe_paper', exam_id=exam.exam_id, user_id=exam.exam_userid) }}">{{ exam.exam_title }}</a></td>
+        <td>{{ exam.exam_userid }} - {{ exam.teacher }}</td>
         <td>{{ exam.exam_date }}</td>
         <td>{{ exam.exam_duration }}</td>
         <td>{{ exam.exam_class }}</td>
+        <td><button class="btn btn-danger" id="paper-delete" onclick="deleteE({{ exam.exam_id }})">删除</button></td>
       </tr>
-      {%endfor%}
+      {% endfor %}
     </tbody>
   </table>
   </div>

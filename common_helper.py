@@ -5,6 +5,7 @@ from config import cursor, db_connector
 
 student_type = 'STUDENT'
 teacher_type = 'TEACHER'
+admin_type = 'ADMIN'
 
 
 def print_log(name: str, info):

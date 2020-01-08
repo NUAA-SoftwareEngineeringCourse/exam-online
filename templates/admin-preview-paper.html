@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/exam.css') }}">
+<script src="{{ url_for('static',filename='javascript/exam.js') }}"></script>
+<script src="../static/javascript/global.js"></script>
+{% endblock %}
+
+{% block body %}
+
+<body>
+  <div>
+    <nav class="navbar navbar-expand-sm font-navbar navbar-dark bg-dark fixed-top" id="my-navbar">
+      <div class="container"> {#  这个class的作用是，让两边有空闲地区  #}
+        <a class="navbar-brand" href="#">
+          <span class="glyphicon glyphicon-tags"></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active li-navbar rounded">
+              <!-- a class="nav-link" href="{{ url_for('index') }}">首页<span class="sr-only">(current)</span></a -->
+            </li>
+          </ul>
+          <div class="form-inline my-2 my-lg-0" id="unLogin">
+            {% if user_name %}
+            <div class="btn-group">
+              <button type="button" id="personalcenter" class="btn btn-info dropdown-toggle  my-2 my-sm-0 form-control"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user_name }}</button>
+{#              <div class="dropdown-menu"><a class="dropdown-item" href="{{ url_for('exam_result') }}">考试记录</a>#}
+              </div>
+            </div>
+            <div style="padding:0 0;margin-left: 12.39px">
+              <button id="ret-admin-examlist" type="button" class="btn btn-success  form-control my-2 my-sm-0" onclick="goback()" >
+                返回上页
+              </button>
+              <script>
+                  function goback() {
+                      window.location.href = base_url_str + '/admin_examlist/';
+                  }
+              </script>
+            </div>
+            <div style="padding:0 0;margin-left: 12.39px">
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="modal fade" tabindex="-1" role="dialog" id="submit_modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">注意</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>是否提交试卷 ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="submit_paper">确认提交</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="submit_cancel">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" tabindex="-1" role="dialog" id="giveup_modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">仔细思考</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="color: red">是否放弃考试 ?</p>
+          放弃考试后，你本次的成绩无效
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="giveup_button">放弃考试</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="giveup_cancel_button">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {% if user_name %}
+  <div class="exam">
+    <h6>考试名称：{{ exam.title }}</h6>
+    <h6>试卷ID：<span id="exam-id-span">{{ exam.exam_id }}</span></h6>
+    <h6>考试日期：{{ exam.date }}</h6>
+    <h6>考试时间：{{ exam.duration }} 分钟</h6>
+    <strong>一、单项选择题</strong>
+    {% for q in question %}
+    {% if q.get('q_type')=='radio' %}
+    <div class="p-3 mb-2 bg-info text-white rounded">
+      <p>{{ q.id }}.{{ q.q_text }}</p>
+      <p>分值：{{ q.value }}</p>
+      <input type="radio" name="{{ q.id }}" value="A"> {{ q.A }}<br>
+      <input type="radio" name="{{ q.id }}" value="B"> {{ q.B }}<br>
+      <input type="radio" name="{{ q.id }}" value="C"> {{ q.C }}<br>
+      <input type="radio" name="{{ q.id }}" value="D"> {{ q.D }}<br>
+      <br>
+    </div>
+    {% endif %}
+
+    {% endfor %}
+    <hr>
+    <strong>
+      二、多项选择题
+    </strong>
+    {% for q in question %}
+    {% if q.get('q_type')=='checkbox' %}
+    <div class="p-3 mb-2 bg-info text-white rounded">
+      <p>{{ q.id }}.{{ q.q_text }}</p>
+      <p>分值：{{ q.value }}</p>
+      <input type="checkbox" name="{{ q.id }}" value="A"> {{ q.A }} <br>
+      <input type="checkbox" name="{{ q.id }}" value="B"> {{ q.B }} <br>
+      <input type="checkbox" name="{{ q.id }}" value="C"> {{ q.C }} <br>
+      <input type="checkbox" name="{{ q.id }}" value="D"> {{ q.D }} <br>
+      <br>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <hr>
+    <strong>
+      三、判断题
+    </strong>
+    {% for q in question %}
+    {% if q.get('q_type')=='decide' %}
+    <div class="p-3 mb-2 bg-info text-white rounded">
+      <p>{{ q.id }}.{{ q.q_text }}</p>
+      <p>分值：{{ q.value }}</p>
+      <input type="radio" name="{{ q.id }}" value="1"> 对 <br>
+      <input type="radio" name="{{ q.id }}" value="0"> 错 <br>
+      <br>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <hr>
+    <strong>
+        四、主观题
+    </strong>
+    {% for q in question %}
+    {% if q.get('q_type')=='textarea' %}
+        <div class="p-3 mb-2 bg-info text-white rounded">
+        <p>{{ q.id }} . {{ q.q_text }}</p>
+        <p>分值：{{ q.value }}</p>
+        <textarea class="rounded" rows="10" cols="150" name="{{ q.id }}">在此写上你的回答。</textarea>
+        </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+  {% else %}
+  <script>
+    $('#my-navbar').removeClass('fixed-top')
+  </script>
+  <div class="container" style="margin-top: 30px">
+    <div class="jumbotron">
+      <h1 class="display-3">请先登录</h1>
+      <p class="lead">Don't access this page by URL, please retrun index page</p>
+      <small>Login first</small>
+      <hr class="my-4">
+      <p>It uses utility classes for typography and spacing to space content out within the larger
+        container.</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="{{ url_for('index') }}" role="button">返回首页</a>
+      </p>
+    </div>
+  </div>
+  {% endif %}
+</body>
+{% endblock %}

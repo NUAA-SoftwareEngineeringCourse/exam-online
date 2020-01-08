@@ -4,6 +4,7 @@ from config import cursor, db_connector
 from config import user_table, exam_paper_table, teacher_student_table, exam_paper_columns, student_exam_log_table
 from config import choice_question_table, judge_question_table, subjective_question_table
 from os import path
+from datetime import datetime
 
 import common_helper
 import os
@@ -14,11 +15,13 @@ import random
 # global path
 upload_path = 'FilesUpload'
 paper_path = 'ExamPapers'
-user_file_path = 'UsersFile'
+user_file_folder = 'UsersFile'
+question_file_folder = 'QuesFile'
 
 base_path = path.dirname(path.abspath(__file__))
 paper_set = UploadSet(paper_path)
-user_set = UploadSet(user_file_path)
+user_set = UploadSet(user_file_folder)
+question_set = UploadSet(question_file_folder)
 
 file_dest = path.join(base_path, upload_path)
 
@@ -30,7 +33,7 @@ app.config['UPLOADS_DEFAULT_URL'] = 'http://localhost:5000/uploadFile/'
 app.config['UPLOADS_DEFAULT_DEST'] = file_dest
 
 # 让上传文件的配置生效
-configure_uploads(upload_sets={paper_set, user_set}, app=app)
+configure_uploads(upload_sets={paper_set, user_set, question_set}, app=app)
 
 
 def print_log(name: str, info: str):
@@ -585,7 +588,10 @@ def previwe_paper():
     print_log('preview paper', request.method)
 
     exam_id = request.args.get('exam_id')
-    teacher_id = session.get('user_id')
+    if session.get('user_id').upper() == common_helper.admin_type:
+        teacher_id = request.args.get('user_id')
+    else:
+        teacher_id = session.get('user_id')
 
     sql = 'SELECT paper_path, paper_title, paper_time, paper_date FROM ' + \
           exam_paper_table + ' INNER JOIN ' + user_table + ' ON exam_paper.paper_userid=user.user_id ' + \
@@ -594,9 +600,14 @@ def previwe_paper():
     data = cursor.fetchone()
     exam_dict = {'title': data.get('paper_title'), 'exam_id': exam_id, 'duration': data.get('paper_time'),
                  'date': data.get('paper_date')}
-    return render_template('preview-paper.html',
-                           question=common_helper.parse_paper(data.get('paper_path')),
-                           exam=exam_dict)
+    if session.get('user_id').upper() == 'ADMIN':
+        return render_template('admin-preview-paper.html',
+                               question=common_helper.parse_paper(data.get('paper_path')),
+                               exam=exam_dict)
+    else:
+        return render_template('preview-paper.html',
+                               question=common_helper.parse_paper(data.get('paper_path')),
+                               exam=exam_dict)
 
 
 '''
@@ -614,7 +625,7 @@ def admin_userlist():
 def admin_examlist():
     exam_list = list()
     exam_dict = {'exam_id:': '', 'exam_title': '', 'teacher': '', 'exam_date': ''}
-    sql = 'SELECT paper_title,paper_id,paper_date,user_name,paper_time,paper_class FROM exam_paper inner join user on user_id=paper_userid'
+    sql = 'SELECT paper_userid,paper_title,paper_id,paper_date,user_name,paper_time,paper_class FROM exam_paper inner join user on user_id=paper_userid'
     cursor.execute(sql)
     data = cursor.fetchall()
     for x in data:
@@ -625,6 +636,7 @@ def admin_examlist():
         e['exam_date'] = x.get('paper_date')
         e['exam_duration'] = x.get('paper_time')
         e['exam_class'] = x.get('paper_class')
+        e['exam_userid'] = x.get('paper_userid')
         exam_list.append(e)
     return render_template('admin-examlist.html', exam_list=exam_list)
 
@@ -647,17 +659,22 @@ def deleteUser():
 @app.route('/deleteExam', methods=['GET', 'POST'])
 def deleteExam():
     if request.method == 'GET':
-        return 'register-GET'
+        return 'delete exam get method'
     else:
         exam_id = request.form['exam_id']
-        print(exam_id)
-        sql = ' DELETE FROM exam_paper WHERE paper_id = ' + exam_id
+        print('[delete exam]', exam_id)
+        sql = ' DELETE FROM {} WHERE paper_id = ' + exam_id
+        # sql2 = ' DELETE FROM {} WHERE q_paperid = ' + exam_id
         try:
-            flag = cursor.execute(sql)
+            cursor.execute(sql.format(teacher_student_table))
+            cursor.execute(sql.format(student_exam_log_table))
+            cursor.execute(sql.format(student_exam_log_table))
+            cursor.execute(sql.format(exam_paper_table))
             db_connector.commit()
-        except Exception as e:
+        except:
+            print('[delete exam]', 'delete exam_paper failed!')
             db_connector.rollback()
-    return jsonify({'success': flag})
+        return jsonify({'success': 1})
 
 
 @app.route('/admin_createUser/', methods=['POST', 'GET'])
@@ -891,12 +908,12 @@ def get_questions():
 def admin_add_users_by_file():
     import admin_helper
     import global_helper
-    global_helper.cmd_exec('rm -r \"' + path.join(file_dest, user_file_path) + '\"')
+    global_helper.cmd_exec('rm -r \"' + path.join(file_dest, user_file_folder) + '\"')
     print('[admin add users by file]', request.method)
     user_file = request.files['upload_userlist']
     file_name = 'Admin-Add-Users.xls'
-    user_set.save(storage=user_file, folder=path.join(file_dest, user_file_path), name=file_name)
-    user_excel = path.join(file_dest, user_file_path, file_name)
+    user_set.save(storage=user_file, folder=path.join(file_dest, user_file_folder), name=file_name)
+    user_excel = path.join(file_dest, user_file_folder, file_name)
 
     flag = admin_helper.insert_users_by_file(user_excel)
 
@@ -904,6 +921,61 @@ def admin_add_users_by_file():
         return render_template('admin-userlist.html', user_list=admin_helper.admin_get_user_list())
     else:
         return '<h1>导入失败，请检查数据后重试。</h1>'
+
+
+@app.route('/admin_add_question/', methods=['GET', 'POST'])
+def admin_add_questions():
+    return render_template('admin-add-questions.html')
+
+
+@app.route('/admin_add_quesitons_by_file/', methods=['GET', 'POST'])
+def admin_add_questions_by_file():
+    import global_helper
+    global_helper.cmd_exec('rm -r \"' + path.join(file_dest, question_file_folder) + '\"')
+    question_file = request.files['upload_questions_file']
+    file_name = 'Admin-Add-Questions.xls'
+    question_set.save(storage=question_file, folder=path.join(file_dest, question_file_folder), name=file_name)
+
+    abs_path = path.join(file_dest, question_file_folder, file_name)
+    questions_list = common_helper.parse_paper(abs_path)
+    print('[admin add ques by file]', len(questions_list))
+
+    current_year = datetime.now().year
+    choice_sql = 'INSERT INTO ' + choice_question_table + \
+                 '(q_description, q_value, q_answer, q_A, q_B, q_C, q_D, q_counter, q_difficulty, q_year) ' + \
+                 'VALUES (%s, %s, %s, %s, %s, %s, %s, 0, %s, %s)'
+    judge_subjective_sql = 'INSERT INTO {} ' + \
+                           '(q_description, q_value, q_answer, q_counter, q_difficulty, q_year)' + \
+                           'VALUES (%s, %s, %s, 0, %s, %s)'
+    for x in questions_list:
+        q_type = x.get('q_type')
+        q_desc = x.get('q_text')
+        q_val = x.get('value')
+        q_ans = x.get('answer')
+        diff = random.randint(1, 3)
+        if q_type == 'radio' or q_type == 'checkbox':
+            try:
+                cursor.execute(choice_sql, (
+                    q_desc, q_val, q_ans, x.get('A'), x.get('B'), x.get('C'), x.get('D'), diff, current_year))
+                db_connector.commit()
+            except:
+                db_connector.rollback()
+        elif q_type == 'decide':
+            q_ans = 1 if str(q_ans).upper()[0] == 'T' else 0
+            try:
+                cursor.execute(judge_subjective_sql.format(judge_question_table),
+                               (q_desc, q_val, q_ans, diff, current_year))
+                db_connector.commit()
+            except:
+                db_connector.rollback()
+        elif q_type == 'textarea':
+            try:
+                cursor.execute(judge_subjective_sql.format(subjective_question_table),
+                               (q_desc, q_val, q_ans, diff, current_year))
+                db_connector.commit()
+            except:
+                db_connector.rollback()
+    return render_template('admin-add-questions.html')
 
 
 if __name__ == '__main__':
