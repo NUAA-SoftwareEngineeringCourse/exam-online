@@ -783,6 +783,9 @@ def generate_paper():
     output = os.path.join(file_dest, session.get('user_id') + '-' + exam_title + '.xls')
     common_helper.write_paper_file(question_ids=questions, output_file=output)
 
+    import teacher_helper
+    teacher_helper.update_questions_info(questions_ids=questions)
+
     sql = 'INSERT INTO ' + exam_paper_table + exam_paper_columns + \
           'VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'
     try:
@@ -900,7 +903,8 @@ def admin_add_questions_by_file():
     print('[admin add ques by file]', len(questions_list))
     print('[admin add ques by file]', q_dbtype)
 
-    current_year = datetime.now().year
+    # current_year = datetime.now().year
+    current_year = 1970
     choice_sql = 'INSERT INTO ' + choice_question_table + \
                  '(q_description, q_value, q_answer, q_A, q_B, q_C, q_D, q_counter, q_difficulty, q_year, q_type) ' + \
                  'VALUES (%s, %s, %s, %s, %s, %s, %s, 0, %s, %s, %s)'
@@ -938,6 +942,7 @@ def admin_add_questions_by_file():
     return render_template('admin-add-questions.html')
 
 
+# 没用，三类型的题目统一到 judge 里面去了
 @app.route('/teacher_replace_choice/', methods=['GET', 'POST'])
 def teacher_replace_choice():
     difficulty = request.form.get('difficulty')
@@ -971,9 +976,10 @@ def teacher_replace_judge():
             replace_list.append(x)
     print('[{}]'.format(teacher_replace_judge.__name__), replace_list)
     print('[{}]'.format(teacher_replace_judge.__name__), [x.get('q_id') for x in replace_list])
-    return jsonify({'success': 1, 'replace_list': replace_list})
+    return jsonify({'success': 1, 'replace_list': replace_list[0:10]})
 
 
+# 没用，三类型的题目统一到 judge 里面去了
 @app.route('/teacher_replace_subjective/', methods=['GET', 'POST'])
 def teacher_replace_subjective():
     difficulty = request.form.get('difficulty')

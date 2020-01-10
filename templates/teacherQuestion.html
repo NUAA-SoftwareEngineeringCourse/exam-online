@@ -278,6 +278,9 @@
             }
 
             function optionOnclick() {
+                //清空之前的可选列表
+                document.getElementById('replace-list').innerHTML = '';
+
                 var choice_url = '/teacher_replace_choice/';
                 var judge_url = '/teacher_replace_judge/';
                 var subjective_url = '/teacher_replace_subjective/';
@@ -388,6 +391,16 @@
                     old_answer.innerText = new_answer;
                     old_answer.id = 'choice-answer-' + new_id;
 
+                    //改变难度
+                    var old_difficulty = document.getElementById('choice-difficulty-' + old_id);
+                    var select_html = document.getElementById('difficulty-select');
+                    var new_difficulty = select_html.options[select_html.selectedIndex].value;
+                    var s = '';
+                    for (var i = 0; i < Number(new_difficulty); i++) {
+                        s += '★';
+                    }
+                    old_difficulty.innerText = s;
+                    old_difficulty.id = 'choice-difficulty-' + new_id;
 
                 } else if (replace_qtype.indexOf('判断题') != -1) {
                     var old_desc = document.getElementById('judge-desc-' + old_id);
@@ -402,6 +415,17 @@
                     old_answer.innerText = new_answer;
                     old_answer.id = 'judge-answer-' + new_id;
 
+                    //改变难度
+                    var old_difficulty = document.getElementById('judge-difficulty-' + old_id);
+                    var select_html = document.getElementById('difficulty-select');
+                    var new_difficulty = select_html.options[select_html.selectedIndex].value;
+                    var s = '';
+                    for (var i = 0; i < Number(new_difficulty); i++) {
+                        s += '★';
+                    }
+                    old_difficulty.innerText = s;
+                    old_difficulty.id = 'judge-difficulty-' + new_id;
+
                 } else if (replace_qtype.indexOf('主观题') != -1) {
                     var old_desc = document.getElementById('subjective-desc-' + old_id);
                     var old_radio = document.getElementById(old_id);
@@ -414,8 +438,20 @@
                     var new_answer = document.getElementById('replace-new-answer-' + new_id).innerText.replace('答案：', '');
                     old_answer.innerText = new_answer;
                     old_answer.id = 'subjective-answer-' + new_id;
+
+                    //改变难度
+                    var old_difficulty = document.getElementById('subjective-difficulty-' + old_id);
+                    var select_html = document.getElementById('difficulty-select');
+                    var new_difficulty = select_html.options[select_html.selectedIndex].value;
+                    var s = '';
+                    for (var i = 0; i < Number(new_difficulty); i++) {
+                        s += '★';
+                    }
+                    old_difficulty.innerText = s;
+                    old_difficulty.id = 'subjective-difficulty-' + new_id;
                 }
 
+                $('#replace-modal').modal('hide');
 
             }
         </script>
@@ -452,7 +488,7 @@
                             D. {{ q.q_D }}<br>
                         </td>
                         <td align="center" id="choice-answer-{{ q.q_id }}">{{ q.q_answer }}</td>
-                        <td align="center">{{ q.q_difficulty }}</td>
+                        <td align="center" id="choice-difficulty-{{ q.q_id }}">{{ q.q_difficulty * '★' }}</td>
                         <td align="center">{{ q.q_counter }}</td>
                         <td align="center">
                             <button class="btn btn-primary"
@@ -490,7 +526,7 @@
                         <label id="judge-desc-{{ q.q_id }}">{{ q.q_description }}</label>
                     </td>
                     <td align="center" id="judge-answer-{{ q.q_id }}">{{ q.q_answer }}</td>
-                    <td align="center">{{ q.q_difficulty }}</td>
+                    <td align="center" id="judge-difficulty-{{ q.q_id }}">{{ q.q_difficulty * '★' }}</td>
                     <td align="center">{{ q.q_counter }}</td>
                     <td align="center">
                         <button class="btn btn-primary"
@@ -527,7 +563,7 @@
                         <label id="subjective-desc-{{ q.q_id }}">{{ q.q_description }}</label>
                     </td>
                     <td align="center" id="subjective-answer-{{ q.q_id }}">{{ q.q_answer }}</td>
-                    <td align="center">{{ q.q_difficulty }}</td>
+                    <td align="center" id="subjective-difficulty-{{ q.q_id }}">{{ q.q_difficulty * '★' }}</td>
                     <td align="center">{{ q.q_counter }}</td>
                     <td align="center">
                         <button class="btn btn-primary"

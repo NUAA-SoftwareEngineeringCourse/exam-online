@@ -190,6 +190,7 @@
                     </p>
                     <form method="post" action="{{ url_for('admin_add_questions_by_file') }}" enctype="multipart/form-data">
                         <p><input type="file" name="upload_questions_file" id="upload_questions_file" class="form-control"></p>
+                        <p>请输入科目：<input type="text" name="input-q-type" id="input-q-type"></p>
                         <p><button type="submit" class="btn btn-gradient-primary btn-fw">上传</button></p>
                     </form>
                 </div>
