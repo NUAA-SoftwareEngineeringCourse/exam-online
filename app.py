@@ -1077,7 +1077,7 @@ def search_question():
     print(desc)
     choice_list = list()
     choice_dict = {'q_id:': '', 'q_description': '', 'q_answer': '', 'q_value': '', 'q_A': '', 'q_B': '', 'q_C': '',
-                   'q_D': '', 'q_diff': ''}
+                   'q_D': '', 'q_diff': '', 'q_type': ''}
     sql = 'select * from choice_question where q_description like \'%' + desc + '%\' '
     cursor.execute(sql)
     data = cursor.fetchall()
@@ -1092,10 +1092,11 @@ def search_question():
         e['q_C'] = x.get('q_C')
         e['q_D'] = x.get('q_D')
         e['q_diff'] = x.get('q_difficulty')
+        e['q_type'] = x.get('q_type')
         choice_list.append(e)
 
     judge_list = list()
-    judge_dict = {'q_id:': '', 'q_description': '', 'q_answer': '', 'q_value': '', 'q_diff': ''}
+    judge_dict = {'q_id:': '', 'q_description': '', 'q_answer': '', 'q_value': '', 'q_diff': '', 'q_type': ''}
     sql = 'select * from judge_question where q_description like \'%' + desc + '%\' '
     cursor.execute(sql)
     data = cursor.fetchall()
@@ -1106,10 +1107,11 @@ def search_question():
         e['q_answer'] = x.get('q_answer')
         e['q_value'] = x.get('q_value')
         e['q_diff'] = x.get('q_difficulty')
+        e['q_type'] = x.get('q_type')
         judge_list.append(e)
 
     subjective_list = list()
-    subjective_dict = {'q_id:': '', 'q_description': '', 'q_answer': '', 'q_value': '', 'q_diff': ''}
+    subjective_dict = {'q_id:': '', 'q_description': '', 'q_answer': '', 'q_value': '', 'q_diff': '', 'q_type': ''}
     sql = 'select * from subjective_question where q_description like \'%' + desc + '%\' '
     cursor.execute(sql)
     data = cursor.fetchall()
@@ -1120,10 +1122,38 @@ def search_question():
         e['q_answer'] = x.get('q_answer')
         e['q_value'] = x.get('q_value')
         e['q_diff'] = x.get('q_difficulty')
+        e['q_type'] = x.get('q_type')
         subjective_list.append(e)
 
     return render_template('admin-questionlist.html', choice_list=choice_list, judge_list=judge_list,
                            subjective_list=subjective_list)
+
+
+@app.route('/modify_choice', methods=['GET', 'POST'])
+def modify_choice():
+    q_id = request.form.get('q_id')
+    q_desc = request.form.get('q_desc')
+    q_value = request.form.get('q_value')
+    q_answer = request.form.get('q_answer')
+    q_difficulty = request.form.get('q_diff')
+    q_A = request.form.get('q_A')
+    q_B = request.form.get('q_B')
+    q_C = request.form.get('q_C')
+    q_D = request.form.get('q_D')
+    q_type = request.form.get('q_type')
+    sql = 'UPDATE ' + choice_question_table + ' SET ' + \
+          'q_description=%s, q_value=%s, q_answer=%s, q_A=%s, q_B=%s, q_C=%s, q_D=%s, q_difficulty=%s, q_type=%s ' + \
+          'WHERE q_id = ' + q_id
+    print(sql)
+    print(q_id, q_desc, q_value, q_answer, q_A, q_B, q_C, q_D, q_difficulty, q_type)
+    try:
+        cursor.execute(sql, (q_desc, q_value, q_answer, q_A, q_B, q_C, q_D, q_difficulty, q_type))
+        db_connector.commit()
+        return jsonify({'success': 1})
+    except:
+        print('[admin modify choice]', 'modify failed')
+        db_connector.rollback()
+        return jsonify({'success': 0})
 
 
 if __name__ == '__main__':

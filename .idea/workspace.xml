@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3e85c9fd-b688-4174-a643-49d69ba7dc6b" name="Default Changelist" comment="" />
+    <list default="true" id="3e85c9fd-b688-4174-a643-49d69ba7dc6b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/javascript/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/javascript/admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin-questionlist.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin-questionlist.html" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -9,7 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/exam_online$SinWeb.coverage" NAME="SinWeb Coverage Results" MODIFIED="1578661883684" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/exam_online$SinWeb.coverage" NAME="SinWeb Coverage Results" MODIFIED="1578666351024" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/SinWeb$SinWeb.coverage" NAME="SinWeb Coverage Results" MODIFIED="1573566782735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FavoritesManager">
@@ -18,22 +22,31 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="FIRST">
-              <first_editor relative-caret-position="879">
-                <caret line="60" column="29" selection-start-line="60" selection-start-column="29" selection-end-line="60" selection-end-column="29" />
-              </first_editor>
-              <second_editor />
+        <entry file="file://$PROJECT_DIR$/app.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="1155" column="38" selection-start-line="1155" selection-start-column="38" selection-end-line="1155" selection-end-column="38" />
+              <folding>
+                <element signature="e#0#86#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/admin-add-questions.html">
+        <entry file="file://$PROJECT_DIR$/static/javascript/admin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="189" column="99" selection-start-line="189" selection-start-column="99" selection-end-line="189" selection-end-column="99" />
+            <state relative-caret-position="851">
+              <caret line="129" column="25" lean-forward="true" selection-start-line="129" selection-start-column="25" selection-end-line="129" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/admin-questionlist.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="167">
+              <caret line="73" column="75" selection-start-line="73" selection-start-column="75" selection-end-line="73" selection-end-column="75" />
             </state>
           </provider>
         </entry>
@@ -52,8 +65,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>uploadfile</find>
-      <find>admin_userlist</find>
       <find>admin_examlist</find>
       <find>previ</find>
       <find>pre</find>
@@ -82,6 +93,8 @@
       <find>admin_add</find>
       <find>choice-modal</find>
       <find>add_A_question</find>
+      <find>sea</find>
+      <find>showQ</find>
     </findStrings>
     <replaceStrings>
       <replace>../static/css</replace>
@@ -142,10 +155,10 @@
         <option value="$PROJECT_DIR$/templates/admin-questionlist.html" />
         <option value="$PROJECT_DIR$/teacher_helper.py" />
         <option value="$PROJECT_DIR$/templates/teacherQuestion.html" />
-        <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/templates/admin-add-questions.html" />
-        <option value="$PROJECT_DIR$/static/javascript/admin.js" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/app.py" />
+        <option value="$PROJECT_DIR$/static/javascript/admin.js" />
       </list>
     </option>
   </component>
@@ -175,6 +188,17 @@
             <path>
               <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
               <item name="exam-online" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="exam-online" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="exam-online" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="javascript" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="exam-online" type="b2602c69:ProjectViewProjectNode" />
@@ -306,12 +330,12 @@
       <workItem from="1578461091967" duration="24782000" />
       <workItem from="1578544120063" duration="31889000" />
       <workItem from="1578633452826" duration="14585000" />
-      <workItem from="1578660704756" duration="2192000" />
+      <workItem from="1578660704756" duration="2956000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="343998000" />
+    <option name="totallyTimeSpent" value="344762000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -330,7 +354,7 @@
       <window_info id="Favorites" order="2" sideWeight="0.17847025" side_tool="true" weight="0.15281501" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.44050992" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.6798867" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29886687" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -339,7 +363,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3286119" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.23654391" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.23654391" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3286119" />
       <window_info anchor="bottom" id="Thumbnails" order="13" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -713,27 +737,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascript/admin.js">
+    <entry file="file://$PROJECT_DIR$/templates/admin-add-questions.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="137" column="30" selection-start-line="137" selection-start-column="30" selection-end-line="137" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="1036" column="71" selection-start-line="1036" selection-start-column="71" selection-end-line="1036" selection-end-column="71" />
-          <folding>
-            <element signature="e#0#86#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/admin-questionlist.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="4" column="9" lean-forward="true" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="21" />
+        <state relative-caret-position="277">
+          <caret line="189" column="99" selection-start-line="189" selection-start-column="99" selection-end-line="189" selection-end-column="99" />
         </state>
       </provider>
     </entry>
@@ -747,10 +754,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/admin-add-questions.html">
+    <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="189" column="99" selection-start-line="189" selection-start-column="99" selection-end-line="189" selection-end-column="99" />
+        <state relative-caret-position="234">
+          <caret line="1155" column="38" selection-start-line="1155" selection-start-column="38" selection-end-line="1155" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#86#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/admin-questionlist.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="73" column="75" selection-start-line="73" selection-start-column="75" selection-end-line="73" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascript/admin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="851">
+          <caret line="129" column="25" lean-forward="true" selection-start-line="129" selection-start-column="25" selection-end-line="129" selection-end-column="25" />
         </state>
       </provider>
     </entry>

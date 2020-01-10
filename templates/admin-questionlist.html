@@ -52,6 +52,8 @@
         <th>选项2</th>
         <th>选项3</th>
         <th>选项4</th>
+        <th>分类</th>
+        <th>操作</th>
         <th>操作</th>
       </tr>
     </thead>
@@ -59,16 +61,75 @@
       {% for choice in choice_list %}
       <tr>
         <td>选择题</td>>
-        <td>{{ choice.q_id }}</td>
-        <td>{{ choice.q_description }}</td>
-        <td>{{ choice.q_answer }}</td>
-        <td>{{ choice.q_value }}</td>
-        <td>{{ choice.q_diff }}</td>
-        <td>{{ choice.q_A }}</td>
-        <td>{{ choice.q_B }}</td>
-        <td>{{ choice.q_C }}</td>
-        <td>{{ choice.q_D }}</td>
+        <td>{{ choice.q_id }}</td >
+        <td id='td_desc_{{choice.q_id}}'>{{ choice.q_description }}</td>
+        <td id='td_ans_{{choice.q_id}}'>{{ choice.q_answer }}</td>
+        <td id='td_value_{{choice.q_id}}'>{{ choice.q_value }}</td>
+        <td id='td_diff_{{choice.q_id}}'>{{ choice.q_diff }}</td>
+        <td id='td_A_{{choice.q_id}}'>{{ choice.q_A }}</td>
+        <td id='td_B_{{choice.q_id}}'>{{ choice.q_B }}</td >
+        <td id='td_C_{{choice.q_id}}'>{{ choice.q_C }}</td>
+        <td id='td_D_{{choice.q_id}}'>{{ choice.q_D }}</td>
+        <td id='td_type_{{choice.q_id}}'>{{ choice.q_type }}</td>
+        <td><button class="btn btn-danger" id="choice-modify" onclick="showQ({{ choice.q_id }})">修改</button></td>
         <td><button class="btn btn-danger" id="choice-delete" onclick="deleteQ({{ choice.q_id }},1)">删除</button></td>
+        <div class="modal fade" tabindex="-1" role="dialog" id="choice-modal-{{choice.q_id}}">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">修改选择题</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class='needs-validation' novalidate id="choice-type">
+                  <div class="form-group">
+                    <label for="question">题目</label>
+                    <input type="text" class="form-control" id="choice_q_{{choice.q_id}}" aria-describedby=""
+                      placeholder="题目" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="score">分数</label>
+                    <input type="text" class="form-control" id="choice_value_{{choice.q_id}}"  requiredpattern="[0-9]">
+                  </div>
+                  <div class="form-group">
+                    <label for="ans">答案</label>
+                    <input type="text" class="form-control" id="choice_ans_{{choice.q_id}}">
+                  </div>
+                  <div class="form-group">
+                    <label for="optA">选项1</label>
+                    <input type="text" class="form-control" id="q_A_{{choice.q_id}}">
+                  </div>
+                  <div class="form-group">
+                    <label for="optB">选项2</label>
+                    <input type="text" class="form-control" id="q_B_{{choice.q_id}}">
+                  </div>
+                  <div class="form-group">
+                    <label for="optC">选项3</label>
+                    <input type="text" class="form-control" id="q_C_{{choice.q_id}}">
+                  </div>
+                  <div class="form-group">
+                    <label for="optD">选项4</label>
+                    <input type="text" class="form-control" id="q_D_{{choice.q_id}}">
+                  </div>
+                  <div class="form-group">
+                      <label for="diff">难度</label>
+                      <input type="text" class="form-control" id="choice_diff_{{choice.q_id}}">
+                  </div>
+                  <div class="form-group">
+                      <label for="diff">类别</label>
+                      <input type="text" class="form-control" id="choice_type_{{choice.q_id}}">
+                    </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="modify_choice({{choice.q_id}})">确认修改</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </tr>
       {% endfor %}
     </tbody>
@@ -87,6 +148,8 @@
           <th>答案</th>
           <th>分值</th>
           <th>难度</th>
+          <th>分类</th>
+          <th>操作</th>
           <th>操作</th>
         </tr>
       </thead>
@@ -99,6 +162,8 @@
           <td>{{ judge.q_answer }}</td>
           <td>{{ judge.q_value }}</td>
           <td>{{ judge.q_diff }}</td>
+          <td>{{ judge.q_type }}</td>
+          <td><button class="btn btn-danger" >修改</button></td>
           <td><button class="btn btn-danger" id="judge-delete" onclick="deleteQ({{ judge.q_id }},2)" >删除</button></td>
         </tr>
         {% endfor %}
@@ -118,6 +183,8 @@
             <th>答案</th>
             <th>分值</th>
             <th>难度</th>
+            <th>分类</th>
+            <th>操作</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -130,6 +197,8 @@
             <td>{{ subjective.q_answer }}</td>
             <td>{{ subjective.q_value }}</td>
             <td>{{ subjective.q_diff }}</td>
+            <td>{{ subjective.q_type }}</td>
+            <td><button class="btn btn-danger" >修改</button></td>
             <td><button class="btn btn-danger" id="subj-delete" onclick="deleteQ({{ subjective.q_id }},3)" >删除</button></td>
           </tr>
           {% endfor %}
@@ -139,7 +208,19 @@
       </div>
 </div>
 
-
+<!-- JavaScript files-->
+<script src="../static/vendor/jquery/jquery.min.js"></script>
+<script src="../static/vendor/popper.js/umd/popper.min.js"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../static/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+<script src="../static/vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="../static/vendor/chart.js/Chart.min.js"></script>
+<script src="../static/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="../static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="../static/js/charts-home.js"></script>
+<!-- Main File-->
+<script src="../static/js/front.js"></script>
+<script src="../static/javascript/global.js"></script>
 
 <script type="text/javascript" src="../static/javascript/admin.js"></script>
 
