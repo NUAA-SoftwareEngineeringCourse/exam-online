@@ -35,144 +35,164 @@
 
                     <form class="forms-sample">
                         <div class="form-group">
-                            <button class="btn btn-gradient-primary" id='choice-button' onclick="choiceModal()">增加选择题</button>
+                            <button class="btn btn-gradient-primary" id='choice-button' onclick="choiceModal()">增加选择题
+                            </button>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-gradient-primary" id='judge-button' onclick="judgeModal()">增加判断题</button>
+                            <button class="btn btn-gradient-primary" id='judge-button' onclick="judgeModal()">增加判断题
+                            </button>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-gradient-primary" id='subjective-button' onclick="subjectiveModal()">增加主观题</button>
+                            <button class="btn btn-gradient-primary" id='subjective-button' onclick="subjectiveModal()">
+                                增加主观题
+                            </button>
                         </div>
-                    
+
                         <div class="modal fade" tabindex="-1" role="dialog" id="choice-modal">
                             <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title">增加选择题</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">增加选择题</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class='needs-validation' novalidate id="choice-type">
+                                            <div class="form-group">
+                                                <label for="question">题目</label>
+                                                <input type="text" class="form-control" id="choice_q"
+                                                       aria-describedby=""
+                                                       placeholder="题目" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="score">分数</label>
+                                                <input type="text" class="form-control" id="choice_value"
+                                                       requiredpattern="[0-9]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="ans">答案</label>
+                                                <input type="text" class="form-control" id="choice_ans">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="optA">选项1</label>
+                                                <input type="text" class="form-control" id="q_A">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="optB">选项2</label>
+                                                <input type="text" class="form-control" id="q_B">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="optC">选项3</label>
+                                                <input type="text" class="form-control" id="q_C">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="optD">选项4</label>
+                                                <input type="text" class="form-control" id="q_D">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="diff">难度</label>
+                                                <input type="text" class="form-control" id="choice_diff">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="q-class">科目</label>
+                                                <input type="text" class="form-control" id="choice_class">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" onclick="add_xuanze()">增加</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                  <form class='needs-validation' novalidate id="choice-type">
-                                    <div class="form-group">
-                                      <label for="question">题目</label>
-                                      <input type="text" class="form-control" id="choice_q" aria-describedby=""
-                                        placeholder="题目" required>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="score">分数</label>
-                                      <input type="text" class="form-control" id="choice_value"  requiredpattern="[0-9]">
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="ans">答案</label>
-                                      <input type="text" class="form-control" id="choice_ans">
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="optA">选项1</label>
-                                      <input type="text" class="form-control" id="q_A">
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="optB">选项2</label>
-                                      <input type="text" class="form-control" id="q_B">
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="optC">选项3</label>
-                                      <input type="text" class="form-control" id="q_C">
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="optD">选项4</label>
-                                      <input type="text" class="form-control" id="q_D">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="diff">难度</label>
-                                        <input type="text" class="form-control" id="choice_diff">
-                                      </div>
-                                  </form>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-primary" onclick="add_xuanze()">增加</button>
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                </div>
-                              </div>
                             </div>
-                          </div>
-                          <!--判断题-->
-                          <div class="modal fade" tabindex="-1" role="dialog" id="judge-modal">
+                        </div>
+                        <!--判断题-->
+                        <div class="modal fade" tabindex="-1" role="dialog" id="judge-modal">
                             <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title">增加判断题</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">增加判断题</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class='needs-validation' novalidate id="judge-type">
+                                            <div class="form-group">
+                                                <label for="question">题目</label>
+                                                <input type="text" class="form-control" id="judge_q" aria-describedby=""
+                                                       placeholder="题目" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="score">分数</label>
+                                                <input type="text" class="form-control" id="judge_value"
+                                                       requiredpattern="[0-9]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="ans">答案</label>
+                                                <input type="text" class="form-control" id="judge_ans">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="diff">难度</label>
+                                                <input type="text" class="form-control" id="judge_diff">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="judge_class">科目</label>
+                                                <input type="text" class="form-control" id="judge_class">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" onclick="add_judge()">增加</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                  <form class='needs-validation' novalidate id="judge-type">
-                                    <div class="form-group">
-                                      <label for="question">题目</label>
-                                      <input type="text" class="form-control" id="judge_q" aria-describedby=""
-                                        placeholder="题目" required>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="score">分数</label>
-                                      <input type="text" class="form-control" id="judge_value"  requiredpattern="[0-9]">
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="ans">答案</label>
-                                      <input type="text" class="form-control" id="judge_ans">
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="diff">难度</label>
-                                      <input type="text" class="form-control" id="judge_diff">
-                                    </div>
-                                  </form>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-primary" onclick="add_judge()">增加</button>
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                </div>
-                              </div>
                             </div>
-                          </div>
-                          <!---->
-                          <div class="modal fade" tabindex="-1" role="dialog" id="subjective-modal">
+                        </div>
+                        <!---->
+                        <div class="modal fade" tabindex="-1" role="dialog" id="subjective-modal">
                             <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title">增加主观题</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">增加主观题</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class='needs-validation' novalidate id="subjective-type">
+                                            <div class="form-group">
+                                                <label for="question">题目</label>
+                                                <input type="text" class="form-control" id="subj_q" aria-describedby=""
+                                                       placeholder="题目" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="score">分数</label>
+                                                <input type="text" class="form-control" id="subj_value"
+                                                       requiredpattern="[0-9]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="ans">答案</label>
+                                                <input type="text" class="form-control" id="subj_ans">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="diff">难度</label>
+                                                <input type="text" class="form-control" id="subj_diff">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="subj_class">科目</label>
+                                                <input type="text" class="form-control" id="subj_class">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" onclick="add_subj()">增加</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                  <form class='needs-validation' novalidate id="subjective-type">
-                                    <div class="form-group">
-                                      <label for="question">题目</label>
-                                      <input type="text" class="form-control" id="subj_q" aria-describedby=""
-                                        placeholder="题目" required>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="score">分数</label>
-                                      <input type="text" class="form-control" id="subj_value"  requiredpattern="[0-9]">
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="ans">答案</label>
-                                      <input type="text" class="form-control" id="subj_ans">
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="diff">难度</label>
-                                      <input type="text" class="form-control" id="subj_diff">
-                                    </div>
-                                  </form>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-primary" onclick="add_subj()">增加</button>
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                </div>
-                              </div>
                             </div>
-                          </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -188,17 +208,20 @@
                     <p>
                         请按照表格内提示准确填写，不要修改模板中表格结构。
                     </p>
-                    <form method="post" action="{{ url_for('admin_add_questions_by_file') }}" enctype="multipart/form-data">
-                        <p><input type="file" name="upload_questions_file" id="upload_questions_file" class="form-control"></p>
+                    <form method="post" action="{{ url_for('admin_add_questions_by_file') }}"
+                          enctype="multipart/form-data">
+                        <p><input type="file" name="upload_questions_file" id="upload_questions_file"
+                                  class="form-control"></p>
                         <p>请输入科目：<input type="text" name="input-q-type" id="input-q-type"></p>
-                        <p><button type="submit" class="btn btn-gradient-primary btn-fw">上传</button></p>
+                        <p>
+                            <button type="submit" class="btn btn-gradient-primary btn-fw">上传</button>
+                        </p>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 
 <script type="text/javascript" src="../static/xinziyuan/js/admin-create.js"></script>

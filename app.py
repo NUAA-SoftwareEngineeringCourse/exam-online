@@ -1023,17 +1023,18 @@ def add_A_question():
     q_answer = request.form.get('q_answer')
     q_diff = request.form.get('q_diff')
     q_type = int(request.form.get('q_type'))
+    q_class = request.form.get('q_class')
     table_name = 'judge_question'
     if q_type == 3:
         table_name = 'subjective_question'
     sql = 'INSERT INTO ' + table_name + \
-          '(q_description, q_value, q_answer, q_counter, q_difficulty, q_year,q_paperid)' + \
-          'VALUES (%s, %s, %s, 0, %s,2020,30)'
+          '(q_description, q_value, q_answer, q_counter, q_difficulty, q_year,q_paperid,q_type)' + \
+          'VALUES (%s, %s, %s, 0, %s,2020,30, %s)'
 
     print(q_desc, q_value, q_answer, table_name)
     print(sql, (q_desc, q_value, q_answer, q_diff))
     try:
-        cursor.execute(sql, (q_desc, q_value, q_answer, q_diff))
+        cursor.execute(sql, (q_desc, q_value, q_answer, q_diff, q_class))
         db_connector.commit()
         return jsonify({'success': 1})
     except:
@@ -1052,17 +1053,18 @@ def admin_addchoice():
     q_B = request.form.get('q_B')
     q_C = request.form.get('q_C')
     q_D = request.form.get('q_D')
+    q_class = request.form.get('q_class')
     table_name = 'choice_question'
     sql = 'INSERT INTO ' + choice_question_table + \
-          '(q_description, q_value, q_answer, q_A, q_B, q_C, q_D, q_counter, q_difficulty, q_year,q_paperid) ' + \
-          'VALUES (%s, %s, %s, %s, %s, %s, %s, 0, %s, 2020,30)'
-    print(q_desc, q_value, q_answer, table_name, q_A, q_B, q_C, q_D)
+          '(q_description, q_value, q_answer, q_A, q_B, q_C, q_D, q_counter, q_difficulty, q_year,q_paperid, q_type) ' + \
+          'VALUES (%s, %s, %s, %s, %s, %s, %s, 0, %s, 2020,30, %s)'
+    print(q_desc, q_value, q_answer, table_name, q_A, q_B, q_C, q_D, q_class)
     try:
-        cursor.execute(sql, (q_desc, q_value, q_answer, q_A, q_B, q_C, q_D, q_diff))
+        cursor.execute(sql, (q_desc, q_value, q_answer, q_A, q_B, q_C, q_D, q_diff, q_class))
         db_connector.commit()
         return jsonify({'success': 1})
     except:
-        print('[admin add user]', 'insert failed')
+        print('[admin add choice]', 'insert failed')
         db_connector.rollback()
         return jsonify({'success': 0})
 
