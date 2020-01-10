@@ -204,24 +204,19 @@
     <div class="p-3 mb-2 text-black-50 rounded">
         <label><strong>请选择科目：</strong></label>
         <select id="title-selection">
-            {% if keyword %}
-                <option value="{{ keyword }}">{{ keyword }}</option>
-                {% for title in title_list %}
-                    {% if title != keyword %}
-                        <option value="{{ title }}">{{ title }}</option>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+            {% for title in title_list %}
+                <option value="{{ title }}">{{ title }}</option>
+            {% endfor %}
         </select><br>
         <!-- label><strong>输入关键字：</strong></label><input type="text" id="query-keyword"><br -->
-        <label><strong>选择题数量：</strong></label><input type="text" id="xuanze" value="{{ xuanze }}">
-        <label><strong>难题数量：</strong></label><input type="text" id="nanti1" value="{{ nanti1 }}">
+        <label><strong>选择题数量：</strong></label><input type="text" id="xuanze">
+        <label><strong>难题数量：</strong></label><input type="text" id="nanti1">
         <br>
-        <label><strong>判断题数量：</strong></label><input type="text" id="panduan" value="{{ panduan }}">
-        <label><strong>难题数量：</strong></label><input type="text" id="nanti2" value="{{ nanti2 }}">
+        <label><strong>判断题数量：</strong></label><input type="text" id="panduan">
+        <label><strong>难题数量：</strong></label><input type="text" id="nanti2">
         <br>
-        <label><strong>简答题数量：</strong></label><input type="text" id="jianda" value="{{ jianda }}">
-        <label><strong>难题数量：</strong></label><input type="text" id="nanti3" value="{{ nanti3 }}">
+        <label><strong>简答题数量：</strong></label><input type="text" id="jianda">
+        <label><strong>难题数量：</strong></label><input type="text" id="nanti3">
         <br>
         <button class="btn btn-primary" id="query-button" onclick="query_action()">查询</button>
 
@@ -240,313 +235,132 @@
                 window.location.href = base_url_str + '/get_questions/?keyword=' + title + '&' + 'nanti1=' + nanti1 + '&' + 'nanti2=' + nanti2 + '&' + 'nanti3=' + nanti3 + '&' + 'xuanze=' + xuanze + '&' + 'panduan=' + panduan + '&' + 'jianda=' + jianda;
             }
 
-            function replaceModal(qid, html_type, q_description) {
-                // alert('修改ID为' + qid + '的题目');
-                var select_html = document.getElementById('title-selection');
-                var title = select_html.options[select_html.selectedIndex].value;
-                document.getElementById('modal-db-qtype').innerText = '科目：' + title;
-                document.getElementById('modal-html-qtype').innerText = '类型：' + html_type;
-                document.getElementById('modal-qid').innerText = '题目ID：' + qid;
-                document.getElementById('modal-qdesc').innerText = '题目内容：' + q_description;
-
-
-                $('#replace-modal').modal('show');
-            }
-
-            function hideReplaceModal() {
-                $('#replace-modal').modal('hide');
-            }
-
-            function getCurrentQids() {
-                var selected_questions = {"choice": [], "judge": [], "subjective": []};
-                var choice_box = document.getElementsByName("choice");
-                for (var i = 0; i < choice_box.length; i++) {
-                    if (choice_box[i].checked == true)
-                        selected_questions["choice"].push(choice_box[i].id);
-                }
-                var judge_box = document.getElementsByName("judge");
-                for (var i = 0; i < judge_box.length; i++) {
-                    if (judge_box[i].checked == true)
-                        selected_questions["judge"].push(judge_box[i].id);
-                }
-                var subjective_box = document.getElementsByName("subjective")
-                for (var i = 0; i < subjective_box.length; i++) {
-                    if (subjective_box[i].checked == true)
-                        selected_questions["subjective"].push(subjective_box[i].id)
-                }
-                return selected_questions;
-            }
-
-            function optionOnclick() {
-                var choice_url = '/teacher_replace_choice/';
-                var judge_url = '/teacher_replace_judge/';
-                var subjective_url = '/teacher_replace_subjective/';
-                var url_str = choice_url;
-
-                var select_html = document.getElementById('difficulty-select');
-                var option_val = select_html.options[select_html.selectedIndex].value;
-
-                var select_html = document.getElementById('title-selection');
-                var db_type = select_html.options[select_html.selectedIndex].value;
-
-                var html_qtype = document.getElementById('modal-html-qtype').innerText;
-
-                if (html_qtype.indexOf('选择题') !== -1) {
-                    html_qtype = 'choice';
-                    url_str = choice_url;
-                } else if (html_qtype.indexOf('判断题') !== -1) {
-                    html_qtype = 'judge';
-                    url_str = judge_url;
-                } else if (html_qtype.indexOf('主观题') !== -1) {
-                    html_qtype = 'subjective';
-                    url_str = subjective_url;
-                }
-
-                $.ajax({
-                    type: 'post',
-                    url: base_url_str + judge_url,
-                    async: true,
-                    data: {
-                        'difficulty': option_val,
-                        'html_type': html_qtype,
-                        'selected_ids': JSON.stringify(getCurrentQids()[html_qtype]),
-                        'db_type': db_type
-                    },
-                    success: function (data) {
-                        if (data['success'] === 1) {
-                            //alert('success');
-                            //alert(data['replace_list']);
-                            console.log(data['replace_list']);
-                            console.log(typeof (data['replace_list']));
-                            var replace_list = data['replace_list'];
-                            var order_list = document.getElementById('replace-list');
-
-                            var li_html_str = '<li id="replace-li-__id__"><input name="replace-radio" type="radio" id="__id__">__content__</li>';
-                            var options_html_str = '<p id="replace-new-options-__id__">__content__</p>';
-                            var ansewer_html_str = '<p id="replace-new-answer-__id__">答案：__content__</p>';
-                            order_list.innerHTML = '';
-
-                            for (var i = 0; i < replace_list.length; i++) {
-                                var t = li_html_str.replace(/__id__/g, replace_list[i]['q_id']);
-                                t = t.replace(/__content__/g, replace_list[i]['q_description']);
-                                order_list.innerHTML += t;
-
-                                if (replace_list[i]['q_A'] != undefined) {
-                                    var p = options_html_str.replace(/__id__/g, replace_list[i]['q_id']);
-                                    var content = 'A.' + replace_list[i]['q_A'] + '<br>';
-                                    content += 'B.' + replace_list[i]['q_B'] + '<br>';
-                                    content += 'C.' + replace_list[i]['q_C'] + '<br>';
-                                    content += 'D.' + replace_list[i]['q_D'] + '<br>';
-                                    p = p.replace(/__content__/g, content);
-                                    order_list.innerHTML += p;
-                                }
-
-                                var temp = ansewer_html_str.replace(/__id__/g, replace_list[i]['q_id']);
-                                temp = temp.replace(/__content__/g, replace_list[i]['q_answer']);
-                                order_list.innerHTML += temp;
-                            }
-                            //window.location.reload();
-                        } else {
-                            alert('failed');
-                        }
-
-                    }
-
-                })
-            }
-
-            function submitReplace() {
-                var old_id = document.getElementById('modal-qid').innerText.replace('题目ID：', '');
-                var replace_qtype = document.getElementById('modal-html-qtype').innerText;
-                var radioes = document.getElementsByName('replace-radio');
-                for (var i = 0; i < radioes.length; i++) {
-                    if (radioes[i].checked == true) {
-                        var new_id = radioes[i].id;
-                        alert(new_id);
-                        break;
-                    }
-                }
-                var all_ids = getCurrentQids();
-                if (replace_qtype.indexOf('选择题') != -1) {
-                    // 改变 radio box 的id 和 显示的题干
-                    var old_desc = document.getElementById('choice-desc-' + old_id);
-                    var old_radio = document.getElementById(old_id);
-                    old_radio.id = new_id;
-                    old_desc.innerText = document.getElementById('replace-li-' + new_id).innerText;
-                    old_desc.id = 'choice-desc-' + new_id;
-
-                    //改变选项
-                    var old_4options = document.getElementById('choice-4options-' + old_id);
-                    var new_4options = document.getElementById('replace-new-options-' + new_id);
-                    old_4options.innerHTML = new_4options.innerHTML;
-                    old_4options.id = 'choice-4options-' + new_id;
-
-
-                    //改变答案
-                    var old_answer = document.getElementById('choice-answer-' + old_id);
-                    var new_answer = document.getElementById('replace-new-answer-' + new_id).innerText.replace('答案：', '');
-                    old_answer.innerText = new_answer;
-                    old_answer.id = 'choice-answer-' + new_id;
-
-
-                } else if (replace_qtype.indexOf('判断题') != -1) {
-                    var old_desc = document.getElementById('judge-desc-' + old_id);
-                    var old_radio = document.getElementById(old_id);
-                    old_radio.id = new_id;
-                    old_desc.innerText = document.getElementById('replace-li-' + new_id).innerText;
-                    old_desc.id = 'judge-desc-' + new_id;
-
-                    //改变答案
-                    var old_answer = document.getElementById('judge-answer-' + old_id);
-                    var new_answer = document.getElementById('replace-new-answer-' + new_id).innerText.replace('答案：', '');
-                    old_answer.innerText = new_answer;
-                    old_answer.id = 'judge-answer-' + new_id;
-
-                } else if (replace_qtype.indexOf('主观题') != -1) {
-                    var old_desc = document.getElementById('subjective-desc-' + old_id);
-                    var old_radio = document.getElementById(old_id);
-                    old_radio.id = new_id;
-                    old_desc.innerText = document.getElementById('replace-li-' + new_id).innerText;
-                    old_desc.id = 'subjective-desc-' + new_id;
-
-                    //改变答案
-                    var old_answer = document.getElementById('subjective-answer-' + old_id);
-                    var new_answer = document.getElementById('replace-new-answer-' + new_id).innerText.replace('答案：', '');
-                    old_answer.innerText = new_answer;
-                    old_answer.id = 'subjective-answer-' + new_id;
-                }
-
-
+            function test() {
+                alert('test');
+                $('#test-modal').modal('show');
             }
         </script>
     </div>
-    {% if choice_list %}
-        <div class="">
-            <h3>一、选择题部分</h3>
-            <table class="table table-striped">
-                <thead align="center">
-                <tr>
-                    <!-- th align="center">是否选择</th -->
-                    <!-- th>题目I D</th -->
-                    <th>题目内容</th>
-                    <th>题目选项</th>
-                    <th>参考答案</th>
-                    <th>题目难度</th>
-                    <th>出题次数</th>
-                    <th>替换题目</th>
-                    <th>修改题目</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for q in choice_list %}
-                    <tr id="table-row-{{ q.q_id }}">
-                        <!-- td align="center">{{ q.q_id }}</td -->
-                        <td width="500px">
-                            <input style="padding: 0px;" type="checkbox" id="{{ q.q_id }}" name="choice" checked="true">
-                            <label id="choice-desc-{{ q.q_id }}">{{ q.q_description }}</label>
-                        </td>
-                        <td width="300px" id="choice-4options-{{ q.q_id }}">
-                            A. {{ q.q_A }}<br>
-                            B. {{ q.q_B }}<br>
-                            C. {{ q.q_C }}<br>
-                            D. {{ q.q_D }}<br>
-                        </td>
-                        <td align="center" id="choice-answer-{{ q.q_id }}">{{ q.q_answer }}</td>
-                        <td align="center">{{ q.q_difficulty }}</td>
-                        <td align="center">{{ q.q_counter }}</td>
-                        <td align="center">
-                            <button class="btn btn-primary"
-                                    onclick="replaceModal('{{ q.q_id }}', '选择题', '{{ q.q_description }}')">替换
-                            </button>
-                        </td>
-                        <td align="center">
-                            <button class="btn btn-primary">修改</button>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% endif %}
-    {% if judge_list %}
-        <div class="">
-            <h3>二、判断题部分</h3>
-            <table class="table table-striped">
-                <thead align="center">
-                <tr>
-                    <!-- th>题目I D</th -->
-                    <th>题目内容</th>
-                    <th>参考答案</th>
-                    <th>题目难度</th>
-                    <th>出题次数</th>
-                    <th>替换题目</th>
-                    <th>修改题目</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for q in judge_list %}
-                    <tr id="table-row-{{ q.q_id }}">
-                    <!-- td align="center">{{ q.q_id }}</td -->
-                    <td width="500px">
-                        <input type="checkbox" id="{{ q.q_id }}" name="judge" checked="true">
-                        <label id="judge-desc-{{ q.q_id }}">{{ q.q_description }}</label>
-                    </td>
-                    <td align="center" id="judge-answer-{{ q.q_id }}">{{ q.q_answer }}</td>
-                    <td align="center">{{ q.q_difficulty }}</td>
-                    <td align="center">{{ q.q_counter }}</td>
-                    <td align="center">
-                        <button class="btn btn-primary"
-                                onclick="replaceModal('{{ q.q_id }}', '判断题', '{{ q.q_description }}')">替换
+
+    <div class="">
+        <div class="modal fade" tabindex="-1" role="dialog" id="test-modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">登录</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
                         </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class='needs-validation' novalidate id="LoginForm">
+                            <div class="form-group">
+                                <label for="UserIDLogin">学号/工号</label>
+                                <input type="text" class="form-control" id="UserIDLogin" aria-describedby=""
+                                       placeholder="Enter your User ID number" required>
+                                <div class="invalid-feedback" id="loginUserIDFeedback">
+                                    学号/工号错误
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="PasswordLogin">登录密码</label>
+                                <input type="password" class="form-control" id="PasswordLogin" placeholder="Password"
+                                       required
+                                       pattern="[0-9a-zA-Z]{5,16}">
+                                <p class="password-error" id="passwordError"></p>
+                                <div class="invalid-feedback">
+                                    密码格式要求长度5到16位，可以是数字和字母.
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">记住我</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">确认</button>
+                        <button type="button" class="btn btn-secondary">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>一、选择题部分</h3>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <!-- th align="center">是否选择</th -->
+                <th>题目内容</th>
+                <th>选项</th>
+                <th>答案</th>
+                <th>题目难度</th>
+                <th>出题次数</th>
+                <th>替换题目</th>
+                <th>修改题目</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for q in choice_list %}
+                <tr>
+                    <!-- td align="center"><input style="padding: 0px;" type="checkbox" id="{{ q.q_id }}" name="choice" checked="true"></td -->
+                    <td>
+                        <input style="padding: 0px;" type="checkbox" id="{{ q.q_id }}" name="choice" checked="true">
+                        {{ q.q_description }}
                     </td>
-                    <td align="center">
+                    <td>
+                        A.{{ q.q_A }}<br>
+                        B.{{ q.q_B }}<br>
+                        C.{{ q.q_C }}<br>
+                        D.{{ q.q_D }}<br>
+                    </td>
+                    <td>{{ q.q_answer }}</td>
+                    <td>{{ q.q_difficulty }}</td>
+                    <td>{{ q.q_counter }}</td>
+                    <td>
+                        <button class="btn btn-primary" onclick="test()">替换</button>
+                    </td>
+                    <td>
                         <button class="btn btn-primary">修改</button>
                     </td>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% endif %}
-    {% if subjective_list %}
-        <div class="">
-            <h3>三、主观题部分</h3>
-            <table class="table table-striped">
-                <thead align="center">
-                <tr>
-                    <!-- th>题目I D</th -->
-                    <th>题目内容</th>
-                    <th>参考答案</th>
-                    <th>题目难度</th>
-                    <th>出题次数</th>
-                    <th>替换题目</th>
-                    <th>修改题目</th>
                 </tr>
-                </thead>
-                <tbody>
-                {% for q in subjective_list %}
-                    <tr id="table-row-{{ q.q_id }}">
-                    <!-- td align="center">{{ q.q_id }}</td -->
-                    <td width="500px">
-                        <input type="checkbox" id="{{ q.q_id }}" name="subjective" checked="true">
-                        <label id="subjective-desc-{{ q.q_id }}">{{ q.q_description }}</label>
-                    </td>
-                    <td align="center" id="subjective-answer-{{ q.q_id }}">{{ q.q_answer }}</td>
-                    <td align="center">{{ q.q_difficulty }}</td>
-                    <td align="center">{{ q.q_counter }}</td>
-                    <td align="center">
-                        <button class="btn btn-primary"
-                                onclick="replaceModal('{{ q.q_id }}', '主观题', '{{ q.q_description }}')">替换
-                        </button>
-                    </td>
-                    <td align="center">
-                        <button class="btn btn-primary">修改</button>
-                    </td>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% endif %}
-    <div class="p-3 mb-2 text-black rounded">
+            {% endfor %}
+            </tbody>
+        </table>
+        {% for q in choice_list %}
+            {% if q.q_difficulty == 3 %}
+                <input type="checkbox" id="{{ q.q_id }}" name="choice" checked="true">★【历史出题次数: {{ q.q_counter }}】
+                {{ q.q_description }}<br>
+            {% else %}
+                <input type="checkbox" id="{{ q.q_id }}" name="choice" checked="true">【历史出题次数: {{ q.q_counter }}】
+                {{ q.q_description }}<br>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="p-3 mb-2 bg-info text-white rounded">
+        <h3>二、判断题部分</h3>
+        {% for q in judge_list %}
+            {% if q.q_difficulty == 3 %}
+                <input type="checkbox" id="{{ q.q_id }}" name="judge" checked="true">★【历史出题次数: {{ q.q_counter }}】
+                {{ q.q_description }}<br>
+            {% else %}
+                <input type="checkbox" id="{{ q.q_id }}" name="judge" checked="true">【历史出题次数: {{ q.q_counter }}】
+                {{ q.q_description }}<br>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="p-3 mb-2 bg-info text-white rounded">
+        <h3>三、主观题部分</h3>
+        {% for q in subjective_list %}
+            {% if q.q_difficulty == 3 %}
+                <input type="checkbox" id="{{ q.q_id }}" name="subjective" checked="true">★【历史出题次数: {{ q.q_counter }}】
+                {{ q.q_description }}<br>
+            {% else %}
+                <input type="checkbox" id="{{ q.q_id }}" name="subjective" checked="true">【历史出题次数: {{ q.q_counter }}】
+                {{ q.q_description }}<br>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="p-3 mb-2 bg-info text-white rounded">
         <label class="col-sm-1 form-control-label"><strong>考试科目</strong></label><input type="text" id="exam-title"><br>
         <label class="col-sm-1 form-control-label"><strong>考试提示</strong></label><input type="text" id="exam-tips"><br>
         <label class="col-sm-1 form-control-label"><strong>考试时长</strong></label><input type="text"
@@ -606,57 +420,7 @@
             }
         </script>
     </div>
-    <!-- modal start -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="replace-modal">
-        <div class="modal-dialog" role="document" style="width: 1000px;">
-            <div class="modal-content" style="width: 1000px;">
-                <div class="modal-header">
-                    <h5 class="modal-title">替换题目</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form class='needs-validation' novalidate id="">
-                        <div class="form-group">
-                            <p id="modal-db-qtype">科目：软件测试</p>
-                        </div>
-                        <div class="form-group">
-                            <p id="modal-html-qtype">类型：选择题</p>
-                        </div>
-                        <div class="form-group">
-                            <p id="modal-qid">题目ID：我是题目ID。</p>
-                        </div>
-                        <div class="form-group">
-                            <p id="modal-qdesc">题目内容：我是题目内容。</p>
-                        </div>
-                        <div class="form-group">
-                            <p>选择难度：
-                                <select id="difficulty-select" onchange="optionOnclick()">
-                                    <option>请选择</option>
-                                    <option value="1">简单题目</option>
-                                    <option value="2">中等题目</option>
-                                    <option value="3">困难题目</option>
-                                </select>
-                            </p>
-                        </div>
-                        <div class="form-group">
-                            <p>待选择题目：</p>
-                            <ol id="replace-list">
 
-                            </ol>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="submitReplace()" id="submit-replace">确认
-                    </button>
-                    <button type="button" class="btn btn-secondary" onclick="hideReplaceModal()">取消</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- modal end -->
     <!-- 页面显示部分 -->
     <footer class="main-footer">
         <div class="container-fluid">

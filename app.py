@@ -315,7 +315,7 @@ def uploadFile():
                     db_connector.rollback()
 
     # 插入试题数据库
-    sql_helper.insert_questions(paper_id=paper_id, paper_path=file_path)
+    sql_helper.insert_questions(paper_id=paper_id, paper_path=file_path, paper_title=paper_title)
     return redirect(url_for('teacherIndex'))
 
 
@@ -805,14 +805,19 @@ def generate_paper():
     return jsonify({'success': 1})
 
 
+# teacher get question
 @app.route('/get_questions/', methods=['GET', 'POST'])
 def get_questions():
+    current_year = str(datetime.now().year)
+
+    import admin_helper
+    title_list = admin_helper.admin_get_questions_type()
+
     keyword = request.args.get('keyword')
     print_log('get questions', str(keyword))
     if keyword is None or keyword == '':
-        return render_template('teacherQuestion.html')
-    now_year = 2017
-    update_year = 2020
+        return render_template('teacherQuestion.html', title_list=title_list, keyword='请选择',
+                               xuanze=0, panduan=0, jianda=0, nanti3=0, nanti2=0, nanti1=0)
 
     xuanze = int(request.args.get('xuanze'))
     panduan = int(request.args.get('panduan'))
@@ -821,87 +826,38 @@ def get_questions():
     nanti2 = int(request.args.get('nanti2'))
     nanti3 = int(request.args.get('nanti3'))
 
-    update_sql = 'UPDATE {} SET q_year=2020, q_counter=q_counter+1 WHERE q_id=%s'
+    update_sql = 'UPDATE {} SET q_year=' + current_year + ', q_counter=q_counter+1 WHERE q_id=%s'
+    sql = 'SELECT * FROM {} WHERE q_type like %s'
 
-    sql = 'SELECT paper_id FROM ' + exam_paper_table + ' WHERE paper_title LIKE "%' + keyword + '%"'
-    choice_sql = 'SELECT * FROM ' + choice_question_table + 'WHERE q_paperid=%s'
-    judge_sql = 'SELECT * FROM ' + judge_question_table + 'WHERE q_paperid=%s'
-    subjective_sql = 'SELECT * FROM ' + subjective_question_table + 'WHERE q_paperid=%s'
+    # 先选出所有题目
+    cursor.execute(sql.format(choice_question_table), keyword)
+    choice_list = admin_helper.select_questions_strategy(cursor.fetchall(), xuanze, nanti1)
 
-    cursor.execute(sql)
-    paper_ids = [x.get('paper_id') for x in cursor.fetchall()]
-    print(paper_ids)
+    cursor.execute(sql.format(judge_question_table), keyword)
+    judge_list = admin_helper.select_questions_strategy(cursor.fetchall(), panduan, nanti2)
 
-    choice_list, judge_list, subjective_list = [], [], []
+    cursor.execute(sql.format(subjective_question_table), keyword)
+    subjective_list = admin_helper.select_questions_strategy(cursor.fetchall(), jianda, nanti3)
 
-    diff_key = 'q_difficulty'
-    for pid in paper_ids:
-        cursor.execute(choice_sql, pid)
-        choices_data = sorted(cursor.fetchall(), key=lambda x: x.get('q_counter'))
-        for q in choices_data:
-            k = random.randint(0, 10000) % 3
-            if int(q.get('q_year')) <= now_year and xuanze > 0 and k > 0:
-                if q.get(diff_key) == 3 and nanti1 > 0:
-                    q['is_selected'] = 1
-                    choice_list.append(q)
-                    xuanze -= 1
-                    nanti1 -= 1
-                elif q.get(diff_key) < 3:
-                    q['is_selected'] = 1
-                    choice_list.append(q)
-                    xuanze -= 1
-                if xuanze == 0:
-                    break
-
-        cursor.execute(judge_sql, pid)
-        judge_data = sorted(cursor.fetchall(), key=lambda x: x.get('q_counter'))
-        for q in judge_data:
-            k = random.randint(0, 10000) % 5
-            if q.get('q_year') <= now_year and panduan > 0 and k > 0:
-                if q.get(diff_key) == 3 and nanti2 > 0:
-                    q['is_selected'] = 1
-                    judge_list.append(q)
-                    panduan -= 1
-                    nanti2 -= 1
-                elif q.get(diff_key) < 3:
-                    q['is_selected'] = 1
-                    judge_list.append(q)
-                    panduan -= 1
-                if panduan == 0:
-                    break
-
-        cursor.execute(subjective_sql, pid)
-        subjective_data = sorted(cursor.fetchall(), key=lambda x: x.get('q_counter'))
-        for q in subjective_data:
-            k = random.randint(0, 10000) % 3
-            if q.get('q_year') <= now_year and jianda > 0 and k > 0:
-                if q.get(diff_key) == 3 and nanti3 > 0:
-                    q['is_selected'] = 1
-                    subjective_list.append(q)
-                    jianda -= 1
-                    nanti3 -= 1
-                elif q.get(diff_key) < 3:
-                    q['is_selected'] = 1
-                    subjective_list.append(q)
-                    jianda -= 1
-                if jianda == 0:
-                    break
+    # 修改q_year, q_counter
     # for x in choice_list:
     #     cursor.execute(update_sql.format(choice_question_table), x.get('q_id'))
     #
     # for x in judge_list:
     #     cursor.execute(update_sql.format(judge_question_table), x.get('q_id'))
 
-    print(update_sql.format(subjective_question_table))
-    for x in subjective_list:
-        try:
-            cursor.execute(update_sql.format(subjective_question_table), x.get('q_id'))
-            db_connector.commit()
-        except:
-            db_connector.rollback()
+    # print(update_sql.format(subjective_question_table))
+    # for x in subjective_list:
+    #     try:
+    #         cursor.execute(update_sql.format(subjective_question_table), x.get('q_id'))
+    #         db_connector.commit()
+    #     except:
+    #         db_connector.rollback()
 
     return render_template('teacherQuestion.html', choice_list=choice_list, judge_list=judge_list,
-                           subjective_list=subjective_list)
+                           subjective_list=subjective_list, title_list=title_list,
+                           keyword=keyword, xuanze=xuanze, panduan=panduan, jianda=jianda,
+                           nanti1=nanti1, nanti2=nanti2, nanti3=nanti3)
 
 
 @app.route('/admin_add_users_by_file/', methods=['GET', 'POST'])
@@ -933,20 +889,24 @@ def admin_add_questions_by_file():
     import global_helper
     global_helper.cmd_exec('rm -r \"' + path.join(file_dest, question_file_folder) + '\"')
     question_file = request.files['upload_questions_file']
+    # 数据库中的type，表示科目
+    q_dbtype = request.form.get('input-q-type')
+
     file_name = 'Admin-Add-Questions.xls'
     question_set.save(storage=question_file, folder=path.join(file_dest, question_file_folder), name=file_name)
 
     abs_path = path.join(file_dest, question_file_folder, file_name)
     questions_list = common_helper.parse_paper(abs_path)
     print('[admin add ques by file]', len(questions_list))
+    print('[admin add ques by file]', q_dbtype)
 
     current_year = datetime.now().year
     choice_sql = 'INSERT INTO ' + choice_question_table + \
-                 '(q_description, q_value, q_answer, q_A, q_B, q_C, q_D, q_counter, q_difficulty, q_year) ' + \
-                 'VALUES (%s, %s, %s, %s, %s, %s, %s, 0, %s, %s)'
+                 '(q_description, q_value, q_answer, q_A, q_B, q_C, q_D, q_counter, q_difficulty, q_year, q_type) ' + \
+                 'VALUES (%s, %s, %s, %s, %s, %s, %s, 0, %s, %s, %s)'
     judge_subjective_sql = 'INSERT INTO {} ' + \
-                           '(q_description, q_value, q_answer, q_counter, q_difficulty, q_year)' + \
-                           'VALUES (%s, %s, %s, 0, %s, %s)'
+                           '(q_description, q_value, q_answer, q_counter, q_difficulty, q_year, q_type)' + \
+                           'VALUES (%s, %s, %s, 0, %s, %s, %s)'
     for x in questions_list:
         q_type = x.get('q_type')
         q_desc = x.get('q_text')
@@ -956,7 +916,7 @@ def admin_add_questions_by_file():
         if q_type == 'radio' or q_type == 'checkbox':
             try:
                 cursor.execute(choice_sql, (
-                    q_desc, q_val, q_ans, x.get('A'), x.get('B'), x.get('C'), x.get('D'), diff, current_year))
+                    q_desc, q_val, q_ans, x.get('A'), x.get('B'), x.get('C'), x.get('D'), diff, current_year, q_dbtype))
                 db_connector.commit()
             except:
                 db_connector.rollback()
@@ -964,18 +924,63 @@ def admin_add_questions_by_file():
             q_ans = 1 if str(q_ans).upper()[0] == 'T' else 0
             try:
                 cursor.execute(judge_subjective_sql.format(judge_question_table),
-                               (q_desc, q_val, q_ans, diff, current_year))
+                               (q_desc, q_val, q_ans, diff, current_year, q_dbtype))
                 db_connector.commit()
             except:
                 db_connector.rollback()
         elif q_type == 'textarea':
             try:
                 cursor.execute(judge_subjective_sql.format(subjective_question_table),
-                               (q_desc, q_val, q_ans, diff, current_year))
+                               (q_desc, q_val, q_ans, diff, current_year, q_dbtype))
                 db_connector.commit()
             except:
                 db_connector.rollback()
     return render_template('admin-add-questions.html')
+
+
+@app.route('/teacher_replace_choice/', methods=['GET', 'POST'])
+def teacher_replace_choice():
+    difficulty = request.form.get('difficulty')
+    html_type = request.form.get('html_type')
+    selected_ids = request.form.get('selected_ids')
+    db_type = request.form.get('db_type')
+    print('[{}]'.format(teacher_replace_choice.__name__), difficulty, html_type, selected_ids)
+    return jsonify({'success': 1})
+
+
+@app.route('/teacher_replace_judge/', methods=['GET', 'POST'])
+def teacher_replace_judge():
+    difficulty = request.form.get('difficulty')
+    html_type = request.form.get('html_type')
+    selected_ids = request.form.get('selected_ids')
+    db_type = request.form.get('db_type')
+    print('[{}]'.format(teacher_replace_judge.__name__), difficulty, html_type, db_type, selected_ids)
+
+    selected_ids = [int(x) for x in json.loads(selected_ids)]
+
+    sql = 'SELECT * FROM {} WHERE q_type like %s and q_difficulty = %s'
+    replace_list = []
+    if html_type == 'judge':
+        cursor.execute(sql.format(judge_question_table), (db_type, difficulty))
+    elif html_type == 'choice':
+        cursor.execute(sql.format(choice_question_table), (db_type, difficulty))
+    elif html_type == 'subjective':
+        cursor.execute(sql.format(subjective_question_table), (db_type, difficulty))
+    for x in cursor.fetchall():
+        if x.get('q_id') not in selected_ids:
+            replace_list.append(x)
+    print('[{}]'.format(teacher_replace_judge.__name__), replace_list)
+    print('[{}]'.format(teacher_replace_judge.__name__), [x.get('q_id') for x in replace_list])
+    return jsonify({'success': 1, 'replace_list': replace_list})
+
+
+@app.route('/teacher_replace_subjective/', methods=['GET', 'POST'])
+def teacher_replace_subjective():
+    difficulty = request.form.get('difficulty')
+    html_type = request.form.get('html_type')
+    selected_ids = request.form.get('selected_ids')
+    print('[{}]'.format(teacher_replace_subjective.__name__), difficulty, html_type, selected_ids)
+    return jsonify({'success': 1})
 
 
 if __name__ == '__main__':
