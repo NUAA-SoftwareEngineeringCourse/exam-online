@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>在线考试系统 - 管理员</title>
+  <script src="../static/xinziyuan/js/jquery-3.3.1.min.js"></script>
+  <script src="../static/xinziyuan/js/vue.min.js"></script>
+  <script src="../static/xinziyuan/js/vue-resource.min.js"></script>
+  <script src="../static/xinziyuan/js/common.js"></script>
+  <script src="../static/xinziyuan/backend.js"></script>
+  <link rel="stylesheet" href="../static/xinziyuan/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../static/xinziyuan/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../static/xinziyuan/css/style.css">
+  <link rel="stylesheet" href="../static/xinziyuan/css/overdiv.css">
+  <link rel="shortcut icon" href="../static/xinziyuan/images/favicon.png" />
+</head>
+
+<body class="content-wrapper">
+<div class="float_top">
+  <button class="btn btn-inverse-info btn-sm" onclick="javascript:smoothscroll();"><i class="mdi mdi-format-vertical-align-top"></i> 返回顶部</button>
+</div>
+
+<div id="usermanage">
+  <div class="page-header">
+    <h1>试卷列表</h1>
+  </div>
+
+  <div class="card">
+  <div class="card-body">
+    <div class="form-group">
+        <input class="form-control" type="text" id="search_question" placeholder="输入题干..." style='width: 500px;'>
+      </div>
+      <div>
+        <button type="button" class="btn btn-gradient-success" id='search-button' onclick="searchQ()"> 搜索</button>
+        <script>
+          function searchQ() {
+              var val = document.getElementById('search_question').value;
+              window.location.href =  'http://localhost:5000/search_question?keyword=' + val;
+          }
+      </script>
+    </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>题目类型</th>
+        <th>题目编号</th>
+        <th>题目描述</th>
+        <th>答案</th>
+        <th>分值</th>
+        <th>难度</th>
+        <th>选项1</th>
+        <th>选项2</th>
+        <th>选项3</th>
+        <th>选项4</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for choice in choice_list %}
+      <tr>
+        <td>选择题</td>>
+        <td>{{ choice.q_id }}</td>
+        <td>{{ choice.q_description }}</td>
+        <td>{{ choice.q_answer }}</td>
+        <td>{{ choice.q_value }}</td>
+        <td>{{ choice.q_diff }}</td>
+        <td>{{ choice.q_A }}</td>
+        <td>{{ choice.q_B }}</td>
+        <td>{{ choice.q_C }}</td>
+        <td>{{ choice.q_D }}</td>
+        <td><button class="btn btn-danger" id="choice-delete" onclick="deleteQ({{ choice.q_id }},1)">删除</button></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>题目类型</th>
+          <th>题目编号</th>
+          <th>题目描述</th>
+          <th>答案</th>
+          <th>分值</th>
+          <th>难度</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for judge in judge_list %}
+        <tr>
+          <td>判断题</td>>
+          <td>{{ judge.q_id }}</td>
+          <td>{{ judge.q_description }}</td>
+          <td>{{ judge.q_answer }}</td>
+          <td>{{ judge.q_value }}</td>
+          <td>{{ judge.q_diff }}</td>
+          <td><button class="btn btn-danger" id="judge-delete" onclick="deleteQ({{ judge.q_id }},2)" >删除</button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>题目类型</th>
+            <th>题目编号</th>
+            <th>题目描述</th>
+            <th>答案</th>
+            <th>分值</th>
+            <th>难度</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for subjective in subjective_list %}
+          <tr>
+            <td>简答题</td>>
+            <td>{{ subjective.q_id }}</td>
+            <td>{{ subjective.q_description }}</td>
+            <td>{{ subjective.q_answer }}</td>
+            <td>{{ subjective.q_value }}</td>
+            <td>{{ subjective.q_diff }}</td>
+            <td><button class="btn btn-danger" id="subj-delete" onclick="deleteQ({{ subjective.q_id }},3)" >删除</button></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+      </div>
+</div>
+
+
+
+<script type="text/javascript" src="../static/javascript/admin.js"></script>
+
+</body>
+</html>

@@ -2,171 +2,183 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>在线考试系统后台管理</title>
-  <!-- plugins:css -->
-  <script src="../static/xinziyuan/js/jquery-3.3.1.min.js"></script>
-  <script src="../static/xinziyuan/js/vue.min.js"></script>
-  <script src="../static/xinziyuan/js/vue-resource.min.js"></script>
-  <script src="../static/xinziyuan/js/common.js"></script>
-  <script src="../static/xinziyuan/backend.js"></script>
-  <script type="text/javascript" src="../static/javascript/admin.js"></script>
-  <link rel="stylesheet" href="../static/xinziyuan/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../static/xinziyuan/vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="../static/xinziyuan/css/style.css">
-  <link rel="shortcut icon" href="../static/xinziyuan/images/favicon.png" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>在线考试系统后台管理</title>
+    <!-- plugins:css -->
+    <script src="../static/xinziyuan/js/jquery-3.3.1.min.js"></script>
+    <script src="../static/xinziyuan/js/vue.min.js"></script>
+    <script src="../static/xinziyuan/js/vue-resource.min.js"></script>
+    <script src="../static/xinziyuan/js/common.js"></script>
+    <script src="../static/xinziyuan/backend.js"></script>
+    <script type="text/javascript" src="../static/javascript/admin.js"></script>
+    <link rel="stylesheet" href="../static/xinziyuan/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../static/xinziyuan/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../static/xinziyuan/css/style.css">
+    <link rel="shortcut icon" href="../static/xinziyuan/images/favicon.png"/>
 </head>
 
 <body>
-  <div class="container-scroller" id="verify">
+<div class="container-scroller" id="verify">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="adminIndex"><img src="../static/img/xiaoming.png" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="adminIndex"><img src="../static/xinziyuan/images/logo-mini.svg" alt="logo"/></a>
-      </div>
-
-      <div class="navbar-menu-wrapper d-flex align-items-stretch">
-        <div class="nav-profile-text">
-          <p class="navbar-brand mb-1 text-black" style="margin-top: 15px;">在线考试系统 - 管理员</p>
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+            <a class="navbar-brand brand-logo" href="adminIndex"><img src="../static/img/xiaoming.png" alt="logo"/></a>
+            <a class="navbar-brand brand-logo-mini" href="adminIndex"><img
+                    src="../static/xinziyuan/images/logo-mini.svg" alt="logo"/></a>
         </div>
-        <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item nav-profile dropdown">
-            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-              <div class="nav-profile-img">
-                <img src="../static/xinziyuan/images/faces-clipart/pic-2.png" alt="image">
-                <span class="availability-status online"></span>
-              </div>
-              <div class="nav-profile-text">
-                <p class="mb-1 text-black">{{ loginuser }}</p>
-              </div>
-            </a>
-            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-             <!-- <a class="dropdown-item" href="#">
-                <i class="mdi mdi-cached mr-2 text-success"></i>
-                Activity Log
-              </a> -->
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{{ url_for('logout') }}">
-                <i class="mdi mdi-logout mr-2 text-primary"></i>
-                注销登录
-              </a>
+
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+            <div class="nav-profile-text">
+                <p class="navbar-brand mb-1 text-black" style="margin-top: 15px;">在线考试系统 - 管理员</p>
             </div>
-          </li>
+            <ul class="navbar-nav navbar-nav-right">
+                <li class="nav-item nav-profile dropdown">
+                    <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown"
+                       aria-expanded="false">
+                        <div class="nav-profile-img">
+                            <img src="../static/xinziyuan/images/faces-clipart/pic-2.png" alt="image">
+                            <span class="availability-status online"></span>
+                        </div>
+                        <div class="nav-profile-text">
+                            <p class="mb-1 text-black">{{ loginuser }}</p>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                        <!-- <a class="dropdown-item" href="#">
+                           <i class="mdi mdi-cached mr-2 text-success"></i>
+                           Activity Log
+                         </a> -->
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url_for('logout') }}">
+                            <i class="mdi mdi-logout mr-2 text-primary"></i>
+                            注销登录
+                        </a>
+                    </div>
+                </li>
 
-          <li class="nav-item nav-logout d-none d-lg-block">
-            <a class="nav-link" href="{{ url_for('logout') }}">
-              <i class="mdi mdi-power"></i>
-            </a>
-          </li>
+                <li class="nav-item nav-logout d-none d-lg-block">
+                    <a class="nav-link" href="{{ url_for('logout') }}">
+                        <i class="mdi mdi-power"></i>
+                    </a>
+                </li>
 
-          <li class="nav-item nav-settings d-none d-lg-block">
-            <a class="nav-link" href="#">
-              <i class="mdi mdi-format-line-spacing"></i>
-            </a>
-          </li>
-        </ul>
-        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-          <span class="mdi mdi-menu"></span>
-        </button>
-      </div>
+                <li class="nav-item nav-settings d-none d-lg-block">
+                    <a class="nav-link" href="#">
+                        <i class="mdi mdi-format-line-spacing"></i>
+                    </a>
+                </li>
+            </ul>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                <span class="mdi mdi-menu"></span>
+            </button>
+        </div>
     </nav>
 
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-          <li class="nav-item nav-profile">
-            <a href="#" class="nav-link">
-              <div class="nav-profile-image">
-                <img src="../static/xinziyuan/images/faces-clipart/pic-2.png" alt="profile">
-                <span class="login-status online"></span> <!--change to offline or busy as needed-->
-              </div>
-              <div class="nav-profile-text d-flex flex-column">
-                <span class="font-weight-bold mb-2">{{ loginuser }}</span>
-                <span class="text-secondary text-small">管理员用户</span>
-              </div>
-              <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-            </a>
-          </li>
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+                <li class="nav-item nav-profile">
+                    <a href="#" class="nav-link">
+                        <div class="nav-profile-image">
+                            <img src="../static/xinziyuan/images/faces-clipart/pic-2.png" alt="profile">
+                            <span class="login-status online"></span> <!--change to offline or busy as needed-->
+                        </div>
+                        <div class="nav-profile-text d-flex flex-column">
+                            <span class="font-weight-bold mb-2">{{ loginuser }}</span>
+                            <span class="text-secondary text-small">管理员用户</span>
+                        </div>
+                        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+                    </a>
+                </li>
 
-          <!-- <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#paper-managment" aria-expanded="false" aria-controls="paper-managment">
-              <span class="menu-title">试卷管理</span>
-              <i class="menu-arrow"></i>
-              <i class="mdi mdi-buffer menu-icon"></i>
-            </a>
-            <div class="collapse" id="paper-managment">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" target="main_frame" href="pages/teacher/paper-manage.html">试卷列表</a></li>
-                <li class="nav-item"><a class="nav-link" target="main_frame" href="pages/teacher/paper-create.html">创建试卷</a></li>
-              </ul>
-            </div>
-          </li> -->
+                <!-- <li class="nav-item">
+                  <a class="nav-link" data-toggle="collapse" href="#paper-managment" aria-expanded="false" aria-controls="paper-managment">
+                    <span class="menu-title">试卷管理</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-buffer menu-icon"></i>
+                  </a>
+                  <div class="collapse" id="paper-managment">
+                    <ul class="nav flex-column sub-menu">
+                      <li class="nav-item"><a class="nav-link" target="main_frame" href="pages/teacher/paper-manage.html">试卷列表</a></li>
+                      <li class="nav-item"><a class="nav-link" target="main_frame" href="pages/teacher/paper-create.html">创建试卷</a></li>
+                    </ul>
+                  </div>
+                </li> -->
 
-          <li class="nav-item">
-            <a class="nav-link" target="main_frame" href="{{ url_for('admin_userlist') }}" >
-              <span class="menu-title">用户列表</span>
-              <i class="mdi mdi-account-multiple menu-icon"></i>
-            </a>
-          </li>
+                <li class="nav-item">
+                    <a class="nav-link" target="main_frame" href="{{ url_for('admin_userlist') }}">
+                        <span class="menu-title">用户列表</span>
+                        <i class="mdi mdi-account-multiple menu-icon"></i>
+                    </a>
+                </li>
 
-          <li class="nav-item">
-            <a class="nav-link" target="main_frame" href="{{ url_for('admin_createUser') }}" >
-              <span class="menu-title">添加用户</span>
-              <i class="mdi mdi-account-plus menu-icon"></i>
-            </a>
-          </li>
+                <li class="nav-item">
+                    <a class="nav-link" target="main_frame" href="{{ url_for('admin_createUser') }}">
+                        <span class="menu-title">添加用户</span>
+                        <i class="mdi mdi-account-plus menu-icon"></i>
+                    </a>
+                </li>
 
-          <li class="nav-item">
-            <a class="nav-link" target="main_frame" href="{{ url_for('admin_examlist') }}" >
-              <span class="menu-title">试卷管理</span>
-              <i class="mdi mdi-file-check menu-icon"></i>
-            </a>
-          </li>
+                <li class="nav-item">
+                    <a class="nav-link" target="main_frame" href="{{ url_for('admin_examlist') }}">
+                        <span class="menu-title">试卷管理</span>
+                        <i class="mdi mdi-file-check menu-icon"></i>
+                    </a>
+                </li>
 
-          <li class="nav-item">
-            <a class="nav-link" target="main_frame" href="{{ url_for('admin_add_questions') }}" >
-              <span class="menu-title">增加题目</span>
-              <i class="mdi mdi-account-edit menu-icon"></i>
-            </a>
-          </li>
+                <li class="nav-item">
+                    <a class="nav-link" target="main_frame" href="{{ url_for('admin_add_questions') }}">
+                        <span class="menu-title">增加题目</span>
+                        <i class="mdi mdi-account-edit menu-icon"></i>
+                    </a>
+                </li>
 
 
-        </ul>
-      </nav>
-      <!-- partial -->
-      <div class="main-panel" width="100%" height="100%">
-        <!-- <div class="content-wrapper">
+                <li class="nav-item">
+                    <a class="nav-link" target="main_frame" href="{{ url_for('search_question') }}">
+                        <span class="menu-title">题库管理</span>
+                        <i class="mdi mdi-file-check menu-icon"></i>
+                    </a>
+                </li>
 
-        </div> -->
+
+            </ul>
+        </nav>
         <!-- partial -->
-        <iframe width="100%" height="100%" style="border: 0" class="content-wrapper" name="main_frame" src="/admin_userlist">
+        <div class="main-panel" width="100%" height="100%">
+            <!-- <div class="content-wrapper">
 
-        </iframe>
-      </div>
-      <!-- main-panel ends -->
+            </div> -->
+            <!-- partial -->
+            <iframe width="100%" height="100%" style="border: 0" class="content-wrapper" name="main_frame"
+                    src="/admin_userlist">
+
+            </iframe>
+        </div>
+        <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
+</div>
+<!-- container-scroller -->
 
-  <!-- plugins:js -->
-  <script src="../static/xinziyuan/vendors/js/vendor.bundle.base.js"></script>
-  <script src="../static/xinziyuan/vendors/js/vendor.bundle.addons.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
-  <script src="../static/xinziyuan/js/off-canvas.js"></script>
-  <script src="../static/xinziyuan/js/misc.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  <script src="../static/xinziyuan/js/dashboard.js"></script>
-  <!-- End custom js for this page-->
+<!-- plugins:js -->
+<script src="../static/xinziyuan/vendors/js/vendor.bundle.base.js"></script>
+<script src="../static/xinziyuan/vendors/js/vendor.bundle.addons.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page-->
+<!-- End plugin js for this page-->
+<!-- inject:js -->
+<script src="../static/xinziyuan/js/off-canvas.js"></script>
+<script src="../static/xinziyuan/js/misc.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="../static/xinziyuan/js/dashboard.js"></script>
+<!-- End custom js for this page-->
 </body>
 
 </html>

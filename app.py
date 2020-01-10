@@ -983,5 +983,140 @@ def teacher_replace_subjective():
     return jsonify({'success': 1})
 
 
+'''
+leo code2 start
+'''
+
+
+@app.route('/deleteQuestion', methods=['GET', 'POST'])
+def deleteQuestion():
+    if request.method == 'GET':
+        return 'register-GET'
+    else:
+        q_id = request.form['q_id']
+        q_type = int(request.form['q_type'])
+        table_name = 'choice_question'
+        if q_type == 2:
+            table_name = 'judge_question'
+        elif q_type == 3:
+            table_name = 'subjective_question'
+
+        sql = ' DELETE FROM ' + table_name + ' WHERE q_id = ' + q_id
+        try:
+            flag = cursor.execute(sql)
+            db_connector.commit()
+        except Exception as e:
+            db_connector.rollback()
+    return jsonify({'success': 1})
+
+
+@app.route('/add_A_question', methods=['GET', 'POST'])
+def add_A_question():
+    q_desc = request.form.get('q_desc')
+    q_value = request.form.get('q_value')
+    q_answer = request.form.get('q_answer')
+    q_diff = request.form.get('q_diff')
+    q_type = int(request.form.get('q_type'))
+    table_name = 'judge_question'
+    if q_type == 3:
+        table_name = 'subjective_question'
+    sql = 'INSERT INTO ' + table_name + \
+          '(q_description, q_value, q_answer, q_counter, q_difficulty, q_year,q_paperid)' + \
+          'VALUES (%s, %s, %s, 0, %s,2020,30)'
+
+    print(q_desc, q_value, q_answer, table_name)
+    print(sql, (q_desc, q_value, q_answer, q_diff))
+    try:
+        cursor.execute(sql, (q_desc, q_value, q_answer, q_diff))
+        db_connector.commit()
+        return jsonify({'success': 1})
+    except:
+        print('[admin add user]', 'insert failed')
+        db_connector.rollback()
+        return jsonify({'success': 0})
+
+
+@app.route('/admin_addchoice', methods=['GET', 'POST'])
+def admin_addchoice():
+    q_desc = request.form.get('q_desc')
+    q_value = request.form.get('q_value')
+    q_answer = request.form.get('q_answer')
+    q_diff = request.form.get('q_diff')
+    q_A = request.form.get('q_A')
+    q_B = request.form.get('q_B')
+    q_C = request.form.get('q_C')
+    q_D = request.form.get('q_D')
+    table_name = 'choice_question'
+    sql = 'INSERT INTO ' + choice_question_table + \
+          '(q_description, q_value, q_answer, q_A, q_B, q_C, q_D, q_counter, q_difficulty, q_year,q_paperid) ' + \
+          'VALUES (%s, %s, %s, %s, %s, %s, %s, 0, %s, 2020,30)'
+    print(q_desc, q_value, q_answer, table_name, q_A, q_B, q_C, q_D)
+    try:
+        cursor.execute(sql, (q_desc, q_value, q_answer, q_A, q_B, q_C, q_D, q_diff))
+        db_connector.commit()
+        return jsonify({'success': 1})
+    except:
+        print('[admin add user]', 'insert failed')
+        db_connector.rollback()
+        return jsonify({'success': 0})
+
+
+@app.route('/search_question', methods=['GET', 'POST'])
+def search_question():
+    desc = request.args.get('keyword')
+    if desc is None:
+        desc = ''
+    print(desc)
+    choice_list = list()
+    choice_dict = {'q_id:': '', 'q_description': '', 'q_answer': '', 'q_value': '', 'q_A': '', 'q_B': '', 'q_C': '',
+                   'q_D': '', 'q_diff': ''}
+    sql = 'select * from choice_question where q_description like \'%' + desc + '%\' '
+    cursor.execute(sql)
+    data = cursor.fetchall()
+    for x in data:
+        e = dict(choice_dict)
+        e['q_id'] = x.get('q_id')
+        e['q_description'] = x.get('q_description')
+        e['q_answer'] = x.get('q_answer')
+        e['q_value'] = x.get('q_value')
+        e['q_A'] = x.get('q_A')
+        e['q_B'] = x.get('q_B')
+        e['q_C'] = x.get('q_C')
+        e['q_D'] = x.get('q_D')
+        e['q_diff'] = x.get('q_difficulty')
+        choice_list.append(e)
+
+    judge_list = list()
+    judge_dict = {'q_id:': '', 'q_description': '', 'q_answer': '', 'q_value': '', 'q_diff': ''}
+    sql = 'select * from judge_question where q_description like \'%' + desc + '%\' '
+    cursor.execute(sql)
+    data = cursor.fetchall()
+    for x in data:
+        e = dict(judge_dict)
+        e['q_id'] = x.get('q_id')
+        e['q_description'] = x.get('q_description')
+        e['q_answer'] = x.get('q_answer')
+        e['q_value'] = x.get('q_value')
+        e['q_diff'] = x.get('q_difficulty')
+        judge_list.append(e)
+
+    subjective_list = list()
+    subjective_dict = {'q_id:': '', 'q_description': '', 'q_answer': '', 'q_value': '', 'q_diff': ''}
+    sql = 'select * from subjective_question where q_description like \'%' + desc + '%\' '
+    cursor.execute(sql)
+    data = cursor.fetchall()
+    for x in data:
+        e = dict(subjective_dict)
+        e['q_id'] = x.get('q_id')
+        e['q_description'] = x.get('q_description')
+        e['q_answer'] = x.get('q_answer')
+        e['q_value'] = x.get('q_value')
+        e['q_diff'] = x.get('q_difficulty')
+        subjective_list.append(e)
+
+    return render_template('admin-questionlist.html', choice_list=choice_list, judge_list=judge_list,
+                           subjective_list=subjective_list)
+
+
 if __name__ == '__main__':
     app.run(debug=True, threaded=True, port=5000)
